@@ -1,0 +1,67 @@
+
+body{
+
+	Font: 15px/1.5 arial;
+	Padding:0;
+	margin:0;
+	background-color: #35424a;
+}
+
+#head1 {
+	color:#d9d9d9;
+	background-image: url("https://i.amz.mshcdn.com/VhYesuG5It_sY9o228WWaPw-G10=/950x534/filters:quality(90)/https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com%2Fuploads%2Fcard%2Fimage%2F539206%2F3310d58a-2b01-47db-a38a-e84a45987dd4.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding:20px;
+	border-bottom: #820000 2px solid;
+    min-width: 370px; 
+    
+    
+}
+
+#head2 {
+	color:#d9d9d9;
+	background-image: url("https://joemull.com/wp-content/uploads/2016/12/books.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding:20px;
+	border-bottom: #820000 2px solid;
+    min-width: 370px; 
+    
+    
+}
+#head3 {
+	color:#d9d9d9;
+	background-image: url("https://static.vecteezy.com/system/resources/previews/000/090/237/non_2x/architecture-tools-vectors.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 200px;
+	padding:20px;
+	border-bottom: #820000 2px solid;
+    min-width: 370px; 
+    overflow:hidden;
+    
+}
+
+header a{
+	color:#ffffff;
+	text-decoration: none;
+      margin:0 15px 0 15px; 
+
+}
+
+header nav{
+    float:right;
+    font-weight:700;
+    margin-top:40px;
+}
+
+#branding{
+    float:left;
+}
+
+.container{
+    margin:auto;
+    overflow:hidden;
+
+}
+
