@@ -61,7 +61,21 @@ header nav{
 
 .container{
     margin:auto;
-    overflow:hidden;
+	overflow:hidden;
+	
 
 }
 
+#ins{
+	margin-top:25px;
+	color:#d9d9d9;
+	font-family: 'Times New Roman';
+	font-size:20px;
+	
+}
+
+#intext{
+	font-size: 15px;
+	font-style: italic;
+	width: 500px;
+}
