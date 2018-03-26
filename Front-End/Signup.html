@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js"></script>
 
 </head>
 <body>
@@ -26,14 +27,15 @@
     </header>
 
     <div id="signup">
+        <form id="sform" action="/Api/Register" method="POST" >
         Username: <label id="x"></label><br/>
-         <input name="Username" type="text" > <br/>
+         <input name="Username" id="Username" type="text" > <br/>
 
         Password:<br/>
-         <input name="Password" type="Password"> <br/>
+         <input name="Password" id="Password" type="Password"> <br/>
         
          Department: <br/>
-                <select name="Department"  style="font-size:15px">
+                <select name="Department" id="Department"   style="font-size:15px">
                     <option value="CCE">CCE</option>
                     <option value="CCEE">CCEE</option>
                     <option value="CCEC">CCEC</option>
@@ -45,10 +47,10 @@
                 </select> <br/>
         
         Email: <br/>
-        <input name="Email" type="email" > <br/>
+        <input name="Email" id="Email" type="email" > <br/>
 
         Phone Number: <br/>
-        <input name="Phone" type="tel"> <br/>
+        <input name="Phone" id="Phone" type="tel"> <br/>
 
         Year: <br/>
         <input name="Year" type="radio" value="1">1
@@ -60,7 +62,58 @@
               
          <br/><br/>
         
-         <input name="submit" type="submit" value="Sign up" style="font-size: 15px"  >
+         <input name="submit" id="submit" type="submit" value="Sign up" style="font-size: 15px"  >
+                <p id="demo"></p>
+        </form>
+      
+        <!--
+        <script>
+         
+            document.getElementById("sform").addEventListener("submit",function(event){
+
+                 event.preventDefault();
+
+           
+             var e=document.getElementById("Department");
+             var depar= e.options[e.selectedIndex].text;
+             var Years = document.getElementsByName('Year');
+             var Year_value;
+                for(var i = 0; i < Years.length; i++){
+                    if(Years[i].checked){
+                        Year_value = Years[i].value;
+                    }
+                }
+                            
+
+               var User={Username:document.getElementById("Username").value,
+               Password:document.getElementById("Password").value,
+                Email:document.getElementById("Email").value,
+                Phone:document.getElementById("Phone").value,
+                Department: depar,
+                Year: Year_value
+            
+               };
+         
+           
+
+           $.ajax({
+               type:"POST", 
+               url :'/Api/Register',
+               data:User,
+               success:function(){
+                   alert ('Hell yeah');
+               },
+               error: function(){
+                   alert('fuck this');
+               },
+               dataType:User
+           });
+        }
+            )
+           
+        
+        </script>
+    -->
     </div>
     
 </body>
