@@ -8,7 +8,7 @@ body{
 }
 
 #head1 {
-	color:#d9d9d9;
+	color:#ffffff;
 	background-image: url("https://i.amz.mshcdn.com/VhYesuG5It_sY9o228WWaPw-G10=/950x534/filters:quality(90)/https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com%2Fuploads%2Fcard%2Fimage%2F539206%2F3310d58a-2b01-47db-a38a-e84a45987dd4.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -41,6 +41,9 @@ body{
     overflow:hidden;
     
 }
+
+
+
 
 header a{
 	color:#ffffff;
@@ -78,4 +81,19 @@ header nav{
 	font-size: 15px;
 	font-style: italic;
 	width: 500px;
+}
+
+#login{
+	font-size: 20px;
+	margin-top:20px;
+	overflow:hidden;
+	text-align: center;
+	color:white;
+}
+
+#signup{
+	font-size: 20px;
+	margin:20px;
+	overflow:hidden;
+	color:white;
 }
