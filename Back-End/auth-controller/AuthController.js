@@ -4,6 +4,8 @@ var config = require('../config');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var VerifyToken = require('./VerifyToken.js');
+var sendEmail = require('../email/SendEmail');
+var nodemailer = require('nodemailer');
 
 function AUTH_ROUTER(router,connection) {
     var self = this;
@@ -16,6 +18,7 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
     router.use(bodyParser.urlencoded({ extended: false }));
     router.use(bodyParser.json());
 
+
     router.post("/register", function(req, res) {
         var salt = bcrypt.genSaltSync(10);
         var hashedpassword = bcrypt.hashSync(req.body.password, salt);
@@ -27,6 +30,7 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             }
             else{
+            new sendEmail(req.body.email);
             res.json({"Error" : false, "Message" : "successfully signed up"});}
         });       
     });

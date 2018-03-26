@@ -4,7 +4,7 @@ var config = require('./config');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var express = require("express");
-var VerifyToken = require('./auth/VerifyToken.js');
+var VerifyToken = require('./auth-controller/VerifyToken.js');
 
 function REST_ROUTER(router,connection) {
     var self = this;
