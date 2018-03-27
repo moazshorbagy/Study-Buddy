@@ -106,7 +106,7 @@
                data: $('#sform').serialize(), 
                success:function(response){
                    console.log(response);
-                
+                if(!(response.Error))
                     window.location.href="Login.html";
                    
                    
