@@ -1,0 +1,15 @@
+Begin your tasks in the following order (i.e. 1 then 2 then 3)
+
+Khaled:
+1) SDS	(point 1, 4)
+2) ReleaseNotes_Template
+3) STP	(point 1)
+
+Amin & Ismaeel:
+1) STP	(point 2)
+2) TestCases_Template
+3) Taskboard (Tasks you contributed in)
+
+Moaz:
+1) Taskboard (Tasks you contributed in)
+2) SDS	(point 2, 3, 5, 6)
