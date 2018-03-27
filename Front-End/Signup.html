@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js"></script>
+    
 
 </head>
 <body>
@@ -27,12 +27,12 @@
     </header>
 
     <div id="signup">
-        <form id="sform" action="/Api/Register" method="POST" >
+        <form id="sform" name="sform"   >
         Username: <label id="x"></label><br/>
          <input name="Username" id="Username" type="text" > <br/>
 
         Password:<br/>
-         <input name="Password" id="Password" type="Password"> <br/>
+         <input name="password" id="Password" type="Password"> <br/>
         
          Department: <br/>
                 <select name="Department" id="Department"   style="font-size:15px">
@@ -47,7 +47,7 @@
                 </select> <br/>
         
         Email: <br/>
-        <input name="Email" id="Email" type="email" > <br/>
+        <input name="email" id="Email" type="email" > <br>
 
         Phone Number: <br/>
         <input name="Phone" id="Phone" type="tel"> <br/>
@@ -66,10 +66,11 @@
                 <p id="demo"></p>
         </form>
       
-        <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
-         
-            document.getElementById("sform").addEventListener("submit",function(event){
+           
+       
+           /* document.getElementById("sform").addEventListener("submit",function(event){
 
                  event.preventDefault();
 
@@ -87,33 +88,42 @@
 
                var User={Username:document.getElementById("Username").value,
                Password:document.getElementById("Password").value,
-                Email:document.getElementById("Email").value,
+               Email:document.getElementById("Email").value,
                 Phone:document.getElementById("Phone").value,
                 Department: depar,
                 Year: Year_value
-            
-               };
-         
-           
 
-           $.ajax({
+            
+               };*/
+               $('#submit').on('click',function(ev){
+                ev.preventDefault();
+                
+               
+            $.ajax({
+               
                type:"POST", 
-               url :'/Api/Register',
-               data:User,
-               success:function(){
-                   alert ('Hell yeah');
+               url :'http://localhost:3000/api/register',
+               data: $('#sform').serialize(), 
+               success:function(response){
+                   console.log(response);
+                
+                    window.location.href="Login.html";
+                   
+                   
                },
                error: function(){
-                   alert('fuck this');
+                   console.log('Error Posting');
                },
-               dataType:User
+             
+              
            });
+           
         }
             )
            
         
         </script>
-    -->
+    
     </div>
     
 </body>

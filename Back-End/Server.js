@@ -11,14 +11,22 @@ function REST(){
     self.connectMysql();
 };
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+    });
+
 REST.prototype.connectMysql = function() {
     var self = this;
     var pool      =    mysql.createPool({
         connectionLimit : 100,
         host     : 'localhost',
         user     : 'root',
-        password : 'da3m0ns',
-        database : 'restful_api_demo',
+        password : 'undertaker12',
+        database : 'studdybuddy',
         debug    :  false
     });
     pool.getConnection(function(err,connection){

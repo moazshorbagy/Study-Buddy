@@ -26,20 +26,51 @@
     </header>
 
     <div id="login">
-        <form>
-        Username:<br/>
-         <input name="Username" type="text" > <br/>
+        <form name="sform" id="sform">
+        Email:<br/>
+         <input name="email" type="email" > <br/>
 
         Password:<br/>
-         <input name="Password" type="Password"> <br/>
+         <input name="password" type="Password"> <br/>
          <span style="font-size:17px;"><a href="" >Forgot Password?</a></span> <br/>
 
          <span style="font-size:17px;">You don't have an account yet?<a href=Signup.html>Sign up now</a></span>
           <br/><br/>
 
-          <input name="submit" type="submit" value="Login" style="font-size: 15px"  >
+          <input name="submit" type="submit" id="submit" value="Login" style="font-size: 15px"  >
         </form>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+    $('#submit').on('click',function(ev){
+        ev.preventDefault();
+       
+      
+       
+    $.ajax({
+       
+       type:"POST", 
+       url :'http://localhost:3000/api/login', 
+       data: $('#sform').serialize(), 
+       success:function(response){
+           console.log(response);
+        
+         window.location.href="Home.html";
+       },
+       error: function(response){
+           console.log(response);
+       },
+     
+      
+   });
+   
+}
+    )
+   
+
+</script>
 
 </body>
 </html>

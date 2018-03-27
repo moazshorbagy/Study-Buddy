@@ -1,3 +1,4 @@
+
 var mysql   = require("mysql");
 var bcrypt = require('bcryptjs');
 var config = require('../config');
@@ -17,7 +18,7 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
 
     router.use(bodyParser.urlencoded({ extended: false }));
     router.use(bodyParser.json());
-
+    
 
     router.post("/register", function(req, res) {
         var salt = bcrypt.genSaltSync(10);
@@ -27,6 +28,8 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
+                console.log(err)
+                
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             }
             else{
