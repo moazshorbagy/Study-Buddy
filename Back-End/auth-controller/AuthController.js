@@ -23,13 +23,12 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
     router.post("/register", function(req, res) {
         var salt = bcrypt.genSaltSync(10);
         var hashedpassword = bcrypt.hashSync(req.body.password, salt);
-        var query = "INSERT INTO ??(??,??) VALUES (?,?)";
-        var table = ["user_login","user_email","user_password",req.body.email,hashedpassword];
+        var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
+        var table = ["user","user_email","user_password","user_phone","user_department",req.body.email,hashedpassword,req.body.phone,req.body.department];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
                 console.log(err)
-                
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             }
             else{
@@ -40,7 +39,7 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
 
     router.post('/login', function(req, res) {
         var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = ["user_login","user_email",req.body.email];
+        var table = ["user","user_email",req.body.email];
         query = mysql.format(query,table);
         //console.dir(req.params.email);
         connection.query(query,function(err,rows){

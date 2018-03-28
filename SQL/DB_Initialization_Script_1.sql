@@ -1,6 +1,3 @@
--- (user_login) By: Khaled Sameh
--- (user_status) By: Khaled Sameh
--- (user_info) By: Khaled Sameh
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
@@ -9,45 +6,16 @@ CREATE SCHEMA IF NOT EXISTS `studybuddy` DEFAULT CHARACTER SET latin1 ;
 USE `studybuddy` ;
 
 -- -----------------------------------------------------
--- Table `studybuddy`.`user_login`
+-- Table `studybuddy`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `restful_api_demo`.`user_login` ;
-/*
-CREATE TABLE IF NOT EXISTS `studybuddy`.`user` (
 
-  `user_id` 		INT(70) NOT NULL AUTO_INCREMENT,
-
-  `user_email`  	VARCHAR(45) NOT NULL,
-
-  `user_password` 	VARCHAR(45) NULL,
-
-  `user_join_date` 	TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-
-  `user_phone`     	varchar(15) NULL,
-
-  `user_year`		int	NULL,
-
-  `user_department`	varchar(5) NULL,
-  
-  PRIMARY KEY (`user_id`),
-
-  UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC))
-
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `restful_api_demo`.`user_info`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `studybuddy`.`user_info` ;
-*/
 CREATE TABLE IF NOT EXISTS `studybuddy`.`user` (
 
   `user_id` 			INT(70) NOT NULL AUTO_INCREMENT,
 
   `user_email`  		VARCHAR(45) NOT NULL,
 
-  `user_password` 		VARCHAR(45) NULL,
+  `user_password` 		VARCHAR(300) NULL,
 
   `user_join_date` 		TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -102,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Book` (
     )
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `studybuddy`.`Tools` (
+CREATE TABLE IF NOT EXISTS `studybuddy`.`Tool` (
   
   `tool_ID` 			INT		 	NOT NULL AUTO_INCREMENT,
   
@@ -154,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Cart` (
 
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Items` (
+CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
   
   `request_No` 			INT NOT NULL,
   
@@ -171,30 +139,6 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Items` (
 
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `studybuddy`.`user_status`
--- -----------------------------------------------------
-/*
-DROP TABLE IF EXISTS `studybuddy`.`user_status` ;
-
-CREATE TABLE IF NOT EXISTS `studybuddy`.`user_status` (
-  `user_status_id` INT(70) NOT NULL AUTO_INCREMENT,
-  `user_id_fk` INT(70) NOT NULL,
-  `status_text` TEXT NULL DEFAULT NULL,
-  `status_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_status_id`),
-  UNIQUE INDEX `user_id_fk_UNIQUE` (`user_id_fk` ASC),
-  CONSTRAINT `user_status_foreign_key`
-    FOREIGN KEY (`user_id_fk`)
-    REFERENCES `studybuddy`.`user_login` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-    
-    )
-ENGINE = InnoDB;
-
-*/
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

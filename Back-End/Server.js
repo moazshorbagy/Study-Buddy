@@ -1,7 +1,6 @@
 var express = require("express");
 var mysql   = require("mysql");
 var bodyParser  = require("body-parser");
-var rest = require("./REST.js");
 var auth = require("./auth-controller/AuthController.js")
 var book = require("./book-controller/BookController.js")
 var app  = express();
@@ -25,8 +24,8 @@ REST.prototype.connectMysql = function() {
         connectionLimit : 100,
         host     : 'localhost',
         user     : 'root',
-        password : 'undertaker12',
-        database : 'studdybuddy',
+        password : 'da3m0ns',
+        database : 'studybuddy',
         debug    :  false
     });
     pool.getConnection(function(err,connection){
@@ -42,13 +41,10 @@ REST.prototype.configureExpress = function(connection) {
       var self = this;
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use(bodyParser.json());
-      var restRouterObj = express.Router();
       var authRouterObj = express.Router();
       var bookRouterObj = express.Router();
-      app.use('/api', restRouterObj);
       app.use('/api', authRouterObj);
       app.use('/api', bookRouterObj);
-      var restRouter = new rest(restRouterObj,connection);
       var authRouter = new auth(authRouterObj,connection);
       var bookRouter = new book(bookRouterObj,connection);
       
@@ -62,7 +58,7 @@ REST.prototype.startServer = function() {
 }
 
 REST.prototype.stop = function(err) {
-    console.log("ISSUE WITH MYSQL n" + err);
+    console.log("ISSUE WITH MYSQL -" + err);
     process.exit(1);
 }
 
