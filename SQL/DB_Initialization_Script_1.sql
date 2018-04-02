@@ -12,6 +12,8 @@ USE `studybuddy` ;
 CREATE TABLE IF NOT EXISTS `studybuddy`.`user` (
 
   `user_id` 			INT(70) NOT NULL AUTO_INCREMENT,
+   
+  `user_name`     varchar(70) NOT NULL ,
 
   `user_email`  		VARCHAR(45) NOT NULL,
 
@@ -19,16 +21,16 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`user` (
 
   `user_join_date` 		TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
 
-  `user_phone`     		VARCHAR(15) NULL,
+  `user_phone`     		VARCHAR(20) NULL,
 
-  `user_year`			INT	NULL,
+  `user_year`			VARCHAR(15)	NULL,
 
   `user_department`		VARCHAR(5) NULL,
   
   PRIMARY KEY (`user_id`),
   
   UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC))
-
+ 
 ENGINE = InnoDB;
 
 

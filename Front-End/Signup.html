@@ -86,12 +86,7 @@
                 }
                             
 
-               var User={Username:document.getElementById("Username").value,
-               Password:document.getElementById("Password").value,
-               Email:document.getElementById("Email").value,
-                Phone:document.getElementById("Phone").value,
-                Department: depar,
-                Year: Year_value
+               
 
             
                };*/
@@ -106,13 +101,15 @@
                data: $('#sform').serialize(), 
                success:function(response){
                    console.log(response);
-                if(!(response.Error))
-                    window.location.href="Login.html";
-                   
-                   
+                if(!(response.Error)){
+                    alert('Congratulations, You have successfully joined our Study Buddy Family')
+                    window.location.href="Login.html"; // lw tmama 3ayez atalla3 l message de lo, ooooaoooolooooofoo lmbrok
+                    // window.location da byforce reload the page to the new page, w byseb ay 7aga na2salo noice
+                }
+                   alert('This email already exists');
                },
                error: function(){
-                   console.log('Error Posting');
+                   console.log("Error in connection");
                },
              
               

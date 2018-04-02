@@ -23,14 +23,18 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
     router.post("/register", function(req, res) {
         var salt = bcrypt.genSaltSync(10);
         var hashedpassword = bcrypt.hashSync(req.body.password, salt);
-        var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
-        var table = ["user","user_email","user_password","user_phone","user_department",req.body.email,hashedpassword,req.body.phone,req.body.department];
+       
+        var query = "INSERT INTO ??(??,??,??,??,??,??) VALUES (?,?,?,?,?,?)";
+        
+        var table = ["user","user_name","user_email","user_password","user_phone","user_department","user_year",req.body.username,req.body.email,hashedpassword,req.body.phone,req.body.department,req.body.year];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
+            
             if(err) {
                 console.log(err)
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             }
+            
             else{
             new sendEmail(req.body.email);
             res.json({"Error" : false, "Message" : "successfully signed up"});}
