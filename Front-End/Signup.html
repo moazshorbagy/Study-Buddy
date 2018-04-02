@@ -8,7 +8,14 @@
     <title> Study Buddy|Sign up </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
-
+    <script>
+    function CheckForBlank(){
+               if(document.getElementById("Username").value==""){
+                   alert('Please enter your username');
+                   return false;
+               }
+            }
+    </script>
     
 
 </head>
@@ -27,11 +34,13 @@
     </header>
 
     <div id="signup">
+
         <form id="sform" name="sform"   >
-        Username: <label id="x"></label><br/>
+
+        Username: <span style="color:red; font-size:15px;" id="uname"></span> <br>
          <input name="username" id="Username" type="text" > <br/>
 
-        Password:<br/>
+        Password: <span style="color:red; font-size:15px;" id="upass"></span> <br/>
          <input name="password" id="Password" type="Password"> <br/>
         
          Department: <br/>
@@ -46,14 +55,14 @@
                     <option value="CEM">CEM</option>
                 </select> <br/>
         
-        Email: <br/>
+        Email: <span style="color:red; font-size:15px;" id="uemail"></span> <br>
         <input name="email" id="Email" type="email" > <br>
 
         Phone Number: <br/>
-        <input name="phone" id="Phone" type="tel"> <br/>
+        <input name="phone" id="Phone" type="tel" placeholder="(Optional)"> <br/>
 
         Year: <br/>
-        <input name="year" type="radio" value="1">1
+        <input name="year" type="radio" value="1" checked >1
         <input name="year" type="radio" value="2">2
         <input name="year" type="radio" value="3">3
         <input name="year" type="radio" value="4">4
@@ -90,8 +99,22 @@
 
             
                };*/
+
+              
+            
                $('#submit').on('click',function(ev){
                 ev.preventDefault();
+               if(document.getElementById("Username").value==""){
+                   document.getElementById("uname").innerHTML="Username Required";
+               }
+                if(document.getElementById("Password").value==""){
+                   document.getElementById("upass").innerHTML="Password Required";
+               }
+                if(document.getElementById("Email").value==""){
+                   document.getElementById("uemail").innerHTML="Email Required";
+               }
+               else{
+              
                 
                
             $.ajax({
@@ -114,11 +137,15 @@
              
               
            });
+               }
+            });
+               $('#submit').on('click',function(ev){
+                
            
         }
             )
            
-        
+    
         </script>
     
     </div>
