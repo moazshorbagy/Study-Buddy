@@ -53,7 +53,7 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
 
             else {
             var passwordIsValid = bcrypt.compareSync(req.body.password, rows[0].user_password);
-            if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+            if (!passwordIsValid) return res.json({"Error" : true, "Message" : "Incorrect password", "statusCode" : "401"});//return res.status(401).send({ auth: false, token: null });
             //Creating token
             var token = jwt.sign({ id: rows[0].user_id}, config.secret, {
             expiresIn: 86400 // expires in 24 hours
