@@ -47,9 +47,9 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
         query = mysql.format(query,table);
         //console.dir(req.params.email);
         connection.query(query,function(err,rows){
-            if(err) return res.status(500).send('Error executing MySQL query');
+            if(err) return res.json({"Error" : true, "Message" : "Error executing MySQL query", "statusCode" : "500"});//if(err) return res.status(500).send('Error executing MySQL query');
 
-            if(rows=="") return res.status(404).send('No user found.');
+            if(rows=="") return res.json({"Error" : true, "Message" : "No user found", "statusCode" : "404"});//if(rows=="") return res.status(404).send('No user found.');
 
             else {
             var passwordIsValid = bcrypt.compareSync(req.body.password, rows[0].user_password);
@@ -58,7 +58,7 @@ AUTH_ROUTER.prototype.handleRoutes= function(router,connection) {
             var token = jwt.sign({ id: rows[0].user_id}, config.secret, {
             expiresIn: 86400 // expires in 24 hours
             });
-            res.status(200).send({ auth: true, token: token });
+            res.json({"Error" : false, "Message" : "Successfully logged in", "token" : token, "statusCode" : "200"});//res.status(200).send({ auth: true, token: token });
             }
         });
     });
