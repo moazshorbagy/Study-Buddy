@@ -104,15 +104,27 @@
             
                $('#submit').on('click',function(ev){
                 ev.preventDefault();
+                if(document.getElementById("Username").value=="" || document.getElementById("Password").value=="" || document.getElementById("Email").value=="" ){
                if(document.getElementById("Username").value==""){
                    document.getElementById("uname").innerHTML="Username Required";
+               }
+               else {
+                document.getElementById("uname").innerHTML="";
                }
                 if(document.getElementById("Password").value==""){
                    document.getElementById("upass").innerHTML="Password Required";
                }
+               else {
+                document.getElementById("upass").innerHTML="";
+               }
                 if(document.getElementById("Email").value==""){
                    document.getElementById("uemail").innerHTML="Email Required";
+                   
                }
+               else {
+                document.getElementById("uemail").innerHTML="";
+               }
+            }
                else{
               
                 
@@ -126,8 +138,8 @@
                    console.log(response);
                 if(!(response.Error)){
                     alert('Congratulations, You have successfully joined our Study Buddy Family')
-                    window.location.href="Login.html"; // lw tmama 3ayez atalla3 l message de lo, ooooaoooolooooofoo lmbrok
-                    // window.location da byforce reload the page to the new page, w byseb ay 7aga na2salo noice
+                    window.location.href="Login.html"; 
+                    
                 }
                    alert('This email already exists');
                },

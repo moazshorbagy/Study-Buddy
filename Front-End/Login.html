@@ -27,11 +27,11 @@
 
     <div id="login">
         <form name="sform" id="sform">
-        Email:<br/>
-         <input name="email" type="email" > <br/>
+        Email:<span style="color:red; font-size:15px;" id="uemail"></span> <br/>
+         <input name="email" id="Email" type="email" > <br/>
 
-        Password:<br/>
-         <input name="password" type="Password"> <br/>
+        Password:<span style="color:red; font-size:15px;" id="upass"></span> <br/>
+         <input name="password" id="Password" type="Password"> <br/>
          <span style="font-size:17px;"><a href="" >Forgot Password?</a></span> <br/>
 
          <span style="font-size:17px;">You don't have an account yet?<a href=Signup.html>Sign up now</a></span>
@@ -45,30 +45,52 @@
     <script>
 
     $('#submit').on('click',function(ev){
-        ev.preventDefault();
-       
-      
-       
-    $.ajax({
-       
-       type:"POST", 
-       url :'http://localhost:3000/api/login', 
-       data: $('#sform').serialize(), 
-       success:function(response){
-           console.log(response);
-        
-         window.location.href="Home.html";
-       },
-       error: function(response){
-           console.log(response);
-       },
-     
-      
-   });
-   
-}
+                ev.preventDefault();
+                if(document.getElementById("Password").value=="" || document.getElementById("Email").value=="" ){
+               if(document.getElementById("Email").value==""){
+                   document.getElementById("uemail").innerHTML="<br> E-mail Required";
+               }
+               else {
+                document.getElementById("uemail").innerHTML="";
+               }
+                if(document.getElementById("Password").value==""){
+                   document.getElementById("upass").innerHTML="<br> Password Required";
+               }
+               else{
+                document.getElementById("upass").innerHTML="";
+               }
+                
+            }
+               else{
+
+                $.ajax({
+                
+                type:"POST", 
+                url :'http://localhost:3000/api/login', 
+                data: $('#sform').serialize(), 
+                success:function(response){
+                    console.log(response);
+                    if (response.Found==false){
+                      alert("This E-mail is not registerd");
+                    }
+                    else 
+                    window.location.href="Home.html";
+
+                    
+                },
+                error: function(response){
+                    console.log(response);
+                    alert("WTFFFFFFFFFFFFF");
+                    
+                },
+                
+                
+            });
+            
+            }
+        }
     )
-   
+            
 
 </script>
 
