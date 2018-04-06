@@ -46,7 +46,7 @@
 
     $('#submit').on('click',function(ev){
                 ev.preventDefault();
-                if(document.getElementById("Password").value=="" || document.getElementById("Email").value=="" ){
+               
                if(document.getElementById("Email").value==""){
                    document.getElementById("uemail").innerHTML="<br> E-mail Required";
                }
@@ -60,8 +60,8 @@
                 document.getElementById("upass").innerHTML="";
                }
                 
-            }
-               else{
+            
+               if(!(document.getElementById("Password").value=="" || document.getElementById("Email").value=="" )){
 
                 $.ajax({
                 
@@ -70,17 +70,23 @@
                 data: $('#sform').serialize(), 
                 success:function(response){
                     console.log(response);
-                    if (response.Found==false){
-                      alert("This E-mail is not registerd");
+                    if (response.statusCode=="404"){
+                        alert("This E-mail is not registerd");
                     }
-                    else 
-                    window.location.href="Home.html";
-
-                    
+                    else if(response.statusCode=="401"){
+                        alert("Wrong Password");
+                    }
+                    else {//howa k
+                        localStorage.setItem('token', response.token) // hwa bytb3t token fl login aked ! howa keda beyeb3at?
+                        // aywa byb3t...
+                            // w8 30 secs eshta// back
+                        window.location.href="Home.html";
+                    }
                 },
-                error: function(response){
-                    console.log(response);
-                    alert("WTFFFFFFFFFFFFF");
+                error: function(e,response){
+                    console.log(e);
+                  
+                     alert("Error in connection");
                     
                 },
                 

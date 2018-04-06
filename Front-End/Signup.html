@@ -104,7 +104,7 @@
             
                $('#submit').on('click',function(ev){
                 ev.preventDefault();
-                if(document.getElementById("Username").value=="" || document.getElementById("Password").value=="" || document.getElementById("Email").value=="" ){
+               
                if(document.getElementById("Username").value==""){
                    document.getElementById("uname").innerHTML="Username Required";
                }
@@ -124,11 +124,10 @@
                else {
                 document.getElementById("uemail").innerHTML="";
                }
-            }
-               else{
-              
-                
-               
+            
+            if(!(document.getElementById("Username").value=="" || document.getElementById("Password").value=="" || document.getElementById("Email").value=="" ))
+               {
+                           
             $.ajax({
                
                type:"POST", 
@@ -150,12 +149,12 @@
               
            });
                }
-            });
-               $('#submit').on('click',function(ev){
+            }
+        )
+           
                 
            
-        }
-            )
+      
            
     
         </script>
