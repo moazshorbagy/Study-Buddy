@@ -96,4 +96,18 @@ header nav{
 	margin:20px;
 	overflow:hidden;
 	color:white;
+	text-align:center;
+}
+#forget{
+	font-size: 20px;
+	margin-top:20px;
+	color:blanchedalmond;
+	text-align: center;
+}
+
+#Bsearch{
+	margin-top:25px;
+	color:burlywood;
+	font-family: 'Times New Roman';
+	font-size:20px;
 }
