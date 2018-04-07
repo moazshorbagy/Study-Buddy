@@ -12,7 +12,6 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.use(bodyParser.json());
 
   router.post("/insertBook", VerifyToken, function(req, res) {
-    //books status + doner ID
     var query = "INSERT INTO ??(??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?)";
     var table = [
       "book",
@@ -39,6 +38,32 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
       } else {
         res.json({ Error: false, Message: "book successfully added" });
       }
+    });
+  });
+
+  router.get("/Book", VerifyToken, function(req, res) {
+    var query = "SELECT * FROM book";
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+      } else {
+        res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });
+      }
+    });
+  });
+
+  router.post("/searchBook", VerifyToken, function(req, res) {
+    var query =
+      "SELECT * FROM book WHERE" + " book_title LIKE '%" + req.body.title + "%'" + " OR book_code LIKE '%" + req.body.code + "%' " + " OR book_author LIKE '%" + req.body.author + "%'";
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+      } else if (rows == "")
+        res.json({ Error: true, Message: "No books found", statusCode: "404" });
+      else {
+        res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });}
     });
   });
 };

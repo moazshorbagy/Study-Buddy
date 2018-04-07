@@ -8,14 +8,7 @@
     <title> Study Buddy|Sign up </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
-    <script>
-    function CheckForBlank(){
-               if(document.getElementById("Username").value==""){
-                   alert('Please enter your username');
-                   return false;
-               }
-            }
-    </script>
+    
     
 
 </head>
@@ -76,31 +69,7 @@
         </form>
       
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script>
-           
-       
-           /* document.getElementById("sform").addEventListener("submit",function(event){
-
-                 event.preventDefault();
-
-           
-             var e=document.getElementById("Department");
-             var depar= e.options[e.selectedIndex].text;
-             var Years = document.getElementsByName('Year');
-             var Year_value;
-                for(var i = 0; i < Years.length; i++){
-                    if(Years[i].checked){
-                        Year_value = Years[i].value;
-                    }
-                }
-                            
-
-               
-
-            
-               };*/
-
-              
+        <script>            
             
                $('#submit').on('click',function(ev){
                 ev.preventDefault();

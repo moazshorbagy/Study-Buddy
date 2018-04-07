@@ -41,8 +41,8 @@
                 Book Author: <span style="color:red; font-size:15px;" id="BookAuthor"></span> <br/>
                 <input name="author"; type="text" class="intext" id="author"><br/>
                 Book Code: <br>
-                <select name="code" multiple style="font-size:15px">
-                    <option value="MTH" selected>MTH</option>
+                <select name="code" style="font-size:15px">
+                    <option value="MTH">MTH</option>
                     <option value="CMP">CMP</option>
                     <option value="STR">STR</option>
                     <option value="EEE">EEE</option>
@@ -90,7 +90,7 @@
 
                 
             
-               if(!(document.getElementsByName("title").value=="" || document.getElementsByName("author").value=="" || document.getElementsByName("edition").value==""))
+               if(!(document.getElementById("title").value=="" || document.getElementById("author").value=="" || document.getElementById("edition").value==""))
                 {
                     $.ajax({
                     
@@ -112,7 +112,7 @@
                     },
                     error: function(){
                         console.log("Error in connection");
-                        // hwa enta knt dst 3la insert book? ah dost upload
+                        
                     },
                     
                     

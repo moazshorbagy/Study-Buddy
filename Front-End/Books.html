@@ -28,8 +28,147 @@
             </nav>
 
         </div>
+      
+        <form name="sform" id="sform">
+            BookTitle:
+             <input type="text" name="title" id="title">
 
+             BookAuthor:
+             <input type="text" name="author" id="author">
+
+             BookCode:
+             <select name="code" id="code"   style="font-size:15px">
+                <option value="MTH">MTH</option>
+                <option value="CMP">CMP</option>
+                <option value="STR">STR</option>
+                <option value="EEE">EEE</option>
+                <option value="AET">AET</option>
+                <option value="MDE">MDE</option>
+                <option value="STE">STE</option>
+                <option value="CEM">CEM</option>
+            </select> 
+                <input name="search" id ="search" type="submit" value="search">
+         </form>
     </header>
+    <div id="main">
+    <table id="tab"  cellspacing="20px" style="margin:10px">
+        <tr>
+            <th>BookTitle</th>
+            <th>BookAuthor</th>
+            <th>BookEdition</th>
+            <th>BookStatus</th>
+        </tr>
+    </table>
+    </div>
+    
+   
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>            
+         $(document).ready(function(ev){
+            
+
+            $.ajax({
+           
+           type:"GET", 
+           url :'http://localhost:3000/api/Book', 
+           headers: {
+                        "x-access-token": localStorage.getItem('token')
+                    },
+           success:function(response){
+               console.log(response);
+            if(!(response.Error)){
+                var x;
+                var y;
+                var z;
+                var v;
+                for(i=0;i<response.n;i++){
+
+                    var table=document.getElementsByTagName("table") [0];
+                    var newrow=table.insertRow(i+1);
+
+                    var cel1=newrow.insertCell(0);
+                    var cel2=newrow.insertCell(1);
+                    var cel3=newrow.insertCell(2);
+                    var cel4=newrow.insertCell(3);
+
+                    x= response.Books[i].book_title; 
+                    y= response.Books[i].book_author;
+                    z= response.Books[i].book_edition;
+                    v=response.Books[i].book_status;
+
+                    cel1.innerText=x;
+                    cel2.innerText=y;
+                    cel3.innerText=z;
+                    cel4.innerText=v;   
+                }               
+           }
+              
+           },
+           error: function(){
+               console.log("Error in connection");
+           },
+         
+          
+       });
+
+         })
+           $('#search').on('click',function(ev){
+            ev.preventDefault();
+                             
+        $.ajax({
+           
+           type:"POST", 
+           url :'http://localhost:3000/api/searchBook',
+           data: $('#sform').serialize(), 
+           headers: {
+                        "x-access-token": localStorage.getItem('token')
+                    },
+           success:function(response){
+               
+               console.log(response);
+               if(!(response.Error)){
+                var a;
+                var b;
+                var c;
+                var d;
+                document.getElementById("tab").innerHTML=" <tr><th>BookTitle</th><th>BookAuthor</th><th>BookEdition</th><th>BookStatus</th></tr>";
+                for(i=0;i<response.n;i++){
+
+                    var table=document.getElementsByTagName("table") [0];
+                   
+                    var newrow=table.insertRow(i+1);
+
+                    var cel1=newrow.insertCell(0);
+                    var cel2=newrow.insertCell(1);
+                    var cel3=newrow.insertCell(2);
+                    var cel4=newrow.insertCell(3);
+
+                    a= response.Books[i].book_title; 
+                    b= response.Books[i].book_author;
+                    c= response.Books[i].book_edition;
+                    d=response.Books[i].book_status;
+
+                    cel1.innerText=a;
+                    cel2.innerText=b;
+                    cel3.innerText=c;
+                    cel4.innerText=d;   
+                }               
+           }
+              
+           },
+           error: function(){
+               console.log("Error in connection");
+           },
+         
+          
+       });
+           }
+        
+    )
+    
+
+    </script>
 
 </body>
 </html>
