@@ -46,9 +46,9 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
-        res.json({ Error: true, Message: "Error executing MySQL query" });
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
       } else {
-        res.json({ Error: false, Books: rows });
+        res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });
       }
     });
   });
@@ -59,10 +59,11 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
-        res.json({ Error: true, Message: "Error executing MySQL query" });
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
       } else if (rows == "")
-        res.json({ Error: true, Message: "No books found" });
-      else res.json({ Error: false, Books: rows });
+        res.json({ Error: true, Message: "No books found", statusCode: "404" });
+      else {
+        res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });}
     });
   });
 };
