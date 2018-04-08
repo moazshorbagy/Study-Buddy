@@ -54,8 +54,12 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
   });
 
   router.post("/searchBook", VerifyToken, function(req, res) {
+    var title = req.body.title, author = req.body.author;
+    if(title=="") title = "0xundx0";
+    if(author=="") author = "0xundx0";
+
     var query =
-      "SELECT * FROM book WHERE" + " book_title LIKE '%" + req.body.title + "%'" + " OR book_code LIKE '%" + req.body.code + "%' " + " OR book_author LIKE '%" + req.body.author + "%'";
+      "SELECT * FROM book WHERE" + " book_title LIKE '%" + title + "%'" + " OR book_code LIKE '%" + req.body.code + "%' " + " OR book_author LIKE '%" + author + "%'";
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
