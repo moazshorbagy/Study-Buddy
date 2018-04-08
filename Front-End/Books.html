@@ -115,7 +115,7 @@
          })
            $('#search').on('click',function(ev){
             ev.preventDefault();
-                             
+           
         $.ajax({
            
            type:"POST", 
@@ -127,12 +127,15 @@
            success:function(response){
                
                console.log(response);
+               if (response.statusCode=="404")
+                 document.getElementById("tab").innerHTML=" <tr><th>BookTitle</th><th>BookAuthor</th><th>BookEdition</th><th>BookStatus</th></tr>";
+
                if(!(response.Error)){
                 var a;
                 var b;
                 var c;
                 var d;
-                document.getElementById("tab").innerHTML=" <tr><th>BookTitle</th><th>BookAuthor</th><th>BookEdition</th><th>BookStatus</th></tr>";
+                document.getElementById("tab").innerHTML=" <tr><th style='Text-Align:left'>BookTitle</th><th style='Text-Align:left'>BookAuthor</th><th style='Text-Align:left'>BookEdition</th><th style='Text-Align:left'>BookStatus</th></tr>";
                 for(i=0;i<response.n;i++){
 
                     var table=document.getElementsByTagName("table") [0];
