@@ -1,6 +1,0 @@
-1) Signup: put checks for empty (username,email&password) boxes.
-2) Login: put checks for empty (email&password) boxes.
-3) InsertBook: put AJAX logic for books.
-4) InsertBook: put checks for empty (BookTitle,BookAuthor,BookCode&Duration) boxes.
-5) InsertBook: redirect user to Login if he's not logged in.
-6) Login: save Tokens for further authorization.

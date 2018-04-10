@@ -5,7 +5,6 @@ var bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
 var VerifyToken = require("./VerifyToken.js");
 var sendEmail = require("../email/SendEmail");
-var nodemailer = require("nodemailer");
 
 function AUTH_ROUTER(router, connection) {
   var self = this;
@@ -59,7 +58,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           Error: true,
           Message: "Error executing MySQL query",
           statusCode: "500"
-        }); //if(err) return res.status(500).send('Error executing MySQL query');
+        });
 
       if (rows == "")
         return res.json({
@@ -68,8 +67,6 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           statusCode: "404"
         });
       else {
-        //if(rows=="") return res.status(404).send('No user found.');
-
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,
           rows[0].user_password
@@ -79,7 +76,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
             Error: true,
             Message: "Incorrect password",
             statusCode: "401"
-          }); //return res.status(401).send({ auth: false, token: null });
+          });
         //Creating token
         var token = jwt.sign({ id: rows[0].user_id }, config.secret, {
           expiresIn: 86400 // expires in 24 hours
@@ -89,20 +86,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           Message: "Successfully logged in",
           token: token,
           statusCode: "200"
-        }); //res.status(200).send({ auth: true, token: token });
-      }
-    });
-  });
-
-  router.get("/me", VerifyToken, function(req, res, next) {
-    var query = "SELECT * FROM ?? WHERE ??=?";
-    var table = ["user_login", "user_id", req.userId];
-    query = mysql.format(query, table);
-    connection.query(query, function(err, rows) {
-      if (err) {
-        res.json({ Error: true, Message: "Error executing MySQL query" });
-      } else {
-        res.json({ Error: false, Message: "Success", Users: rows });
+        });
       }
     });
   });
