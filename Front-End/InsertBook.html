@@ -8,7 +8,12 @@
     <title> Study Buddy|Books Insertion </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
-
+    <script>
+            if(sessionStorage.token==null){
+               alert('You are not logged in');
+               window.location.href="Login.html";
+            }sess
+    </script>
 
 </head>
 <body>
@@ -98,7 +103,7 @@
                     url :'http://localhost:3000/api/insertBook',
                     data: $('#sform').serialize() ,
                     headers: {
-                        "x-access-token": localStorage.getItem('token')
+                        "x-access-token": sessionStorage.getItem('token')
                     },
                     success:function(response){
                         console.log(response);

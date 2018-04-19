@@ -8,7 +8,12 @@
     <title> Study Buddy|Books </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
-
+    <script>
+    if(sessionStorage.token==null){
+       alert('You are not logged in');
+       window.location.href="Login.html";
+    }sess
+    </script>
 
 </head>
 <body>
@@ -21,10 +26,10 @@
                 </h1>
             </div>
             <nav>
-                <a href="InsertBook.html">LEND BOOKS</a>
-                <a href="Home.html">HOME</a>
-
-                <a href="new 4.html">ABOUT US </a>
+                <a class="link" href="InsertBook.html">LEND BOOKS</a>
+                <a class="link" href="Home.html">HOME</a>
+                <a class="link" href="Cart.html">CART</a>
+                <a class="link" href="new 4.html">ABOUT US </a>
             </nav>
 
         </div>
@@ -51,12 +56,12 @@
          </form>
     </header>
     <div id="main">
-         <table id="tab"  cellspacing="20px" style="margin:10px">
+         <table id="tab"  cellspacing="0px" style="margin:10px">
                 <thead>
-                    <th>BookTitle</th>
-                    <th>BookAuthor</th>
-                    <th>BookEdition</th>
-                    <th>BookStatus</th>
+                    <th style="text-align:left">BookTitle</th>
+                    <th style="text-align:left">BookAuthor</th>
+                    <th style="text-align:left">BookEdition</th>
+                    <th style="text-align:left">BookStatus</th>
                 </thead>
                 <tbody> 
         
@@ -70,11 +75,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
+    
     var cart=new Array(); //creating a cart (array of objects)
     var exist=0; // to see if he already ordered that book
     
-    if(JSON.parse(localStorage.getItem("Cart2"))!=null)  //getting the cart back when he returns to this page if it already sent once to the cart page
-    cart=JSON.parse(localStorage.getItem("Cart2"));
+    if(JSON.parse(sessionStorage.getItem("Cart"))!=null)  //getting the cart back when he returns to this page if it already sent once to the cart page
+    cart=JSON.parse(sessionStorage.getItem("Cart"));
 
          $(document).ready(function(ev){
              
@@ -83,7 +89,7 @@
            type:"GET", 
            url :'http://localhost:3000/api/Book', 
            headers: {
-                        "x-access-token": localStorage.getItem('token')
+                        "x-access-token": sessionStorage.getItem('token')
                     },
            success:function(response){
                console.log(response);
@@ -101,15 +107,14 @@
 
                }
                //filling the table (tab)
-               for (var key in response.Books){
-                   if(response.Books.hasOwnProperty(key)){
+               for (var key in response.Books){ 
                        tablehtml += "<tr>" 
                         tablehtml += "<td>" + response.Books[key]["book_title"] + "</td>";
                         tablehtml += "<td>" + response.Books[key]["book_author"] + "</td>";
                         tablehtml += "<td>" + response.Books[key]["book_edition"] + "</td>";
                         tablehtml += "<td>" + response.Books[key]["book_status"] + "</td>";
                         tablehtml += "</tr>";
-                   }
+                   
                 }
             }
 
@@ -161,7 +166,7 @@
                         exist=0;
                     
                      }
-                     localStorage.setItem("Cart",JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
+                     sessionStorage.setItem("Cart",JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
 
 
 
@@ -200,7 +205,7 @@
            url :'http://localhost:3000/api/searchBook',
            data: $('#sform').serialize(), 
            headers: {
-                        "x-access-token": localStorage.getItem('token')
+                        "x-access-token": sessionStorage.getItem('token')
                     },
            success:function(response){
                
@@ -244,9 +249,10 @@
            }
         
     )
+    var link=0;
     
-
     </script>
+
 
 </body>
 </html>

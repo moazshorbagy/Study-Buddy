@@ -77,7 +77,7 @@
                         alert("Wrong Password");
                     }
                     else {//howa k
-                        localStorage.setItem('token', response.token) // hwa bytb3t token fl login aked ! howa keda beyeb3at?
+                        sessionStorage.setItem('token', response.token) // hwa bytb3t token fl login aked ! howa keda beyeb3at?
                         // aywa byb3t...
                             // w8 30 secs eshta// back
                         window.location.href="Home.html";
@@ -97,7 +97,10 @@
         }
     )
             
-
+    window.onload=function(){
+       sessionStorage.clear();
+       return '';
+   }
 </script>
 
 </body>
