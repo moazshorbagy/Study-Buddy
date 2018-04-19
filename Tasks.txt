@@ -1,0 +1,29 @@
+1) (PENDING)(NAME) Front-End: Obtain a Book
+2) (PENDING)(NAME) Front-End: Obtain a Tool
+3) (PENDING)(NAME) Front-End: View Cart and Checkout (in both Obtain Book & Tool)
+4) (PENDING)(NAME) Front-End: Request a Book
+5) (PENDING)(NAME) Front-End: Request a Tool
+6) (PENDING)(NAME) Front-End: Sort Books
+7) (PENDING)(NAME) Front-End: Sort Tools
+8) (PENDING)(NAME) Front-End: Lend a Book (Add 'Insert Photo' option)
+9) (PENDING)(NAME) Front-End: Lend a Tool
+10) (PENDING)(NAME) Front-End: Account Info (Change Account Info)
+11) (PENDING)(NAME) Front-End: Account Info (View the Items i've posted but not yet obtained by someone(add the option to set the status of the item to 'obtained'). Also, the Items i've posted and has been obtained by someone(and rate that someone))
+12) (PENDING)(NAME) Front-End: Account Info (History: View items that i have obtained (and rate the donor))
+13) (PENDING)(NAME) Front-End: Add validations for existing text boxes.
+
+//in any text box that you put (validations for (empty & correct data type)).
+
+1) (PENDING)(NAME) Back-End: Obtain a Book
+2) (PENDING)(NAME) Back-End: Obtain a Tool
+3) (PENDING)(NAME) Back-End: View Cart and Checkout (in both Obtain Book & Tool)
+4) (PENDING)(NAME) Back-End: Request a Book
+5) (PENDING)(NAME) Back-End: Request a Tool
+6) (PENDING)(NAME) Back-End: Sort Books
+7) (PENDING)(NAME) Back-End: Sort Tools
+8) (PENDING)(NAME) Back-End: Lend a Book (Add 'Insert Photo' option)
+9) (PENDING)(NAME) Back-End: Lend a Tool
+10) (PENDING)(NAME) Back-End: Account Info (Change Account Info)
+11) (PENDING)(NAME) Back-End: Account Info (View the Items i've posted but not yet obtained by someone(add the option to set the status of the item to 'obtained'). Also, the Items i've posted and has been obtained by someone(and rate that someone))
+12) (PENDING)(NAME) Back-End: Account Info (History: View items that i have obtained (and rate the donor))
+13) (PENDING)(NAME) Back-End: Fix database SQL Injection issue
