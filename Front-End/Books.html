@@ -70,14 +70,14 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
+    var cart=new Array(); //creating a cart (array of objects)
+    var exist=0; // to see if he already ordered that book
     
-    
-    function myFunction(x){
-               alert("row");
-           }
-         $(document).ready(function(ev){
-           
+    if(JSON.parse(localStorage.getItem("Cart2"))!=null)  //getting the cart back when he returns to this page if it already sent once to the cart page
+    cart=JSON.parse(localStorage.getItem("Cart2"));
 
+         $(document).ready(function(ev){
+             
             $.ajax({
            
            type:"GET", 
@@ -124,6 +124,7 @@
                 this.style.backgroundColor='#BCD4EC';
                 this.hilite = true;
                  }
+                 
     
                   var ind=this.rowIndex;
                   // get the data stored in the cells of the selected row
@@ -133,14 +134,38 @@
                   //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
                   // responsible for showing the message to ask the user if he was sure to add the book
                   if (confirm("are you sure you want to add this book to the cart? \n"+'"'+booktitle.innerHTML+'"'+" by "+'"'+bookauthor.innerHTML+'"'+" "+bookedition.innerHTML+" edition for "+bookcode[ind-1])){
-                      alert("the book was added to cart"); 
+                      
                       // what would happen if the user clicks ok (he wants to add the book)
-                     var book={
+                      var book= {   //the book that would be added to the cart
                          book_title: booktitle.innerHTML,
                          book_author: bookauthor.innerHTML,
                          book_edition: bookedition.innerHTML
                      }
-                    // console.log(book);
+
+                     if (cart.length==0){  //for first time only
+                     cart.push(book);
+                     alert("the book was added to cart"); 
+                     }
+
+                     else{ //check if he already added that book
+                     for(i=0;i<cart.length;i++){
+                        if (booktitle.innerHTML==cart[i].book_title){
+                        alert("you already added that book");
+                        exist=1;
+                        }
+                     }
+                        if(exist==0){ 
+                        cart.push(book);
+                        alert("the book was added to cart"); 
+                        }
+                        exist=0;
+                    
+                     }
+                     localStorage.setItem("Cart",JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
+
+
+
+                   console.log(cart);
                   }
                   // remove the highlight of the row
                   this.style.backgroundColor=this.origColor;
@@ -161,8 +186,7 @@
 
          })
        
-        
-       
+   
                                   
             
            $('#search').on('click',function(ev){
