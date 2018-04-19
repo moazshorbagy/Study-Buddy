@@ -117,4 +117,22 @@ header nav{
 	color:burlywood;
 	font-family: 'Times New Roman';
 	font-size:20px;
+
 }
+
+th{
+border-bottom:1px solid white;
+border-right:1px solid white;
+}
+th:nth-last-child(1){
+	border-right:none;
+}
+td{
+	
+	border-right:1px solid white;
+
+}
+td:nth-last-child(1){
+	border-right:none;
+}
+
