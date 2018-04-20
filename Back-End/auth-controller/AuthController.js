@@ -86,6 +86,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           Error: false,
           Message: "Successfully logged in",
           token: token,
+          id: rows[0].user_id,
           statusCode: "200"
         });
       }
@@ -93,8 +94,6 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
   });
 
   router.post("/userinfo", VerifyToken, function(req, res) {
-    var date;
-    var myDate = new Date();
     var query = "SELECT * FROM ?? WHERE ??=?";
     var table = ["user", "user_id", req.body.userId];
     query = mysql.format(query, table);
