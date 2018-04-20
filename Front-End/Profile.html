@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+
+<html style="height:100%;">
+
+<head>
+    <meta charset="utf-8">
+    <title> Study Buddy|Profile </title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        //Checking if the account is logged in
+    if(sessionStorage.token==null){
+       alert('You are not logged in');
+       window.location.href="Login.html";
+    }
+    </script>
+
+</head>
+<body>
+
+    <header id="head2">
+        <div class="container">
+            <div id="branding">
+                <h1>
+                    Books
+                </h1>
+            </div>
+            <nav>
+               
+                <a  href="Home.html">HOME</a>
+                <a  href="new 4.html">ABOUT US </a>
+            </nav>
+
+        </div>
+     
+             
+    </header>
+    <div id="main">
+          <!-- Building the fields to show on display for the profile -->
+          Username:
+          <input id="Ulabel" disabled style="background-color:#35424a">hue1</label>
+         <br>
+          Email:
+          <label id="Elabel"> hue 2</label>
+          <br>
+          Phone:
+          <label id="Plabel"></label>
+          <br>
+          JoinDate:
+          <label id="JDlabel"></label>
+          <br>
+          Year:
+          <label id="Ylabel"></label>
+          <br>
+          Department:
+          <label id="Dlabel"></label>
+
+    </div>
+    
+   
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script> 
+    
+    
+    
+    </script>
+
+
+</body>
+</html>

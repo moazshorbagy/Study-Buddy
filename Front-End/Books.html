@@ -8,7 +8,9 @@
     <title> Study Buddy|Books </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
+
     <script>
+        //Checking if the account is logged in
     if(sessionStorage.token==null){
        alert('You are not logged in');
        window.location.href="Login.html";
@@ -53,6 +55,12 @@
                 <option value="CEM">CEM</option>
             </select> 
                 <input name="search" id ="search" type="submit" value="search">
+            Sort:
+            <select name="sort" id="sort" style="font-size:15px">
+                <option value="Title">Title</option>
+                <option value="Recent">Most Recent</option>
+                <option value="Author">Author</option>
+            </select>
          </form>
     </header>
     <div id="main">
@@ -61,6 +69,7 @@
                     <th style="text-align:left">BookTitle</th>
                     <th style="text-align:left">BookAuthor</th>
                     <th style="text-align:left">BookEdition</th>
+                    <th style="text-align:left">Date</th>
                     <th style="text-align:left">BookStatus</th>
                 </thead>
                 <tbody> 
@@ -112,13 +121,97 @@
                         tablehtml += "<td>" + response.Books[key]["book_title"] + "</td>";
                         tablehtml += "<td>" + response.Books[key]["book_author"] + "</td>";
                         tablehtml += "<td>" + response.Books[key]["book_edition"] + "</td>";
+                        tablehtml += "<td>" + response.Books[key]["book_join_date"] + "</td>";
                         tablehtml += "<td>" + response.Books[key]["book_status"] + "</td>";
                         tablehtml += "</tr>";
                    
                 }
             }
 
+            
              $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
+           
+            //Sorting Alphabetically
+            
+            $('#sort').change(function(){
+                if(document.getElementById("sort").value=="Title"){
+                   
+                    var table, rows, switching, i, x, y, shouldSwitch;
+                    table = document.getElementById("tab");
+                    switching = true;
+                    /*Make a loop that will continue until
+                    no switching has been done:*/
+                    while (switching) {
+                    
+                    //start by saying: no switching is done:
+                    switching = false;
+                    rows = table.getElementsByTagName("tr");
+                    /*Loop through all table rows (except the
+                    first, which contains table headers):*/
+                    
+                    for (i = 1; i < (rows.length - 1); i++) {
+
+                        //start by saying there should be no switching:
+                        shouldSwitch = false;
+                        /*Get the two elements you want to compare,
+                        one from current row and one from the next:*/
+                        x = rows[i].getElementsByTagName("td")[0];
+                        y = rows[i + 1].getElementsByTagName("td")[0];
+                        //check if the two rows should switch place:
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch= true;
+                        break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        /*If a switch has been marked, make the switch
+                        and mark that a switch has been done:*/
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }   
+                }
+                else if(document.getElementById('sort').value=="Author"){
+                var table, rows, switching, i, x, y, shouldSwitch;
+                    table = document.getElementById("tab");
+                    switching = true;
+                    /*Make a loop that will continue until
+                    no switching has been done:*/
+                    while (switching) {
+                    
+                    //start by saying: no switching is done:
+                    switching = false;
+                    rows = table.getElementsByTagName("tr");
+                    /*Loop through all table rows (except the
+                    first, which contains table headers):*/
+                    
+                    for (i = 1; i < (rows.length - 1); i++) {
+
+                        //start by saying there should be no switching:
+                        shouldSwitch = false;
+                        /*Get the two elements you want to compare,
+                        one from current row and one from the next:*/
+                        x = rows[i].getElementsByTagName("td")[1];
+                        y = rows[i + 1].getElementsByTagName("td")[1];
+                        //check if the two rows should switch place:
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch= true;
+                        break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        /*If a switch has been marked, make the switch
+                        and mark that a switch has been done:*/
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }   
+                }
+            })
+             
+             
          var tables=document.getElementById("tab"); 
          //these lines responsible for detecting the row clicked
         for(i=1;i<tables.rows.length;i++){
@@ -144,9 +237,10 @@
                       var book= {   //the book that would be added to the cart
                          book_title: booktitle.innerHTML,
                          book_author: bookauthor.innerHTML,
-                         book_edition: bookedition.innerHTML
+                         book_edition: bookedition.innerHTML,
+                         book_id: bookid[ind-1]
                      }
-
+                     console.log(book);
                      if (cart.length==0){  //for first time only
                      cart.push(book);
                      alert("the book was added to cart"); 
@@ -249,7 +343,8 @@
            }
         
     )
-    var link=0;
+    
+    
     
     </script>
 
