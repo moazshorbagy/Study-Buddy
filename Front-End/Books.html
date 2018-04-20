@@ -144,7 +144,9 @@
                       var book= {   //the book that would be added to the cart
                          book_title: booktitle.innerHTML,
                          book_author: bookauthor.innerHTML,
-                         book_edition: bookedition.innerHTML
+                         book_edition: bookedition.innerHTML,
+                         bookID:bookid[ind-1],
+                         donerID:doner[ind-1]
                      }
 
                      if (cart.length==0){  //for first time only
