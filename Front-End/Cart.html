@@ -118,17 +118,17 @@
             if(cart.length==0)
             alert("cart is empty")
             else{
-        for(i=0;i<cart.length;i++){
+       // for(i=0;i<cart.length;i++){
               $.ajax({
                     type:"POST", 
                     url :'http://localhost:3000/api/getCart',
-                    data: cart[i] ,
+                    contentType: 'application/json',
+                    data: JSON.stringify(cart) ,
                     headers: {
                         "x-access-token": sessionStorage.getItem('token')
                     },
                     success:function(response){
                         console.log(response);
-                        
                             if(!(response.Error)){
                            
                              
@@ -143,11 +143,11 @@
                 
                 });
             }
-            cart=[];
+           cart=[];
             sessionStorage.setItem("Cart",JSON.stringify(cart));
             alert('A request has been sent to the owner');
              window.location.href="Cart.html";
-        }
+       // }
            
             });
         
