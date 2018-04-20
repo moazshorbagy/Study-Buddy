@@ -5,18 +5,20 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `studdybuddy` DEFAULT CHARACTER SET latin1 ;
-USE `studdybuddy` ;
+CREATE SCHEMA IF NOT EXISTS `studybuddy` DEFAULT CHARACTER SET latin1 ;
+USE `studybuddy` ;
 
-CREATE TABLE IF NOT EXISTS `studdybuddy`.`user` (
+CREATE TABLE IF NOT EXISTS `studybuddy`.`User` (
 
-  `user_id` 			INT(70) NOT NULL AUTO_INCREMENT,
+  `user_id` 			INT NOT NULL AUTO_INCREMENT,
 
   `user_email`  		VARCHAR(45) NOT NULL,
 
-  `user_password` 		VARCHAR(45) NULL,
+  `user_password` 		VARCHAR(300) NOT NULL,
+  
+  `user_name` 			VARCHAR(70) NOT NULL,
 
-  `user_join_date` 		Date NULL,
+  `user_join_date` 		TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
 
   `user_phone`     		VARCHAR(15) NULL,
 
@@ -31,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `studdybuddy`.`user` (
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `studdybuddy`.`Book` (
+CREATE TABLE IF NOT EXISTS `studybuddy`.`Book` (
 
   `book_id` 			INT		 	NOT NULL AUTO_INCREMENT,
 
@@ -51,24 +53,24 @@ CREATE TABLE IF NOT EXISTS `studdybuddy`.`Book` (
 
   `owner_ID`			INT			NULL,  
 
-  `doner_ID`			INT			NOT NULL,
+  `donor_ID`			INT			NOT NULL,
 
   PRIMARY KEY (`book_id`),
 
         FOREIGN KEY (`owner_ID`)
-    REFERENCES `studdybuddy`.`user` (`user_id`)
+    REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
         
-        FOREIGN KEY (`doner_ID`)
-    REFERENCES `studdybuddy`.`user` (`user_id`)
+        FOREIGN KEY (`donor_ID`)
+    REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 	
     )
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `studdybuddy`.`Tools` (
+CREATE TABLE IF NOT EXISTS `studybuddy`.`Tool` (
   
   `tool_ID` 			INT		 	NOT NULL AUTO_INCREMENT,
   
@@ -89,12 +91,12 @@ CREATE TABLE IF NOT EXISTS `studdybuddy`.`Tools` (
   PRIMARY KEY (`tool_ID`),
          
 		FOREIGN KEY (`owner_ID`)
-    REFERENCES `studdybuddy`.`user` (`user_id`)
+    REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
         
         FOREIGN KEY (`doner_ID`)
-    REFERENCES `studdybuddy`.`user` (`user_id`)
+    REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 
@@ -102,7 +104,7 @@ ENGINE = InnoDB;
 
 
 
-CREATE TABLE IF NOT EXISTS `studdybuddy`.`Requests` (
+CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
   
   `Request_No` 			INT NOT NULL,
   
@@ -113,14 +115,14 @@ CREATE TABLE IF NOT EXISTS `studdybuddy`.`Requests` (
   PRIMARY KEY (`Request_No`,`user_ID`),
          
 	FOREIGN KEY (`user_ID`)
-    REFERENCES `studdybuddy`.`user` (`user_id`)
+    REFERENCES `studybuddy`.`User` (`user_id`)
     
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `studdybuddy`.`Book_View`(
+CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
   
   `BookID`                INT NOT NULL,
   
@@ -131,13 +133,13 @@ CREATE TABLE IF NOT EXISTS `studdybuddy`.`Book_View`(
   Primary Key (`BookID`,`DonorID`,`OwnerID`),
   
 	FOREIGN KEY(`BookID`)
-    REFERENCES `studdybuddy`.`book`(`book_id`),
+    REFERENCES `studybuddy`.`book`(`book_id`),
     
     FOREIGN KEY(`DonorID`)
-    REFERENCES `studdybuddy`.`book`(`doner_ID`),
+    REFERENCES `studybuddy`.`book`(`donor_ID`),
     
     FOREIGN KEY (`OwnerID`)
-    REFERENCES `studdybuddy`.`book`(`owner_ID`)
+    REFERENCES `studybuddy`.`book`(`owner_ID`)
     
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
