@@ -112,13 +112,16 @@
                 }}
             }
        );
+       
        $('#obtain').on('click',function(ev){
             ev.preventDefault();
-        for(i=0;i<cart.length;i++){
+            if(cart.length==0)
+            alert("cart is empty")
+            else{
               $.ajax({
                     type:"POST", 
                     url :'http://localhost:3000/api/getCart',
-                    data: cart[i] ,
+                    data: cart ,
                     headers: {
                         "x-access-token": sessionStorage.getItem('token')
                     },
@@ -138,13 +141,13 @@
                     
                 
                 });
-            }
             cart=[];
             sessionStorage.setItem("Cart",JSON.stringify(cart));
             alert('A request has been sent to the owner');
              window.location.href="Cart.html";
-           
+        }
             });
+        
               
 
 
