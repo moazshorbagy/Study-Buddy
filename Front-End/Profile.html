@@ -23,7 +23,7 @@
         <div class="container">
             <div id="branding">
                 <h1>
-                    Books
+                    Profile
                 </h1>
             </div>
             <nav>
@@ -38,23 +38,33 @@
     </header>
     <div id="main">
           <!-- Building the fields to show on display for the profile -->
-          Username:
-          <input id="Ulabel" disabled style="background-color:#35424a">hue1</label>
+          Username:<br>
+          <input id="Ulabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px; ">
+        <span id='Pass'></span>
+         
          <br>
-          Email:
-          <label id="Elabel"> hue 2</label>
+          Email:<br>
+          <input id="Elabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+
           <br>
-          Phone:
-          <label id="Plabel"></label>
+          Phone:<br>
+          <input id="Plabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+
           <br>
-          JoinDate:
-          <label id="JDlabel"></label>
+          JoinDate:<br>
+          <input id="JDlabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+
           <br>
-          Year:
-          <label id="Ylabel"></label>
+          Year:<br>
+          <input id="Ylabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+
           <br>
-          Department:
-          <label id="Dlabel"></label>
+          Department:<br>
+          <input id="Dlabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+
+        <br>
+          <button name="Edit" id="Edit" >Edit</button>
+          <br>
 
     </div>
     
@@ -62,7 +72,47 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
-    
+    $('#Edit').on('click',function(){
+        //document.getElementById('main').innerHTML+=''
+
+        var U=document.getElementById('Ulabel');
+        var P=document.getElementById('Plabel');
+        var E=document.getElementById('Elabel');
+        var D=document.getElementById('Dlabel');
+        var Y=document.getElementById('Ylabel');
+
+        if($(U).attr('disabled')){
+            document.getElementById('Pass').innerHTML='<br> Password:<br> <input >'
+            $(U).removeAttr('disabled');
+            $(U).removeAttr('style');
+            $(P).removeAttr('disabled');
+            $(P).removeAttr('style');
+            $(E).removeAttr('disabled');
+            $(E).removeAttr('style');
+            $(D).removeAttr('disabled');
+            $(D).removeAttr('style');
+            $(Y).removeAttr('disabled');
+            $(Y).removeAttr('style');
+        }
+        else{
+            document.getElementById('Pass').innerHTML='';
+           var iid=sessionStorage.token.id;
+           console.log(iid); 
+           U.setAttribute('disabled','disabled');
+           U.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
+           P.setAttribute('disabled','disabled');
+           P.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
+           E.setAttribute('disabled','disabled');
+           E.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
+           D.setAttribute('disabled','disabled');
+           D.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
+           Y.setAttribute('disabled','disabled');
+           Y.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
+        
+        
+        }
+       
+    })
     
     
     </script>
