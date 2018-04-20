@@ -49,7 +49,7 @@
             </table>
 
     </div>
-    
+    <button type="button" id="obtain"> obtain </button>
    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -112,6 +112,41 @@
                 }}
             }
        );
+       $('#obtain').on('click',function(ev){
+            ev.preventDefault();
+        for(i=0;i<cart.length;i++){
+              $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/getCart',
+                    data: cart[i] ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                        
+                            if(!(response.Error)){
+                           
+                             
+                        }
+                        
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                        
+                    },
+                    
+                
+                });
+            }
+            cart=[];
+            sessionStorage.setItem("Cart",JSON.stringify(cart));
+            alert('A request has been sent to the owner');
+             window.location.href="Cart.html";
+           
+            });
+              
+
 
          
    

@@ -13,15 +13,13 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.use(bodyParser.json());
 
   router.post("/getCart", VerifyToken, function(req, res) {
-    var i;
-    for (i = 0; i < bookID.length; i++) {
       var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
       var table = [
         "book",
         "book_status",
         "PENDING",
         "book_id",
-        req.body.bookID[i]
+        req.body.bookID
       ];
       query = mysql.format(query, table);
       console.log(query);
@@ -31,7 +29,6 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           res.json({ Error: true, Message: "Error executing MySQL query" });
         }
       });
-    }
     res.json({ Error: false, Message: "Status successfully changed" });
   });
 };
