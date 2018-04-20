@@ -21,7 +21,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
       "book_title",
       "book_edition",
       "book_duration",
-      "doner_ID",
+      "donor_ID",
       "AVAILABLE",
       req.body.code,
       req.body.author,
@@ -42,12 +42,20 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
   });
 
   router.get("/Book", VerifyToken, function(req, res) {
+    var i, date, month, year;
     var query = "SELECT * FROM book WHERE book_status = 'Available'";
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
       } else {
+        for(i = 0; i<rows.length; i++)
+        {
+          date = new Date(rows[i].book_post_date).getUTCDate();
+          month = new Date(rows[i].book_post_date).getUTCMonth()+1;
+          year = new Date(rows[i].book_post_date).getUTCFullYear();
+          rows[i].book_post_date = ""+year +"-"+ month +"-"+ date;
+        }
         res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });
       }
     });
