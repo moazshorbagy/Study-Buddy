@@ -76,10 +76,9 @@
                     else if(response.statusCode=="401"){
                         alert("Wrong Password");
                     }
-                    else {//howa k
-                        sessionStorage.setItem('token', response.token) // hwa bytb3t token fl login aked ! howa keda beyeb3at?
-                        // aywa byb3t...
-                            // w8 30 secs eshta// back
+                    else {
+                        sessionStorage.setItem('token', response.token) 
+                        sessionStorage.setItem('ID',response.id);
                         window.location.href="Home.html";
                     }
                 },

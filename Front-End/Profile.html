@@ -38,6 +38,8 @@
     </header>
     <div id="main">
           <!-- Building the fields to show on display for the profile -->
+          
+          <form name='sform' id='sform'>
           Username:<br>
           <input id="Ulabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px; ">
         <span id='Pass'></span>
@@ -65,6 +67,7 @@
         <br>
           <button name="Edit" id="Edit" >Edit</button>
           <br>
+        </form>
 
     </div>
     
@@ -72,14 +75,41 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
+    var Id={userId: sessionStorage.getItem('ID')};
+    var U=document.getElementById('Ulabel');
+    var P=document.getElementById('Plabel');
+    var E=document.getElementById('Elabel');
+    var D=document.getElementById('Dlabel');
+    var Y=document.getElementById('Ylabel');
+    $(document).ready(function(){
+    $.ajax({
+        type:"POST", 
+        url :'http://localhost:3000/api/userinfo',
+        data: Id,
+        headers: {
+            "x-access-token": sessionStorage.getItem('token')
+        },
+        success:function(response){
+            console.log(response);
+                if(!(response.Error)){                 
+                    U.value=response.userInfo.user_name;
+                    P.value=response.userInfo.user_phone;
+                    E.value=response.userInfo.user_email;
+                    D.value=response.userInfo.user_department;
+                    Y.value=response.userInfo.user_year;
+            }
+            
+        },
+        error: function(){
+            console.log("Error in connection");
+            
+        },
+        
+    
+    });
+})
     $('#Edit').on('click',function(){
         //document.getElementById('main').innerHTML+=''
-
-        var U=document.getElementById('Ulabel');
-        var P=document.getElementById('Plabel');
-        var E=document.getElementById('Elabel');
-        var D=document.getElementById('Dlabel');
-        var Y=document.getElementById('Ylabel');
 
         if($(U).attr('disabled')){
             document.getElementById('Pass').innerHTML='<br> Password:<br> <input >'
@@ -96,8 +126,49 @@
         }
         else{
             document.getElementById('Pass').innerHTML='';
-           var iid=sessionStorage.token.id;
-           console.log(iid); 
+           /*
+           $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/userinfo',
+                    data: Id,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){                 
+                                U.value=response.userInfo.user_name;
+                                P.value=response.userInfo.user_phone;
+                                E.value=response.userInfo.user_email;
+                                D.value=response.userInfo.user_department;
+                                Y.value=response.userInfo.user_year;
+                        }
+                        
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                        
+                    },
+                    
+                
+                });*/
+           $.ajax({
+            type:"POST", 
+                url :'http://localhost:3000/api/setData',
+                data: $('#sform').serialize(),
+                headers: {
+                    "x-access-token": sessionStorage.getItem('token')
+                },
+                success:function(response){
+                    console.log(response);
+                    
+                },
+                error: function(){
+                    console.log("Error in connection");
+                    
+                },
+           })         
+            
            U.setAttribute('disabled','disabled');
            U.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
            P.setAttribute('disabled','disabled');

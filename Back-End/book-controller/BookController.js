@@ -42,7 +42,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
   });
 
   router.get("/Book", VerifyToken, function(req, res) {
-    var query = "SELECT * FROM book";
+    var query = "SELECT * FROM book WHERE book_status = 'Available'";
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);

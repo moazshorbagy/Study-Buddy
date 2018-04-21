@@ -18,6 +18,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.post("/register", function(req, res) {
     var salt = bcrypt.genSaltSync(10);
     var hashedpassword = bcrypt.hashSync(req.body.password, salt);
+    if(req.body.year == "Graduate") req.body.year = 0;
 
     var query = "INSERT INTO ??(??,??,??,??,??,??) VALUES (?,?,?,?,?,?)";
 
@@ -85,8 +86,33 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           Error: false,
           Message: "Successfully logged in",
           token: token,
+          id: rows[0].user_id,
           statusCode: "200"
         });
+      }
+    });
+  });
+
+  router.post("/userinfo", VerifyToken, function(req, res) {
+    var query = "SELECT * FROM ?? WHERE ??=?";
+    var table = ["user", "user_id", req.body.userId];
+    query = mysql.format(query, table);
+    connection.query(query, function(err, rows) {
+      if (err)
+        return res.json({
+          Error: true,
+          Message: "Error executing MySQL query",
+          statusCode: "500"
+        });
+
+      if (rows == "")
+        return res.json({
+          Error: true,
+          Message: "No user found",
+          statusCode: "404"
+        });
+      else {
+        return res.json({Error: false, Message: "Success", userInfo: rows[0]});
       }
     });
   });
