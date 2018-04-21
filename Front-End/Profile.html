@@ -90,6 +90,7 @@
     var E=document.getElementById('email');
     var D=document.getElementById('department');
     var Y=document.getElementById('year');
+    var JD=document.getElementById('joindate');
     $(document).ready(function(){
     $.ajax({
         type:"POST", 
@@ -106,6 +107,7 @@
                     E.value=response.userInfo.user_email;
                     D.value=response.userInfo.user_department;
                     Y.value=response.userInfo.user_year;
+                    JD.value=response.userInfo.user_join_date;
             }
             
         },
