@@ -15,10 +15,8 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.post("/getCart", VerifyToken, function(req, res) {
       var bookid=new Array();
     for(var i in req.body){
-      console.log(req.body[i]["bookID"])
       bookid[i]=req.body[i]["bookID"];
     }
-    console.log(bookid);
     
     for(i=0;i<bookid.length;i++){
       var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
@@ -41,6 +39,38 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
     }
     res.json({ Error: false, Message: "Status successfully changed" });
   });
+
+  router.post("/insertRequest", VerifyToken, function(req, res) {
+    var bookid=new Array()
+    var donorid=new Array();
+  for(var i in req.body){
+    bookid[i]=req.body[i]["bookID"];
+    donorid[i]=req.body[i]["donorID"];
+  }
+  
+  for(i=0;i<bookid.length;i++){
+    var query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
+    var table = [
+      "request",
+      "BookID",
+      "DonorID",
+      "UserID",
+      bookid[i],
+      donorid[i],
+      req.userId
+    ];
+    query = mysql.format(query, table);
+    console.log(query);
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+       return  res.json({ Error: true, Message: "Error executing MySQL query" });
+      }
+    });
+  
+  }
+  res.json({ Error: false, Message: "Status successfully changed" });
+});
 };
 
 module.exports = ITEM_ROUTER;

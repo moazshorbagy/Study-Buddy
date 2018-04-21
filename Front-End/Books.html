@@ -105,12 +105,12 @@
                if (!(response.Error)){
                var tablehtml="";
                // arrays to store book doner, book_id,book_code
-               var doner=[];
+               var donor=[];
                var bookid=[];
                var bookcode=[];
                // filling the arrays with data
                for (i=0;i<response.Books.length;i++){
-                   doner[i]=response.Books[i].doner_ID;
+                   donor[i]=response.Books[i].donor_ID;
                    bookid[i]=response.Books[i].book_id;
                    bookcode[i]=response.Books[i].book_code;
 
@@ -277,7 +277,7 @@
                          book_author: bookauthor.innerHTML,
                          book_edition: bookedition.innerHTML,
                          bookID:bookid[ind-1],
-                         donerID:doner[ind-1]
+                         donorID:donor[ind-1]
                      }
                      console.log(book);
                      if (cart.length==0){  //for first time only

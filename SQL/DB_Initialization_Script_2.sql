@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
   
   `DonorID`				  INT NOT NULL,
   
-  `OwnerID`				  INT NOT NULL,
+  `UserID`				  INT NOT NULL,
   
   Primary Key (`BookID`,`DonorID`,`OwnerID`),
   
@@ -140,8 +140,8 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
     FOREIGN KEY(`DonorID`)
     REFERENCES `studybuddy`.`book`(`donor_ID`),
     
-    FOREIGN KEY (`OwnerID`)
-    REFERENCES `studybuddy`.`book`(`owner_ID`)
+    FOREIGN KEY (`UserID`)
+    REFERENCES `studybuddy`.`User`(`user_id`)
     
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
