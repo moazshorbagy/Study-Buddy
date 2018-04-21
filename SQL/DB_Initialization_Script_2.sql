@@ -36,6 +36,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Book` (
 
   `book_id` 			INT		 	NOT NULL AUTO_INCREMENT,
+  
+  `book_post_date`		TIMESTAMP 	NULL DEFAULT CURRENT_TIMESTAMP,
 
   `book_status` 		VARCHAR(70) NOT NULL,
 

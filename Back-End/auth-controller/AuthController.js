@@ -18,7 +18,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.post("/register", function(req, res) {
     var salt = bcrypt.genSaltSync(10);
     var hashedpassword = bcrypt.hashSync(req.body.password, salt);
-    if(req.body.year == "Graduate") req.body.year = 0;
+    if (req.body.year == "Graduate") req.body.year = 0;
 
     var query = "INSERT INTO ??(??,??,??,??,??,??) VALUES (?,?,?,?,?,?)";
 
@@ -112,8 +112,122 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           statusCode: "404"
         });
       else {
-        return res.json({Error: false, Message: "Success", userInfo: rows[0]});
+        return res.json({
+          Error: false,
+          Message: "Success",
+          userInfo: rows[0]
+        });
       }
+    });
+  });
+
+  router.post("/changeinfo", VerifyToken, function(req, res) {
+    var defaultQuery = "UPDATE ?? SET ??=? WHERE ??=?";
+    var query = "";
+    if (req.body.email != "") {
+      var table = ["user", "user_email", req.body.email, "user_id", req.userId];
+      query = mysql.format(defaultQuery, table);
+      connection.query(query, function(err, rows) {
+        if (err)
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query",
+            statusCode: "500"
+          });
+      });
+      console.log("email changed");
+    }
+    if (req.body.name != "") {
+      var table = ["user", "user_name", req.body.name, "user_id", req.userId];
+      query = mysql.format(defaultQuery, table);
+      connection.query(query, function(err, rows) {
+        if (err)
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query",
+            statusCode: "500"
+          });
+      });
+      console.log("name changed");
+    }
+    if (req.body.department != "") {
+      var table = [
+        "user",
+        "user_department",
+        req.body.department,
+        "user_id",
+        req.userId
+      ];
+      query = mysql.format(defaultQuery, table);
+      connection.query(query, function(err, rows) {
+        if (err)
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query",
+            statusCode: "500"
+          });
+      });
+      console.log("dep changed");
+    }
+    if (req.body.year != "") {
+      console.log("arrive at year");
+      var table = ["user", "user_year", req.body.year, "user_id", req.userId];
+      query = mysql.format(defaultQuery, table);
+      connection.query(query, function(err, rows) {
+        if (err)
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query",
+            statusCode: "500"
+          });
+      });
+      console.log("year changed");
+    }
+    if (req.body.phone != "") {
+      var table = ["user", "user_phone", req.body.phone, "user_id", req.userId];
+      query = mysql.format(defaultQuery, table);
+      connection.query(query, function(err, rows) {
+        if (err)
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query",
+            statusCode: "500"
+          });
+      });
+    }
+    if (req.body.password != "") {
+      if (req.body.password != req.body.verifyPassword) {
+        return res.json({
+          Error: true,
+          Message: "Password mismatch",
+          statusCode: "401"
+        });
+      } else {
+        var salt = bcrypt.genSaltSync(10);
+        var hashedpassword = bcrypt.hashSync(req.body.password, salt);
+        console.log(hashedpassword);
+        var table = [
+          "user",
+          "user_password",
+          hashedpassword,
+          "user_id",
+          req.userId
+        ];
+        query = mysql.format(defaultQuery, table);
+        console.log(query);
+        connection.query(query, function(err, rows) {
+          if (err)
+            return res.json({
+              Error: true,
+              Message: "Error executing MySQL query",
+              statusCode: "500"
+            });
+        });
+      }
+    }
+    return res.json({
+      Error: false,
+      Message: "Success"
     });
   });
 
