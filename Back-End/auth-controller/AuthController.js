@@ -196,13 +196,6 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
       });
     }
     if (req.body.password != "") {
-      if (req.body.password != req.body.verifyPassword) {
-        return res.json({
-          Error: true,
-          Message: "Password mismatch",
-          statusCode: "401"
-        });
-      } else {
         var salt = bcrypt.genSaltSync(10);
         var hashedpassword = bcrypt.hashSync(req.body.password, salt);
         console.log(hashedpassword);
@@ -223,7 +216,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
               statusCode: "500"
             });
         });
-      }
+      
     }
     return res.json({
       Error: false,

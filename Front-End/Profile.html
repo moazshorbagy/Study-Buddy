@@ -41,29 +41,38 @@
           
           <form name='sform' id='sform'>
           Username:<br>
-          <input id="Ulabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px; ">
+          <input id="name" name="name" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px; ">
         <span id='Pass'></span>
-         
+        <span id='confirm' style="color:red; font-size:20px;"></span>
          <br>
           Email:<br>
-          <input id="Elabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+          <input id="email" name='email' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
 
           <br>
           Phone:<br>
-          <input id="Plabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+          <input id="phone" name="phone" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
 
           <br>
           JoinDate:<br>
-          <input id="JDlabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+          <input id="joindate" name='joindate' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
 
           <br>
           Year:<br>
-          <input id="Ylabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+          <input id="year" name='year' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
 
           <br>
-          Department:<br>
-          <input id="Dlabel" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
-
+          Department: <br>
+                <select name="department" id="department" disabled   style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+                    <option value="CCE">CCE</option>
+                    <option value="CCEE">CCEE</option>
+                    <option value="CCEC">CCEC</option>
+                    <option value="EEE">EEE</option>
+                    <option value="AET">AET</option>
+                    <option value="MDE">MDE</option>
+                    <option value="STE">STE</option>
+                    <option value="CEM">CEM</option>
+                </select> 
+          
         <br>
           <button name="Edit" id="Edit" >Edit</button>
           <br>
@@ -76,11 +85,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
     var Id={userId: sessionStorage.getItem('ID')};
-    var U=document.getElementById('Ulabel');
-    var P=document.getElementById('Plabel');
-    var E=document.getElementById('Elabel');
-    var D=document.getElementById('Dlabel');
-    var Y=document.getElementById('Ylabel');
+    var U=document.getElementById('name');
+    var P=document.getElementById('phone');
+    var E=document.getElementById('email');
+    var D=document.getElementById('department');
+    var Y=document.getElementById('year');
     $(document).ready(function(){
     $.ajax({
         type:"POST", 
@@ -108,11 +117,11 @@
     
     });
 })
-    $('#Edit').on('click',function(){
-        //document.getElementById('main').innerHTML+=''
+    $('#Edit').on('click',function(ev){
+        ev.preventDefault();
 
         if($(U).attr('disabled')){
-            document.getElementById('Pass').innerHTML='<br> Password:<br> <input >'
+            document.getElementById('Pass').innerHTML='<br> Password:<br> <input id="password" name="password" type="password" > <br> Confirm Password:<br> <input id="verifyPassword" name="verifyPassword" type="password" >'
             $(U).removeAttr('disabled');
             $(U).removeAttr('style');
             $(P).removeAttr('disabled');
@@ -125,36 +134,13 @@
             $(Y).removeAttr('style');
         }
         else{
-            document.getElementById('Pass').innerHTML='';
-           /*
-           $.ajax({
-                    type:"POST", 
-                    url :'http://localhost:3000/api/userinfo',
-                    data: Id,
-                    headers: {
-                        "x-access-token": sessionStorage.getItem('token')
-                    },
-                    success:function(response){
-                        console.log(response);
-                            if(!(response.Error)){                 
-                                U.value=response.userInfo.user_name;
-                                P.value=response.userInfo.user_phone;
-                                E.value=response.userInfo.user_email;
-                                D.value=response.userInfo.user_department;
-                                Y.value=response.userInfo.user_year;
-                        }
-                        
-                    },
-                    error: function(){
-                        console.log("Error in connection");
-                        
-                    },
-                    
-                
-                });*/
+          var Password=document.getElementById('password').value;
+          var VerifyPassword=document.getElementById('verifyPassword').value;
+            if(Password==VerifyPassword){
+           
            $.ajax({
             type:"POST", 
-                url :'http://localhost:3000/api/setData',
+                url :'http://localhost:3000/api/changeinfo',
                 data: $('#sform').serialize(),
                 headers: {
                     "x-access-token": sessionStorage.getItem('token')
@@ -168,7 +154,8 @@
                     
                 },
            })         
-            
+           document.getElementById('Pass').innerHTML='';
+           document.getElementById('confirm').innerHTML='';
            U.setAttribute('disabled','disabled');
            U.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
            P.setAttribute('disabled','disabled');
@@ -179,7 +166,10 @@
            D.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
            Y.setAttribute('disabled','disabled');
            Y.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
-        
+        }
+        else{
+            document.getElementById('confirm').innerHTML="Passwords don't match, Pleas re-enter the password";
+        }
         
         }
        
