@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Book` (
 
   `book_owning_duration`INT			NULL,	  	  /*Same....  for how long the owner(not donor) has the book*/
 
-  `owner_ID`			INT			NULL,  
+  `owner_id`			INT			NULL,  
 
-  `donor_ID`			INT			NOT NULL,
+  `donor_id`			INT			NOT NULL,
 
   PRIMARY KEY (`book_id`),
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
   
   `user_id` 			INT NOT NULL,
   
-  `create_date`	   		DATE NOT NULL,
+  `create_date`	   		TIMESTAMP 	NULL DEFAULT CURRENT_TIMESTAMP,
   
   PRIMARY KEY (`request_No`,`user_id`),
          
