@@ -13,64 +13,54 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.use(bodyParser.json());
 
   router.post("/getCart", VerifyToken, function(req, res) {
-      var bookid=new Array();
-    for(var i in req.body){
-      bookid[i]=req.body[i]["bookID"];
-    }
-    
-    for(i=0;i<bookid.length;i++){
-      var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-      var table = [
+    var i, query, table;
+    for (var i in req.body) {
+      query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+      table = [
         "book",
         "book_status",
         "PENDING",
         "book_id",
-        bookid[i]
+        req.body[i]["bookID"]
       ];
       query = mysql.format(query, table);
       console.log(query);
       connection.query(query, function(err, rows) {
         if (err) {
           console.log(err);
-         return  res.json({ Error: true, Message: "Error executing MySQL query" });
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query"
+          });
         }
       });
-    
+
+      query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
+      table = [
+        "Request",
+        "book_id",
+        "donor_id",
+        "user_id",
+        req.body[i]["bookID"],
+        req.body[i]["donorID"],
+        req.userId
+      ];
+      query = mysql.format(query, table);
+      console.log(query);
+      connection.query(query, function(err, rows) {
+        if (err) {
+          console.log(err);
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query"
+          });
+        }
+      });
     }
-    res.json({ Error: false, Message: "Status successfully changed" });
-  });
-
-  router.post("/insertRequest", VerifyToken, function(req, res) {
-    var bookid=new Array()
-    var donorid=new Array();
-  for(var i in req.body){
-    bookid[i]=req.body[i]["bookID"];
-    donorid[i]=req.body[i]["donorID"];
-  }
-  
-  for(i=0;i<bookid.length;i++){
-    var query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
-    var table = [
-      "request",
-      "BookID",
-      "DonorID",
-      "UserID",
-      bookid[i],
-      donorid[i],
-      req.userId
-    ];
-    query = mysql.format(query, table);
-    console.log(query);
-    connection.query(query, function(err, rows) {
-      if (err) {
-        console.log(err);
-       return  res.json({ Error: true, Message: "Error executing MySQL query" });
-      }
+    res.json({
+      Error: false,
+      Message: "Status successfully changed and request has been added"
     });
-  
-  }
-  res.json({ Error: false, Message: "Status successfully changed" });
-});
+  });
 };
-
 module.exports = ITEM_ROUTER;

@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Book` (
 
   `book_edition`		INT			NOT NULL,
 
-  `book_duration`		INT			NOT NULL,  	  /* IN DAYS, how long the doner decided to lend his book*/
+  `book_duration`		INT			NOT NULL,  	  /* IN DAYS, how long the donor decided to lend his book*/
 
-  `book_owning_duration`INT			NULL,	  	  /*Same....  for how long the owner(not doner) has the book*/
+  `book_owning_duration`INT			NULL,	  	  /*Same....  for how long the owner(not donor) has the book*/
 
   `owner_ID`			INT			NULL,  
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Tool` (
   
   `owner_ID`			INT			NULL,
   
-  `doner_ID`			INT			NOT NULL,
+  `donor_ID`			INT			NOT NULL,
   
   PRIMARY KEY (`tool_ID`),
          
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Tool` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
         
-        FOREIGN KEY (`doner_ID`)
+        FOREIGN KEY (`donor_ID`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -108,13 +108,13 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
   
-  `Request_No` 			INT NOT NULL,
+  `request_no` 			INT NOT NULL,
   
-  `user_ID` 			INT NOT NULL,
+  `user_id` 			INT NOT NULL,
   
   `create_date`	   		DATE NOT NULL,
   
-  PRIMARY KEY (`Request_No`,`user_ID`),
+  PRIMARY KEY (`request_No`,`user_id`),
          
 	FOREIGN KEY (`user_ID`)
     REFERENCES `studybuddy`.`User` (`user_id`)
@@ -126,21 +126,21 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
   
-  `BookID`                INT NOT NULL,
+  `book_id`                 INT NOT NULL,
   
-  `DonorID`				  INT NOT NULL,
+  `donor_id`                INT NOT NULL,
   
-  `UserID`				  INT NOT NULL,
+  `user_id`                 INT NOT NULL,
   
-  Primary Key (`BookID`,`DonorID`,`OwnerID`),
+  Primary Key (`book_id`,`donor_id`,`user_id`),
   
-	FOREIGN KEY(`BookID`)
+	FOREIGN KEY(`book_id`)
     REFERENCES `studybuddy`.`book`(`book_id`),
     
-    FOREIGN KEY(`DonorID`)
+    FOREIGN KEY(`donor_id`)
     REFERENCES `studybuddy`.`book`(`donor_ID`),
     
-    FOREIGN KEY (`UserID`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `studybuddy`.`User`(`user_id`)
     
     ON DELETE NO ACTION
