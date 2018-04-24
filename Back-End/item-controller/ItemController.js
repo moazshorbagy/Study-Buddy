@@ -70,6 +70,7 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
       "donor_id",
       req.userId
     ];
+    query = mysql.format(query, table);
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
@@ -103,7 +104,7 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
         "book_id",
         req.body.book_id,
       ];
-
+    query = mysql.format(query, table);
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
