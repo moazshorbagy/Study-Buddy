@@ -74,30 +74,34 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Tool` (
   
-  `tool_ID` 			INT		 	NOT NULL AUTO_INCREMENT,
+  `tool_id` 			INT		 	NOT NULL AUTO_INCREMENT,
+  
+  `tool_post_date`		TIMESTAMP 	NULL DEFAULT CURRENT_TIMESTAMP,
+  
+  `tool_title`  		VARCHAR(150) NOT NULL,
   
   `tool_status` 		VARCHAR(70) NOT NULL,
   
-  `type`		   		VARCHAR(20) NOT NULL,
+  `type`		   		VARCHAR(30) NOT NULL,
   
-  `manufacturer` 		VARCHAR(25) NOT NULL,
+  `manufacturer` 		VARCHAR(50) NOT NULL,
   
   `tool_duration`		INT			NOT NULL,     /* IN DAYS*/
   
   `tool_owning_duration`INT			NULL,	  	  /*Same....*/
   
-  `owner_ID`			INT			NULL,
+  `owner_id`			INT			NULL,
   
-  `donor_ID`			INT			NOT NULL,
+  `donor_id`			INT			NOT NULL,
   
-  PRIMARY KEY (`tool_ID`),
+  PRIMARY KEY (`tool_id`),
          
-		FOREIGN KEY (`owner_ID`)
+		FOREIGN KEY (`owner_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
         
-        FOREIGN KEY (`donor_ID`)
+        FOREIGN KEY (`donor_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -116,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
   
   PRIMARY KEY (`request_No`,`user_id`),
          
-	FOREIGN KEY (`user_ID`)
+	FOREIGN KEY (`user_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     
     ON DELETE NO ACTION
@@ -138,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
     REFERENCES `studybuddy`.`book`(`book_id`),
     
     FOREIGN KEY(`donor_id`)
-    REFERENCES `studybuddy`.`book`(`donor_ID`),
+    REFERENCES `studybuddy`.`book`(`donor_id`),
     
     FOREIGN KEY (`user_id`)
     REFERENCES `studybuddy`.`User`(`user_id`)

@@ -34,14 +34,10 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           });
         }
       });
-    }
-  });
-  
-      router.post("/insertRequest", VerifyToken, function(req, res) {
-        for(var i in req.body){
+
       query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
       table = [
-        "request",
+        "Request",
         "book_id",
         "donor_id",
         "user_id",
@@ -61,37 +57,72 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
         }
       });
     }
+    res.json({
+      Error: false,
+      Message: "Status successfully changed and request has been added"
     });
-    
-    
+  });
 
   router.get("/getRequest", VerifyToken, function(req, res) {
-    var query = "SELECT * FROM request WHERE donor_id = "+ req.userId;
+    var query = "SELECT * FROM ?? WHERE ??=?";
+    var table = [
+      "Request",
+      "donor_id",
+      req.userId
+    ];
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
-        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+        res.json({
+          Error: true,
+          Message: "Error executing MySQL query",
+          statusCode: "500"
+        });
       } else {
-        res.json({ Error: false, Requests: rows, n: rows.length, statusCode: "200" });
+        res.json({
+          Error: false,
+          Requests: rows,
+          n: rows.length,
+          statusCode: "200"
+        });
       }
     });
   });
 
   router.post("/getRequest_user", VerifyToken, function(req, res) {
-    var query = "SELECT user_name,book_title FROM user,book WHERE user_id = "+ req.body.user_id + " AND book_id= "+req.body.book_id
-     connection.query(query, function(err, rows) {
+    var query =
+      "SELECT ??, ?? FROM ??, ?? WHERE ??=? AND ??=? ";
+
+      var table = [
+        "user_name",
+        "book_title",
+        "User",
+        "Book",
+        "user_id",
+        req.body.user_id,
+        "book_id",
+        req.body.book_id,
+      ];
+
+    connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
-        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+        res.json({
+          Error: true,
+          Message: "Error executing MySQL query",
+          statusCode: "500"
+        });
       } else if (rows == "")
         res.json({ Error: true, Message: "No books found", statusCode: "404" });
       else {
-        res.json({ Error: false, Book: rows, n: rows.length, statusCode: "200" });}
+        res.json({
+          Error: false,
+          Book: rows,
+          n: rows.length,
+          statusCode: "200"
+        });
+      }
     });
   });
-
- 
-
-
 };
 module.exports = ITEM_ROUTER;
