@@ -49,13 +49,13 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Book` (
 
   `book_edition`		INT			NOT NULL,
 
-  `book_duration`		INT			NOT NULL,  	  /* IN DAYS, how long the doner decided to lend his book*/
+  `book_duration`		INT			NOT NULL,  	  /* IN DAYS, how long the donor decided to lend his book*/
 
-  `book_owning_duration`INT			NULL,	  	  /*Same....  for how long the owner(not doner) has the book*/
+  `book_owning_duration`INT			NULL,	  	  /*Same....  for how long the owner(not donor) has the book*/
 
-  `owner_ID`			INT			NULL,  
+  `owner_id`			INT			NULL,  
 
-  `donor_ID`			INT			NOT NULL,
+  `donor_id`			INT			NOT NULL,
 
   PRIMARY KEY (`book_id`),
 
@@ -74,30 +74,34 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Tool` (
   
-  `tool_ID` 			INT		 	NOT NULL AUTO_INCREMENT,
+  `tool_id` 			INT		 	NOT NULL AUTO_INCREMENT,
+  
+  `tool_post_date`		TIMESTAMP 	NULL DEFAULT CURRENT_TIMESTAMP,
+  
+  `tool_title`  		VARCHAR(150) NOT NULL,
   
   `tool_status` 		VARCHAR(70) NOT NULL,
   
-  `type`		   		VARCHAR(20) NOT NULL,
+  `type`		   		VARCHAR(30) NOT NULL,
   
-  `manufacturer` 		VARCHAR(25) NOT NULL,
+  `manufacturer` 		VARCHAR(50) NOT NULL,
   
   `tool_duration`		INT			NOT NULL,     /* IN DAYS*/
   
   `tool_owning_duration`INT			NULL,	  	  /*Same....*/
   
-  `owner_ID`			INT			NULL,
+  `owner_id`			INT			NULL,
   
-  `doner_ID`			INT			NOT NULL,
+  `donor_id`			INT			NOT NULL,
   
-  PRIMARY KEY (`tool_ID`),
+  PRIMARY KEY (`tool_id`),
          
-		FOREIGN KEY (`owner_ID`)
+		FOREIGN KEY (`owner_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
         
-        FOREIGN KEY (`doner_ID`)
+        FOREIGN KEY (`donor_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -108,15 +112,15 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
   
-  `Request_No` 			INT NOT NULL,
+  `request_no` 			INT NOT NULL,
   
-  `user_ID` 			INT NOT NULL,
+  `user_id` 			INT NOT NULL,
   
-  `create_date`	   		DATE NOT NULL,
+  `create_date`	   		TIMESTAMP 	NULL DEFAULT CURRENT_TIMESTAMP,
   
-  PRIMARY KEY (`Request_No`,`user_ID`),
+  PRIMARY KEY (`request_No`,`user_id`),
          
-	FOREIGN KEY (`user_ID`)
+	FOREIGN KEY (`user_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     
     ON DELETE NO ACTION
@@ -126,22 +130,22 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
   
-  `BookID`                INT NOT NULL,
+  `book_id`                 INT NOT NULL,
   
-  `DonorID`				  INT NOT NULL,
+  `donor_id`                INT NOT NULL,
   
-  `OwnerID`				  INT NOT NULL,
+  `user_id`                 INT NOT NULL,
   
-  Primary Key (`BookID`,`DonorID`,`OwnerID`),
+  Primary Key (`book_id`,`donor_id`,`user_id`),
   
-	FOREIGN KEY(`BookID`)
+	FOREIGN KEY(`book_id`)
     REFERENCES `studybuddy`.`book`(`book_id`),
     
-    FOREIGN KEY(`DonorID`)
-    REFERENCES `studybuddy`.`book`(`donor_ID`),
+    FOREIGN KEY(`donor_id`)
+    REFERENCES `studybuddy`.`book`(`donor_id`),
     
-    FOREIGN KEY (`OwnerID`)
-    REFERENCES `studybuddy`.`book`(`owner_ID`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `studybuddy`.`User`(`user_id`)
     
     ON DELETE NO ACTION
     ON UPDATE NO ACTION

@@ -3,6 +3,7 @@ var mysql   = require("mysql");
 var bodyParser  = require("body-parser");
 var auth = require("./auth-controller/AuthController.js")
 var book = require("./book-controller/BookController.js")
+var tool = require("./tool-controller/ToolController.js")
 var item = require("./item-controller/ItemController.js")
 var app  = express();
 
@@ -45,12 +46,15 @@ REST.prototype.configureExpress = function(connection) {
       var authRouterObj = express.Router();
       var bookRouterObj = express.Router();
       var itemRouterObj = express.Router();
+      var toolRouterObj = express.Router();
       app.use('/api', authRouterObj);
       app.use('/api', bookRouterObj);
       app.use('/api', itemRouterObj);
+      app.use('/api', toolRouterObj);
       var authRouter = new auth(authRouterObj,connection);
       var bookRouter = new book(bookRouterObj,connection);
       var itemRouter = new item(itemRouterObj,connection);
+      var toolRouter = new item(toolRouterObj,connection);
       
       self.startServer();
 }

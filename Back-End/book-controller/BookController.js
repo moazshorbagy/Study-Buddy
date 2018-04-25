@@ -63,11 +63,11 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
 
   router.post("/searchBook", VerifyToken, function(req, res) {
     var title = req.body.title, author = req.body.author;
-    if(title=="") title = "0xundx0";
-    if(author=="") author = "0xundx0";
+    if(title=="") title = "";
+    if(author=="") author = "";
 
     var query =
-      "SELECT * FROM book WHERE" + " book_title LIKE '%" + title + "%'" + " OR book_code LIKE '%" + req.body.code + "%' " + " OR book_author LIKE '%" + author + "%'";
+      "SELECT * FROM book WHERE" + " book_title LIKE '%" + title + "%'" + " AND book_code LIKE '%" + req.body.code + "%' " + " AND book_author LIKE '%" + author + "%' AND book_status = 'AVAILABLE'";
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);

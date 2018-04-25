@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+
+<html style="height:100%;">
+
+<head>
+        
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <meta charset="utf-8">
+    <title> Study Buddy|Requests </title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+            if(sessionStorage.token==null){
+               alert('You are not logged in');
+               window.location.href="Login.html";
+            }
+    </script>
+
+</head>
+<body>
+
+    <header id="head2">
+        <div class="container">
+            <div id="branding">
+                <h1>
+                    Requests
+                </h1>
+            </div>
+            <nav>
+                <a href="InsertBook.html">LEND BOOKS</a>
+                <a href="Home.html">HOME</a>
+
+                <a href="new 4.html">ABOUT US </a>
+            </nav>
+
+        </div>
+      
+    </header>
+    <div id="main">
+         <table id="tab"  cellspacing="0px" style="margin:10px">
+                <thead>
+                    <th style="text-align:left">BookTitle</th>
+                    <th style="text-align:left">Username</th>
+                </thead>
+                <tbody> 
+        
+        
+                </tbody>
+            </table>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $.noConflict();
+        var request=[];
+
+    $(document).ready(function(ev){
+         //to get the request itself(bookid,userid)    
+        $.ajax({
+       
+       type:"GET", 
+       url :'http://localhost:3000/api/getRequest', 
+       headers: {
+                    "x-access-token": sessionStorage.getItem('token')
+                },
+       success:function(response){
+           console.log(response);
+           if (!(response.Error)){
+            var tablehtml=""
+            var booktitle=0;
+           request=response.Requests;  
+           console.log(request)
+//to get the data of the request(book title,username)
+        for(i=0;i<request.length;i++){
+        $.ajax({
+       
+       type:"POST", 
+       url :'http://localhost:3000/api/getRequest_user', 
+       contentType: 'application/json',
+       data: JSON.stringify(request[i]) ,
+       headers: {
+                    "x-access-token": sessionStorage.getItem('token')
+                },
+       success:function(response){
+           console.log(response);
+           if (!(response.Error)){
+            for (var key in response.Book){ 
+                       tablehtml += "<tr>" 
+                        tablehtml += "<td>" + response.Book[key]["book_title"] + "</td>";
+                        tablehtml += "<td>" + response.Book[key]["user_name"] + "</td>";
+                        tablehtml += "</tr>";
+                   
+                }
+
+                 //this line adds the table created (tablehtml) in the tbody section of the body
+            }
+            $("#tab tbody").html(tablehtml);
+            var tables=document.getElementById("tab");
+             for(i=1;i<tables.rows.length;i++){
+             var r=tables.rows[i];
+              r.onclick =function(e){
+    
+                if(!this.hilite){ //to highlight the selected row
+                this.origColor=this.style.backgroundColor;
+                this.style.backgroundColor='#BCD4EC';
+                this.hilite = true;
+                 }
+                 
+    
+                  var ind=this.rowIndex;
+
+                  sessionStorage.setItem("UserID", request[ind-1].user_id);
+                  // get the data stored in the cells of the selected row
+                  var booktitle=this.getElementsByTagName("td")[0]; 
+                  var username=this.getElementsByTagName("td")[1];
+//the modal dialog part//
+                  $(function() {
+                e.preventDefault();
+                var dialog = $('<p>Are you sure?</p>').dialog({
+                    buttons: {
+                        "Confrim": function() {
+                    $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/deleteRequest',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                           alert("the request has been approved")  
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+
+                   $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/updateOwner',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                           alert("the request has been approved")
+                            window.location.href="Requests.Html"     
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+              
+                
+
+                        },
+                        "View profile":  function() { window.location.href="ViewProfile.html";},
+                        "Cancel":  function() {
+                      $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/deleteRequest',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                                
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+
+                     $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/revertStatus',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                           alert("the request has been rejected");
+                           window.location.href="Requests.Html";
+                                
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+
+                   
+                        
+                            
+                        }
+                    }
+                });
+                
+            });
+        
+        }
+    }
+}
+    
+    });
+    }
+
+     
+
+        }
+    }
+   
+    });
+   
+    
+
+   
+
+    
+       
+      
+
+
+});
+
+        
+       
+
+        </script>
+  </body>
+  </html>
