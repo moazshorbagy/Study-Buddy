@@ -134,6 +134,7 @@
             //Sorting Alphabetically
             
             $('#sort').change(function(){
+                //Sorting According to title
                 if(document.getElementById("sort").value=="Title"){
                     var table, rows, switching, i, x, y, shouldSwitch;
                     table = document.getElementById("tab");
@@ -171,6 +172,7 @@
                     }
                 }   
                 }
+                //Sorting according to author
                 else if(document.getElementById('sort').value=="Author"){
                 var table, rows, switching, i, x, y, shouldSwitch;
                     table = document.getElementById("tab");
@@ -208,7 +210,7 @@
                     }
                 }   
                 }
-
+                    //sorting according to most recent
                  else if(document.getElementById('sort').value=="Recent"){
                 var table, rows, switching, i, x, y, shouldSwitch;
                     table = document.getElementById("tab");
@@ -352,19 +354,19 @@
                 for(i=0;i<response.n;i++){
 
                     var table=document.getElementsByTagName("table") [0];
-                   
+                   //adding a new row to the table
                     var newrow=table.insertRow(i+1);
-
+                    //adding cells to the added row
                     var cel1=newrow.insertCell(0);
                     var cel2=newrow.insertCell(1);
                     var cel3=newrow.insertCell(2);
                     var cel4=newrow.insertCell(3);
-
+                
                     a= response.Books[i].book_title; 
                     b= response.Books[i].book_author;
                     c= response.Books[i].book_edition;
                     d=response.Books[i].book_status;
-
+                    //filling the cells with the results 
                     cel1.innerText=a;
                     cel2.innerText=b;
                     cel3.innerText=c;

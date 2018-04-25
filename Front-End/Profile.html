@@ -91,6 +91,7 @@
     var D=document.getElementById('department');
     var Y=document.getElementById('year');
     var JD=document.getElementById('joindate');
+    //filling the fields with the user info when it loads
     $(document).ready(function(){
     $.ajax({
         type:"POST", 
@@ -119,6 +120,7 @@
     
     });
 })
+// customizing the Edit button, enabling the fields to be altered 
     $('#Edit').on('click',function(ev){
         ev.preventDefault();
 
@@ -135,6 +137,7 @@
             $(Y).removeAttr('disabled');
             $(Y).removeAttr('style');
         }
+        //when the edit button is clicked again it changes the user info
         else{
           var Password=document.getElementById('password').value;
           var VerifyPassword=document.getElementById('verifyPassword').value;
@@ -156,6 +159,7 @@
                     
                 },
            })         
+           // disabling the fields again
            document.getElementById('Pass').innerHTML='';
            document.getElementById('confirm').innerHTML='';
            U.setAttribute('disabled','disabled');
