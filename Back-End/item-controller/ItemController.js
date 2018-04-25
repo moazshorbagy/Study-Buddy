@@ -125,5 +125,79 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
       }
     });
   });
+
+  router.post("/deleteRequest", VerifyToken, function(req, res) {
+    var query =
+      "DELETE FROM request where book_id = "+req.body.book_id;
+
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({
+          Error: true,
+          Message: "Error executing MySQL query",
+          statusCode: "500"
+        });
+      } else if (rows == "")
+        res.json({ Error: true, Message: "No books found", statusCode: "404" });
+      else {
+        res.json({
+          Error: false,
+          statusCode: "200"
+        });
+      }
+    });
+  });
+
+  router.post("/updateOwner", VerifyToken, function(req, res) {
+    var query =
+      "UPDATE book SET owner_id = "+req.body.user_id+ " WHERE book_id = "+req.body.book_id
+
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({
+          Error: true,
+          Message: "Error executing MySQL query",
+          statusCode: "500"
+        });
+      } else if (rows == "")
+        res.json({ Error: true, Message: "No books found", statusCode: "404" });
+      else {
+        res.json({
+          Error: false,
+          statusCode: "200"
+        });
+      }
+    });
+  });
+
+  router.post("/revertStatus", VerifyToken, function(req, res) {
+    var query =
+      "UPDATE book SET book_status = 'AVAILABLE' WHERE book_id = "+req.body.book_id;
+
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({
+          Error: true,
+          Message: "Error executing MySQL query",
+          statusCode: "500"
+        });
+      } else if (rows == "")
+        res.json({ Error: true, Message: "No books found", statusCode: "404" });
+      else {
+        res.json({
+          Error: false,
+          statusCode: "200"
+        });
+      }
+    });
+  });
+
+
+  
+
+
 };
 module.exports = ITEM_ROUTER;

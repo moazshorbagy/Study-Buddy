@@ -102,6 +102,7 @@
              for(i=1;i<tables.rows.length;i++){
              var r=tables.rows[i];
               r.onclick =function(e){
+    
                 if(!this.hilite){ //to highlight the selected row
                 this.origColor=this.style.backgroundColor;
                 this.style.backgroundColor='#BCD4EC';
@@ -110,6 +111,8 @@
                  
     
                   var ind=this.rowIndex;
+
+                  sessionStorage.setItem("UserID", request[ind-1].user_id);
                   // get the data stored in the cells of the selected row
                   var booktitle=this.getElementsByTagName("td")[0]; 
                   var username=this.getElementsByTagName("td")[1];
@@ -118,14 +121,98 @@
                 e.preventDefault();
                 var dialog = $('<p>Are you sure?</p>').dialog({
                     buttons: {
-                        "Confrim": function() {alert('you chose yes');},
-                        "View profile":  function() {alert('you chose no');},
+                        "Confrim": function() {
+                    $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/deleteRequest',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                           alert("the request has been approved")  
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+
+                   $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/updateOwner',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                           alert("the request has been approved")
+                            window.location.href="Requests.Html"     
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+              
+                
+
+                        },
+                        "View profile":  function() { window.location.href="ViewProfile.html";},
                         "Cancel":  function() {
-                            alert('you chose cancel');
-                            dialog.dialog('close');
+                      $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/deleteRequest',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                                
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+
+                     $.ajax({
+                    type:"POST", 
+                    url :'http://localhost:3000/api/revertStatus',
+                    contentType: 'application/json',
+                    data: JSON.stringify(request[ind-1]) ,
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success:function(response){
+                        console.log(response);
+                            if(!(response.Error)){
+                           alert("the request has been rejected");
+                           window.location.href="Requests.Html";
+                                
+                        }
+                    },
+                    error: function(){
+                        console.log("Error in connection");
+                    },
+                   });
+
+                   
+                        
+                            
                         }
                     }
                 });
+                
             });
         
         }
@@ -135,12 +222,13 @@
     });
     }
 
-    
+     
 
         }
     }
    
     });
+   
     
 
    

@@ -23,12 +23,12 @@
         <div class="container">
             <div id="branding">
                 <h1>
-                    Profile
+                   User Profile
                 </h1>
             </div>
             <nav>
+               
                 <a  href="Home.html">HOME</a>
-                <a href="Requests.html">Requests</a>
                 <a  href="new 4.html">ABOUT US </a>
             </nav>
 
@@ -74,8 +74,7 @@
                 </select> 
           
         <br>
-          <button name="Edit" id="Edit" >Edit</button>
-          <br>
+          
         </form>
 
     </div>
@@ -84,7 +83,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
-    var Id={userId: sessionStorage.getItem('ID')};
+    var Id={userId: sessionStorage.getItem('UserID')};
     var U=document.getElementById('name');
     var P=document.getElementById('phone');
     var E=document.getElementById('email');
@@ -119,63 +118,7 @@
     
     });
 })
-    $('#Edit').on('click',function(ev){
-        ev.preventDefault();
-
-        if($(U).attr('disabled')){
-            document.getElementById('Pass').innerHTML='<br> Password:<br> <input id="password" name="password" type="password" > <br> Confirm Password:<br> <input id="verifyPassword" name="verifyPassword" type="password" >'
-            $(U).removeAttr('disabled');
-            $(U).removeAttr('style');
-            $(P).removeAttr('disabled');
-            $(P).removeAttr('style');
-            $(E).removeAttr('disabled');
-            $(E).removeAttr('style');
-            $(D).removeAttr('disabled');
-            $(D).removeAttr('style');
-            $(Y).removeAttr('disabled');
-            $(Y).removeAttr('style');
-        }
-        else{
-          var Password=document.getElementById('password').value;
-          var VerifyPassword=document.getElementById('verifyPassword').value;
-            if(Password==VerifyPassword){
-           
-           $.ajax({
-            type:"POST", 
-                url :'http://localhost:3000/api/changeinfo',
-                data: $('#sform').serialize(),
-                headers: {
-                    "x-access-token": sessionStorage.getItem('token')
-                },
-                success:function(response){
-                    console.log(response);
-                    
-                },
-                error: function(){
-                    console.log("Error in connection");
-                    
-                },
-           })         
-           document.getElementById('Pass').innerHTML='';
-           document.getElementById('confirm').innerHTML='';
-           U.setAttribute('disabled','disabled');
-           U.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
-           P.setAttribute('disabled','disabled');
-           P.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
-           E.setAttribute('disabled','disabled');
-           E.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
-           D.setAttribute('disabled','disabled');
-           D.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
-           Y.setAttribute('disabled','disabled');
-           Y.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
-        }
-        else{
-            document.getElementById('confirm').innerHTML="Passwords don't match, Pleas re-enter the password";
-        }
-        
-        }
-       
-    })
+  
     
     
     </script>
