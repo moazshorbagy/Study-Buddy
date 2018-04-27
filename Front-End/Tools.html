@@ -95,16 +95,16 @@
                var toolid=[];
                // filling the arrays with data
                for (i=0;i<response.Tools.length;i++){
-                   donor[i]=response.Tools[i].donor_ID;
+                   donor[i]=response.Tools[i].donor_id;
                    toolid[i]=response.Tools[i].tool_id;
                }
                //filling the table (tab)
-               for (var key in response.Books){ 
+               for (var key in response.Tools){ 
                        tablehtml += "<tr>" 
-                        tablehtml += "<td>" + response.Books[key]["type"] + "</td>";
-                        tablehtml += "<td>" + response.Books[key]["manufacturer"] + "</td>";
-                        tablehtml += "<td>" + response.Books[key]["tool_post_date"] + "</td>";
-                        tablehtml += "<td>" + response.Books[key]["tool_status"] + "</td>";
+                        tablehtml += "<td>" + response.Tools[key]["type"] + "</td>";
+                        tablehtml += "<td>" + response.Tools[key]["manufacturer"] + "</td>";
+                        tablehtml += "<td>" + response.Tools[key]["tool_post_date"] + "</td>";
+                        tablehtml += "<td>" + response.Tools[key]["tool_status"] + "</td>";
                         tablehtml += "</tr>";
                    
                 }
@@ -208,12 +208,13 @@
                   var Manufacturer=this.getElementsByTagName("td")[1];
                   //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
                   // responsible for showing the message to ask the user if he was sure to add the book
-                  if (confirm("are you sure you want to add this tool to the cart? \n"+'"'+type.innerHTML+'"'+" by "+'"'+manufacturer.innerHTML)){
+                  if (confirm("are you sure you want to add this tool to the cart? \n"+'"'+tool_type.innerHTML+'"'+" by "+'"'+Manufacturer.innerHTML)){
                       
                       // what would happen if the user clicks ok (he wants to add the book)
                       var tool= {   //the book that would be added to the cart
-                         tool_type: type.innerHTML,
-                         manufacturer: manufacturer.innerHTML,
+                         type:"Tool",
+                         tool_type: tool_type.innerHTML,
+                         manufacturer: Manufacturer.innerHTML,
                          toolID:toolid[ind-1],
                          donorID:donor[ind-1]
                      }
@@ -224,7 +225,7 @@
                      }
                      else{ //check if he already added that book
                      for(i=0;i<cart.length;i++){
-                        if (tool_type.innerHTML==cart[i].tool_type){
+                        if (tool.toolID==cart[i].toolID){
                         alert("you already added that tool");
                         exist=1;
                         }

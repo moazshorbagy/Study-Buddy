@@ -43,9 +43,9 @@
             <form name="sform" id="sform">
                 
                 Tool Type: <span style="color:red; font-size:15px;" id="ToolType"></span> <br/>
-                <input name="author"; type="text" class="intext" id="Type"><br/>
+                <input name="type"; type="text" class="intext" id="type"><br/>
                 Manufacturer: <span style="color:red; font-size:15px;" id="Manufacturer"></span> <br/>
-                <input name="edition"; type="text" class="intext" id="Manu"><br/>
+                <input name="manufacturer"; type="text" class="intext" id="Manu"><br/>
                <!-- Book Image:<br/>
                 <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
                 Duration: <span style="font-size:15px;font-style:italic; margin:0;">(if you wish to donate the tool put 0 in duration)</span></br>
@@ -75,12 +75,12 @@
                }
                 
             
-               if(!(document.getElementById("type").value=="" || document.getElementById("manufacturer").value=="" ))
+               if(!(document.getElementById("type").value=="" || document.getElementById("Manufacturer").value=="" ))
                 {
                     $.ajax({
                     
                     type:"POST", 
-                    url :'http://localhost:3000/api/insertBook',
+                    url :'http://localhost:3000/api/insertTool',
                     data: $('#sform').serialize() ,
                     headers: {
                         "x-access-token": sessionStorage.getItem('token')

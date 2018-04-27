@@ -16,6 +16,7 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
     var i, query, table;
     for (var i in req.body) {
       query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+      if(req.body[i].type=="Book"){
       table = [
         "book",
         "book_status",
@@ -23,6 +24,16 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
         "book_id",
         req.body[i]["bookID"]
       ];
+    }
+    else{
+    table = [
+      "tool",
+      "tool_status",
+      "PENDING",
+      "tool_id",
+      req.body[i]["toolID"]
+    ];
+    }
       query = mysql.format(query, table);
       console.log(query);
       connection.query(query, function(err, rows) {
@@ -35,16 +46,34 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
         }
       });
 
-      query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
+      query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
+      if(req.body[i].type=="Book"){
       table = [
         "Request",
-        "book_id",
+        "type",
+        "item_id",
         "donor_id",
         "user_id",
+        req.body[i]["type"],
         req.body[i]["bookID"],
         req.body[i]["donorID"],
         req.userId
       ];
+    }
+    else{
+      table = [
+        "Request",
+        "type",
+        "item_id",
+        "donor_id",
+        "user_id",
+        req.body[i]["type"],
+        req.body[i]["toolID"],
+        req.body[i]["donorID"],
+        req.userId
+      ];
+
+    }
       query = mysql.format(query, table);
       console.log(query);
       connection.query(query, function(err, rows) {
@@ -93,7 +122,7 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.post("/getRequest_user", VerifyToken, function(req, res) {
     var query =
       "SELECT ??, ?? FROM ??, ?? WHERE ??=? AND ??=? ";
-
+      if(req.body.type=="Book"){
       var table = [
         "user_name",
         "book_title",
@@ -102,8 +131,22 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
         "user_id",
         req.body.user_id,
         "book_id",
-        req.body.book_id,
+        req.body.item_id,
       ];
+    }
+    else{
+      var table = [
+        "user_name",
+        "type",
+        "User",
+        "Tool",
+        "user_id",
+        req.body.user_id,
+        "tool_id",
+        req.body.item_id,
+      ];
+
+    }
     query = mysql.format(query, table);
     connection.query(query, function(err, rows) {
       if (err) {
@@ -127,8 +170,15 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   });
 
   router.post("/deleteRequest", VerifyToken, function(req, res) {
+    if(req.body.type=="Book"){
     var query =
-      "DELETE FROM request where book_id = "+req.body.book_id;
+      "DELETE FROM request WHERE item_id = "+req.body.item_id + " AND type = 'Book'";
+    }
+    else{
+    var query =
+      "DELETE FROM request WHERE item_id = "+req.body.item_id + " AND type = 'Tool'";
+    }
+
 
     connection.query(query, function(err, rows) {
       if (err) {
@@ -150,8 +200,15 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   });
 
   router.post("/updateOwner", VerifyToken, function(req, res) {
+    if(req.body.type=="Book"){
     var query =
-      "UPDATE book SET owner_id = "+req.body.user_id+ " WHERE book_id = "+req.body.book_id
+      "UPDATE book SET owner_id = "+req.body.user_id+ " WHERE book_id = "+req.body.item_id
+    }
+    else{
+      var query =
+      "UPDATE tool SET owner_id = "+req.body.user_id+ " WHERE tool_id = "+req.body.item_id
+    }
+  
 
     connection.query(query, function(err, rows) {
       if (err) {
@@ -173,8 +230,14 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   });
 
   router.post("/revertStatus", VerifyToken, function(req, res) {
+    if(req.body.type=="Book"){
     var query =
-      "UPDATE book SET book_status = 'AVAILABLE' WHERE book_id = "+req.body.book_id;
+      "UPDATE book SET book_status = 'AVAILABLE' WHERE book_id = "+req.body.item_id;
+    }
+    else{
+      var query =
+      "UPDATE tool SET tool_status = 'AVAILABLE' WHERE tool_id = "+req.body.item_id;
+    }
 
     connection.query(query, function(err, rows) {
       if (err) {
@@ -191,6 +254,52 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           Error: false,
           statusCode: "200"
         });
+      }
+    });
+  });
+
+  router.get("/Tool", VerifyToken, function(req, res) {
+    var i, date, month, year;
+    var query = "SELECT * FROM Tool WHERE tool_status = 'AVAILABLE'";
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+      } else {
+        for(i = 0; i<rows.length; i++)
+        {
+          date = new Date(rows[i].tool_post_date).getUTCDate();
+          month = new Date(rows[i].tool_post_date).getUTCMonth()+1;
+          year = new Date(rows[i].tool_post_date).getUTCFullYear();
+          rows[i].tool_post_date = ""+year +"-"+ month +"-"+ date;
+        }
+        res.json({ Error: false, Tools: rows, n: rows.length, statusCode: "200" });
+      }
+    });
+  });
+
+  router.post("/insertTool", VerifyToken, function(req, res) {
+    var query = "INSERT INTO ??(??,??,??,??,??) VALUES (?,?,?,?,?)";
+    var table = [
+      "tool",
+      "tool_status",
+      "type",
+      "manufacturer",
+      "tool_duration",
+      "donor_id",
+      "AVAILABLE",
+      req.body.type,
+      req.body.manufacturer,
+      req.body.duration,
+      req.userId
+    ];
+    query = mysql.format(query, table);
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query" });
+      } else {
+        res.json({ Error: false, Message: "tool successfully added" });
       }
     });
   });
