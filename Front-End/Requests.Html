@@ -40,7 +40,7 @@
     <div id="main">
          <table id="tab"  cellspacing="0px" style="margin:10px">
                 <thead>
-                    <th style="text-align:left">BookTitle</th>
+                    <th style="text-align:left">BookTitle/ToolType</th>
                     <th style="text-align:left">Username</th>
                 </thead>
                 <tbody> 
@@ -73,6 +73,7 @@
             var booktitle=0;
            request=response.Requests;  
            console.log(request)
+           var index=0;
 //to get the data of the request(book title,username)
         for(i=0;i<request.length;i++){
         $.ajax({
@@ -87,16 +88,24 @@
        success:function(response){
            console.log(response);
            if (!(response.Error)){
-            for (var key in response.Book){ 
+           
+                if(request[index].type=="Book"){
                        tablehtml += "<tr>" 
-                        tablehtml += "<td>" + response.Book[key]["book_title"] + "</td>";
-                        tablehtml += "<td>" + response.Book[key]["user_name"] + "</td>";
+                        tablehtml += "<td>" + response.Book[0].book_title + "</td>";
+                        tablehtml += "<td>" + response.Book[0].user_name + "</td>";
                         tablehtml += "</tr>";
+                       }
+                       else{
+                        tablehtml += "<tr>" 
+                        tablehtml += "<td>" + response.Book[0].type + "</td>";
+                        tablehtml += "<td>" + response.Book[0].user_name + "</td>";
+                        tablehtml += "</tr>";
+                       }
                    
-                }
 
                  //this line adds the table created (tablehtml) in the tbody section of the body
             }
+            index++;
             $("#tab tbody").html(tablehtml);
             var tables=document.getElementById("tab");
              for(i=1;i<tables.rows.length;i++){
@@ -221,6 +230,7 @@
     
     });
     }
+    index=0;
 
      
 

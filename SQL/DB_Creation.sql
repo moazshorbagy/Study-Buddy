@@ -78,8 +78,6 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Tool` (
   
   `tool_post_date`		TIMESTAMP 	NULL DEFAULT CURRENT_TIMESTAMP,
   
-  `tool_title`  		VARCHAR(150) NOT NULL,
-  
   `tool_status` 		VARCHAR(70) NOT NULL,
   
   `type`		   		VARCHAR(30) NOT NULL,
@@ -129,18 +127,18 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
+
+  `type`                    VARCHAR(100) NOT NULL,
   
-  `book_id`                 INT NOT NULL,
+  `item_id`                 INT NOT NULL,
   
   `donor_id`                INT NOT NULL,
   
   `user_id`                 INT NOT NULL,
   
-  Primary Key (`book_id`,`donor_id`,`user_id`),
+  Primary Key (`type`,`item_id`,`donor_id`,`user_id`),
   
-	FOREIGN KEY(`book_id`)
-    REFERENCES `studybuddy`.`book`(`book_id`),
-    
+	
     FOREIGN KEY(`donor_id`)
     REFERENCES `studybuddy`.`book`(`donor_id`),
     
