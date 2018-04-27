@@ -101,12 +101,11 @@
     
                   var ind=this.rowIndex;
                   // get the data stored in the cells of the selected row
-                  var booktitle=this.getElementsByTagName("td")[0]; 
-                  var bookauthor=this.getElementsByTagName("td")[1];
-                  var bookedition=this.getElementsByTagName("td")[2];
+                  var type=this.getElementsByTagName("td")[0]; 
+                  var name=this.getElementsByTagName("td")[1];
                   //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
                   // responsible for showing the message to ask the user if he was sure to add the book
-                  if (confirm("are you sure you want to remove this book to the cart? \n"+'"'+booktitle.innerHTML+'"'+" by "+'"'+bookauthor.innerHTML+'"'+" "+bookedition.innerHTML)){
+                  if (confirm("are you sure you want to remove this book to the cart? \n"+'"'+type.innerHTML+'"'+" by "+'"'+name.innerHTML+'"')){
                       
                       // what would happen if the user clicks ok (he wants to add the book)
                      cart.splice(ind-1,1);

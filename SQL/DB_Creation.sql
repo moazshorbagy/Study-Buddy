@@ -136,17 +136,14 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Request`(
   
   `user_id`                 INT NOT NULL,
   
-  Primary Key (`type`,`item_id`,`donor_id`,`user_id`),
+  Primary Key (`type`,`item_id`,`donor_id`,`user_id`)
   
 	
-    FOREIGN KEY(`donor_id`)
-    REFERENCES `studybuddy`.`book`(`donor_id`),
+
     
-    FOREIGN KEY (`user_id`)
-    REFERENCES `studybuddy`.`User`(`user_id`)
     
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+    
+   
   
   
 )
