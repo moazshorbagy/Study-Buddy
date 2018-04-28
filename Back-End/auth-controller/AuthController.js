@@ -196,31 +196,119 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
       });
     }
     if (req.body.password != "") {
-        var salt = bcrypt.genSaltSync(10);
-        var hashedpassword = bcrypt.hashSync(req.body.password, salt);
-        console.log(hashedpassword);
-        var table = [
-          "user",
-          "user_password",
-          hashedpassword,
-          "user_id",
-          req.userId
-        ];
-        query = mysql.format(defaultQuery, table);
-        console.log(query);
-        connection.query(query, function(err, rows) {
-          if (err)
-            return res.json({
-              Error: true,
-              Message: "Error executing MySQL query",
-              statusCode: "500"
-            });
-        });
-      
+      var salt = bcrypt.genSaltSync(10);
+      var hashedpassword = bcrypt.hashSync(req.body.password, salt);
+      console.log(hashedpassword);
+      var table = [
+        "user",
+        "user_password",
+        hashedpassword,
+        "user_id",
+        req.userId
+      ];
+      query = mysql.format(defaultQuery, table);
+      console.log(query);
+      connection.query(query, function(err, rows) {
+        if (err)
+          return res.json({
+            Error: true,
+            Message: "Error executing MySQL query",
+            statusCode: "500"
+          });
+      });
     }
     return res.json({
       Error: false,
       Message: "Success"
+    });
+  });
+
+  router.get("/Users", VerifyToken, function(req, res) {
+    var query = "SELECT user_id,user_name,user_rate FROM user";
+
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query" });
+      } else {
+        console.log(rows);
+        res.json({ Error: false, Message: "success", users: rows });
+      }
+    });
+  });
+  router.post("/rating", VerifyToken, function(req, res) {
+    var query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
+
+    var table = [
+      "User_Rating",
+      "user_id",
+      "rating_user",
+      "rating",
+      req.body.id,
+      req.userId,
+      req.body.rating
+    ];
+    query = mysql.format(query, table);
+    connection.query(query, function(err, rows) {
+      if (err) {
+        return res.json({ Error: true, Message: "Error executing MySQL query" });
+      } else {
+        var rating = 0.0;
+        var query2 = "SELECT * FROM User_Rating WHERE user_id="+req.body.id;
+      
+        console.log(req.body.id);
+        connection.query(query2, function(err, rows2) {
+          if (err) {
+            console.log(err);
+            res.json({ Error: true, Message: "Error executing MySQL query" });
+          } else {
+            console.log(rows2);
+            if (rows2.length != 0) {
+              for (var i = 0; i < rows2.length; i++) {
+                rating += rows2[i].rating;
+              }
+              rating /= rows2.length;
+              console.log(rows2.length);
+              console.log(rating);
+            }
+            
+            var query3 = "UPDATE User SET user_rate= "+rating+" WHERE user_id= "+req.body.id;
+
+            connection.query(query3, function(err, rows) {
+              if (err) {
+                console.log(err);
+                res.json({
+                  Error: true,
+                  Message: "Error executing MySQL query"
+                });
+              }
+            });
+          }
+        });
+        res.json({ Error: false, Message: "successfully rated the user" });
+      }
+    });
+  });
+
+  router.get("/view_rating", VerifyToken, function(req, res) {
+    var rating = 0.0;
+    var query = "SELECT * FROM ?? WHERE ?=?";
+
+    var table = ["User_Rating", "user_id", req.body.id];
+    query = mysql.format(query, table);
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query" });
+      } else {
+        if (rows.Length != 0) {
+          for (var i = 0; i < rows.Length; i++) {
+            rating += rows[i].rating;
+          }
+          rating /= rows.Length;
+        }
+        res.json({ Error: false, Message: "success", Rating: rating });
+      }
     });
   });
 
