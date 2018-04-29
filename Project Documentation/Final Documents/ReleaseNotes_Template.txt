@@ -1,0 +1,22 @@
+Company
+Project Name
+Version (Release)
+
+New Features
+<Provide numbered list of the new features provided by this release.>
+ 
+Removed Features 
+<Provide numbered list of features that are no longer provided in this release, though they have been provided in the previous one>
+
+Enhanced Performance
+<If this release has different performance parameters than the previous release, write such info here >
+
+Enhanced Look-and-Feel
+<If you’ve improved or changed the look-and-feel of your software in this release, write such information here.>
+
+Unsupported Functionality
+<Here, if there is any functionality in your program that is not performing in an expected behavior and hasn’t been fixed in this release, provide such information.>
+
+Fixed Bugs
+<Provide information concerning the bugs that have been found in the previous release and have been fixed in this one.>
+
