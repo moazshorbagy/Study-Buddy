@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title> Study Buddy|Books </title>
+    <title> Study Buddy|Users </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
     <script>
@@ -24,7 +24,7 @@
         <div class="container">
             <div id="branding">
                 <h1>
-                    Books
+                    Users
                 </h1>
             </div>
             <nav>
@@ -37,10 +37,13 @@
 
         <form name="sform" id="sform">
             UserName:
-            <input type="text" name="title" id="title"> Sort:
+            <input type="text" name="name" id="name"> Sort:
             <select name="sort" id="sort" style="font-size:15px">
                 <option value="Name">Name</option>
+                <option value="Rating">Rating</option>
             </select>
+
+            <input name="submit" type="submit" id="submit" value="Search" style="font-size: 15px">
         </form>
     </header>
     <div id="main">
@@ -49,7 +52,7 @@
                 <th style="text-align:left">UserName</th>
                 <th style="text-align:left">Rate</th>
             </thead>
-            <tbody>
+            <tbody id="tbody">
 
 
             </tbody>
@@ -59,6 +62,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
+
+        var USERID = [];
         $(document).ready(function (ev) {
             ev.preventdefault;
 
@@ -80,10 +85,60 @@
                             tablehtml += "</tr>";
 
                         }
+
+                        for (i = 0; i < response.users.length; i++) {
+                            USERID[i] = response.users[i].user_id;
+                        }
                     }
 
 
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
+
+                    //Sorting 
+
+                    //Sorting According to Name
+                    if (document.getElementById("sort").value == "Name") {
+                        var table, rows, switching, i, x, y, shouldSwitch;
+                        table = document.getElementById("tab");
+                        switching = true;
+                        /*Make a loop that will continue until
+                        no switching has been done:*/
+                        while (switching) {
+
+                            //start by saying: no switching is done:
+                            switching = false;
+                            rows = table.getElementsByTagName("tr");
+                            /*Loop through all table rows (except the
+                            first, which contains table headers):*/
+
+                            for (i = 1; i < (rows.length - 1); i++) {
+
+                                //start by saying there should be no switching:
+                                shouldSwitch = false;
+                                /*Get the two elements you want to compare,
+                                one from current row and one from the next:*/
+                                x = rows[i].getElementsByTagName("td")[0];
+                                y = rows[i + 1].getElementsByTagName("td")[0];
+                                //check if the two rows should switch place:
+                                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                    //if so, mark as a switch and break the loop:
+                                    var temp = USERID[i - 1];
+                                    USERID[i - 1] = USERID[i];
+                                    USERID[i] = temp;
+                                    shouldSwitch = true;
+                                    break;
+                                }
+                            }
+                            if (shouldSwitch) {
+                                /*If a switch has been marked, make the switch
+                                and mark that a switch has been done:*/
+                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                switching = true;
+                            }
+                        }
+                    }
+
+
 
                     var tables = document.getElementById("tab");
                     //these lines responsible for detecting the row clicked
@@ -109,7 +164,7 @@
                                 var rate = prompt("Rate " + username.innerHTML + " 1-->5", "Harry Potter");
                                 if (rate != null && rate < 6 && rate > 0) {
                                     var ratinginfo = {
-                                        id: response.users[ind - 1].user_id,
+                                        id: USERID[ind - 1],
                                         rating: rate
                                     }
                                     $.ajax({
@@ -121,9 +176,9 @@
                                             "x-access-token": sessionStorage.getItem('token')
                                         },
                                         success: function (response) {
-                                            if (response.Error == false){
+                                            if (response.Error == false) {
                                                 alert(response.Message);
-                                                window.location.href="Rating.html";
+                                                window.location.href = "Rating.html";
                                             }
                                             else
                                                 alert('You have already rated this user');
@@ -132,7 +187,7 @@
 
                                         }
                                     })
-                                    
+
                                 }
                                 else {
                                     alert("Please enter the prompted values");
@@ -148,6 +203,185 @@
                 }
 
             })
+        })
+        $('#sort').change(function () {
+            //Sorting According to Name
+            if (document.getElementById("sort").value == "Name") {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tab");
+                switching = true;
+                /*Make a loop that will continue until
+                no switching has been done:*/
+                while (switching) {
+
+                    //start by saying: no switching is done:
+                    switching = false;
+                    rows = table.getElementsByTagName("tr");
+                    /*Loop through all table rows (except the
+                    first, which contains table headers):*/
+
+                    for (i = 1; i < (rows.length - 1); i++) {
+
+                        //start by saying there should be no switching:
+                        shouldSwitch = false;
+                        /*Get the two elements you want to compare,
+                        one from current row and one from the next:*/
+                        x = rows[i].getElementsByTagName("td")[0];
+                        y = rows[i + 1].getElementsByTagName("td")[0];
+                        //check if the two rows should switch place:
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            var temp = USERID[i - 1];
+                            USERID[i - 1] = USERID[i];
+                            USERID[i] = temp;
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        /*If a switch has been marked, make the switch
+                        and mark that a switch has been done:*/
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+            //Sorting according to Rating
+            else if (document.getElementById('sort').value == "Rating") {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tab");
+                switching = true;
+                /*Make a loop that will continue until
+                no switching has been done:*/
+                while (switching) {
+
+                    //start by saying: no switching is done:
+                    switching = false;
+                    rows = table.getElementsByTagName("tr");
+                    /*Loop through all table rows (except the
+                    first, which contains table headers):*/
+
+                    for (i = 1; i < (rows.length - 1); i++) {
+
+                        //start by saying there should be no switching:
+                        shouldSwitch = false;
+                        /*Get the two elements you want to compare,
+                        one from current row and one from the next:*/
+                        x = rows[i].getElementsByTagName("td")[1];
+                        y = rows[i + 1].getElementsByTagName("td")[1];
+                        //check if the two rows should switch place:
+                        if (x.innerHTML < y.innerHTML) {
+                            //if so, mark as a switch and break the loop:
+                            var temp = USERID[i - 1];
+                            USERID[i - 1] = USERID[i];
+                            USERID[i] = temp;
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        /*If a switch has been marked, make the switch
+                        and mark that a switch has been done:*/
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+        })
+
+        $("#submit").on("click", function (ev) {
+            ev.preventDefault();
+            if (document.getElementById('name').value != "") {
+                var tablehtml = "";
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost:3000/api/searchUser',
+                    data: $('#sform').serialize(),
+                    headers: {
+                        "x-access-token": sessionStorage.getItem('token')
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        //filling the table (tab)
+                        for (var key in response.Users) {
+                            tablehtml += "<tr>"
+                            tablehtml += "<td>" + response.Users[key]["user_name"] + "</td>";
+                            tablehtml += "<td>" + response.Users[key]["user_rate"] + "</td>";
+                            tablehtml += "</tr>";
+
+                        }
+
+                        for (i = 0; i < response.Users.length; i++) {
+                            USERID[i] = response.Users[i].user_id;
+                        }
+
+                        $("#tab tbody").html(tablehtml);
+
+                        var tables = document.getElementById("tab");
+                        //these lines responsible for detecting the row clicked
+                        for (i = 1; i < tables.rows.length; i++) {
+                            var r = tables.rows[i];
+                            r.onclick = function () {
+                                if (!this.hilite) { //to highlight the selected row
+                                    this.origColor = this.style.backgroundColor;
+                                    this.style.backgroundColor = '#BCD4EC';
+                                    this.hilite = true;
+                                }
+
+
+                                var ind = this.rowIndex;
+                                var username = this.getElementsByTagName("td")[0];
+                                if (confirm("Rate " + username.innerHTML)) {
+
+                                    // what would happen if the user clicks ok (he wants to add the book)
+                                    var user = {   //the book that would be added to the cart
+                                        name: username.innerHTML
+                                    }
+                                    //prompting the user to rate
+                                    var rate = prompt("Rate " + username.innerHTML + " 1-->5", "Harry Potter");
+                                    if (rate != null && rate < 6 && rate > 0) {
+                                        var ratinginfo = {
+                                            id: USERID[ind - 1],
+                                            rating: rate
+                                        }
+                                        $.ajax({
+
+                                            type: "POST",
+                                            url: 'http://localhost:3000/api/rating',
+                                            data: ratinginfo,
+                                            headers: {
+                                                "x-access-token": sessionStorage.getItem('token')
+                                            },
+                                            success: function (response) {
+                                                if (response.Error == false) {
+                                                    alert(response.Message);
+                                                    window.location.href = "Rating.html";
+                                                }
+                                                else
+                                                    alert('You have already rated this user');
+                                            },
+                                            error: function (response) {
+
+                                            }
+                                        })
+
+                                    }
+                                    else {
+                                        alert("Please enter the prompted values");
+                                    }
+                                }
+                                this.style.backgroundColor = this.origColor;
+                                this.hilite = false;
+                            }
+                        }
+
+                    },
+                    error: function () {
+                        console.log("Error in connection");
+
+                    },
+                })
+            }
         })
 
     </script>

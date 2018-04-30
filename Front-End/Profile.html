@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="css/style.css">
     <script>
         //Checking if the account is logged in
-    if(sessionStorage.token==null){
-       alert('You are not logged in');
-       window.location.href="Login.html";
-    }
+        if (sessionStorage.token == null) {
+            alert('You are not logged in');
+            window.location.href = "Login.html";
+        }
     </script>
 
 </head>
+
 <body>
 
     <header id="head2">
@@ -27,163 +28,170 @@
                 </h1>
             </div>
             <nav>
-                <a  href="Home.html">HOME</a>
+                <a href="Home.html">HOME</a>
                 <a href="Requests.html">REQUESTS</a>
-                <a  href="new 4.html">ABOUT US </a>
+                <a href="new 4.html">ABOUT US </a>
             </nav>
 
         </div>
-     
-             
+
+
     </header>
     <div id="main">
-          <!-- Building the fields to show on display for the profile -->
-          
-          <form name='sform' id='sform'>
-          Username:<br>
-          <input id="name" name="name" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px; ">
-        <span id='Pass'></span>
-        <span id='confirm' style="color:red; font-size:20px;"></span>
-         <br>
-          Email:<br>
-          <input id="email" name='email' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+        <!-- Building the fields to show on display for the profile -->
 
-          <br>
-          Phone:<br>
-          <input id="phone" name="phone" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+        <form name='sform' id='sform'>
+            Username:
+            <br>
+            <input id="name" name="name" disabled style="background-color:#35424a; border:none; color:cornsilk ; Font-size:15px; ">
+            <span id='Pass'></span>
+            <span id='confirm' style="color:red; font-size:20px;"></span>
+            <br> Email:
+            <br>
+            <input id="email" name='email' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
-          <br>
-          JoinDate:<br>
-          <input id="joindate" name='joindate' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+            <br> Phone:
+            <br>
+            <input id="phone" name="phone" disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <br> Rating:
+            <br>
+            <input id="rate" name='rate' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <br> JoinDate:
+            <br>
+            <input id="joindate" name='joindate' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
-          <br>
-          Year:<br>
-          <input id="year" name='year' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+            <br> Year:
+            <br>
+            <input id="year" name='year' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
-          <br>
-          Department: <br>
-                <select name="department" id="department" disabled   style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
-                    <option value="CCE">CCE</option>
-                    <option value="CCEE">CCEE</option>
-                    <option value="CCEC">CCEC</option>
-                    <option value="EEE">EEE</option>
-                    <option value="AET">AET</option>
-                    <option value="MDE">MDE</option>
-                    <option value="STE">STE</option>
-                    <option value="CEM">CEM</option>
-                </select> 
-          
-        <br>
-          <button name="Edit" id="Edit" >Edit</button>
-          <br>
+            <br> Department:
+            <br>
+            <select name="department" id="department" disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+                <option value="CCE">CCE</option>
+                <option value="CCEE">CCEE</option>
+                <option value="CCEC">CCEC</option>
+                <option value="EEE">EEE</option>
+                <option value="AET">AET</option>
+                <option value="MDE">MDE</option>
+                <option value="STE">STE</option>
+                <option value="CEM">CEM</option>
+            </select>
+
+            <br>
+            <button name="Edit" id="Edit">Edit</button>
+            <br>
         </form>
 
     </div>
-    
-   
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
-    var Id={userId: sessionStorage.getItem('ID')};
-    var U=document.getElementById('name');
-    var P=document.getElementById('phone');
-    var E=document.getElementById('email');
-    var D=document.getElementById('department');
-    var Y=document.getElementById('year');
-    var JD=document.getElementById('joindate');
-    //filling the fields with the user info when it loads
-    $(document).ready(function(){
-    $.ajax({
-        type:"POST", 
-        url :'http://localhost:3000/api/userinfo',
-        data: Id,
-        headers: {
-            "x-access-token": sessionStorage.getItem('token')
-        },
-        success:function(response){
-            console.log(response);
-                if(!(response.Error)){                 
-                    U.value=response.userInfo.user_name;
-                    P.value=response.userInfo.user_phone;
-                    E.value=response.userInfo.user_email;
-                    D.value=response.userInfo.user_department;
-                    Y.value=response.userInfo.user_year;
-                    JD.value=response.userInfo.user_join_date;
-            }
-            
-        },
-        error: function(){
-            console.log("Error in connection");
-            
-        },
-        
-    
-    });
-})
-// customizing the Edit button, enabling the fields to be altered 
-    $('#Edit').on('click',function(ev){
-        ev.preventDefault();
-
-        if($(U).attr('disabled')){
-            document.getElementById('Pass').innerHTML='<br> Password:<br> <input id="password" name="password" type="password" > <br> Confirm Password:<br> <input id="verifyPassword" name="verifyPassword" type="password" >'
-            $(U).removeAttr('disabled');
-            $(U).removeAttr('style');
-            $(P).removeAttr('disabled');
-            $(P).removeAttr('style');
-            $(E).removeAttr('disabled');
-            $(E).removeAttr('style');
-            $(D).removeAttr('disabled');
-            $(D).removeAttr('style');
-            $(Y).removeAttr('disabled');
-            $(Y).removeAttr('style');
-        }
-        //when the edit button is clicked again it changes the user info
-        else{
-          var Password=document.getElementById('password').value;
-          var VerifyPassword=document.getElementById('verifyPassword').value;
-            if(Password==VerifyPassword){
-           
-           $.ajax({
-            type:"POST", 
-                url :'http://localhost:3000/api/changeinfo',
-                data: $('#sform').serialize(),
+        var Id = { userId: sessionStorage.getItem('ID') };
+        var U = document.getElementById('name');
+        var P = document.getElementById('phone');
+        var E = document.getElementById('email');
+        var D = document.getElementById('department');
+        var Y = document.getElementById('year');
+        var JD = document.getElementById('joindate');
+        var UR = document.getElementById('rate');
+        //filling the fields with the user info when it loads
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost:3000/api/userinfo',
+                data: Id,
                 headers: {
                     "x-access-token": sessionStorage.getItem('token')
                 },
-                success:function(response){
+                success: function (response) {
                     console.log(response);
-                    
+                    if (!(response.Error)) {
+                        U.value = response.userInfo.user_name;
+                        P.value = response.userInfo.user_phone;
+                        E.value = response.userInfo.user_email;
+                        D.value = response.userInfo.user_department;
+                        Y.value = response.userInfo.user_year;
+                        JD.value = response.userInfo.user_join_date;
+                        UR.value = response.userInfo.user_rate;
+                    }
+
                 },
-                error: function(){
+                error: function () {
                     console.log("Error in connection");
-                    
+
                 },
-           })         
-           // disabling the fields again
-           document.getElementById('Pass').innerHTML='';
-           document.getElementById('confirm').innerHTML='';
-           U.setAttribute('disabled','disabled');
-           U.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
-           P.setAttribute('disabled','disabled');
-           P.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;');
-           E.setAttribute('disabled','disabled');
-           E.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
-           D.setAttribute('disabled','disabled');
-           D.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
-           Y.setAttribute('disabled','disabled');
-           Y.setAttribute('style','background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;')
-        }
-        else{
-            document.getElementById('confirm').innerHTML="Passwords don't match, Pleas re-enter the password";
-        }
-        
-        }
-       
-    })
-    
-    
+
+
+            });
+        })
+        // customizing the Edit button, enabling the fields to be altered 
+        $('#Edit').on('click', function (ev) {
+            ev.preventDefault();
+
+            if ($(U).attr('disabled')) {
+                document.getElementById('Pass').innerHTML = '<br> Password:<br> <input id="password" name="password" type="password" > <br> Confirm Password:<br> <input id="verifyPassword" name="verifyPassword" type="password" >'
+                $(U).removeAttr('disabled');
+                $(U).removeAttr('style');
+                $(P).removeAttr('disabled');
+                $(P).removeAttr('style');
+                $(E).removeAttr('disabled');
+                $(E).removeAttr('style');
+                $(D).removeAttr('disabled');
+                $(D).removeAttr('style');
+                $(Y).removeAttr('disabled');
+                $(Y).removeAttr('style');
+            }
+            //when the edit button is clicked again it changes the user info
+            else {
+                //comparing the passwords together
+                var Password = document.getElementById('password').value;
+                var VerifyPassword = document.getElementById('verifyPassword').value;
+                if (Password == VerifyPassword) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'http://localhost:3000/api/changeinfo',
+                        data: $('#sform').serialize(),
+                        headers: {
+                            "x-access-token": sessionStorage.getItem('token')
+                        },
+                        success: function (response) {
+                            console.log(response);
+
+                        },
+                        error: function () {
+                            console.log("Error in connection");
+
+                        },
+                    })
+                    // disabling the fields again
+                    document.getElementById('Pass').innerHTML = '';
+                    document.getElementById('confirm').innerHTML = '';
+                    U.setAttribute('disabled', 'disabled');
+                    U.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;');
+                    P.setAttribute('disabled', 'disabled');
+                    P.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;');
+                    E.setAttribute('disabled', 'disabled');
+                    E.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
+                    D.setAttribute('disabled', 'disabled');
+                    D.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
+                    Y.setAttribute('disabled', 'disabled');
+                    Y.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
+                }
+                else {
+                    document.getElementById('confirm').innerHTML = "Passwords don't match, Pleas re-enter the password";
+                }
+
+            }
+
+        })
+
+
     </script>
 
 
 </body>
+
 </html>

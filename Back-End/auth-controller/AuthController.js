@@ -121,6 +121,23 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  router.post("/searchUser", VerifyToken, function(req, res) {
+    var Name = req.body.name;
+    if(Name=="") Name = "";
+    console.log(req.body.name);
+    var query =
+      "SELECT user_name,user_rate FROM User WHERE" + " user_name LIKE '%" + Name + "%'" ;
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+      } else if (rows == "")
+        res.json({ Error: true, Message: "No users found", statusCode: "404" });
+      else {
+        res.json({ Error: false, Users: rows, n: rows.length, statusCode: "200" });}
+    });
+  });
+
   router.post("/changeinfo", VerifyToken, function(req, res) {
     var defaultQuery = "UPDATE ?? SET ??=? WHERE ??=?";
     var query = "";

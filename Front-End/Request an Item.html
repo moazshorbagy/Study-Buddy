@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+
+<html style="height:100%;">
+
+<head>
+    <meta charset="utf-8">
+    <title> Study Buddy|Books Insertion </title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        //Checking if the account is logged in
+        if (sessionStorage.token == null) {
+            alert('You are not logged in');
+            window.location.href = "Login.html";
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <header id="head2">
+        <div class="container">
+            <div id="branding">
+                <h1>
+                    REQUEST ITEM
+                </h1>
+            </div>
+            <nav>
+
+                <a href="Home.html">HOME</a>
+
+                <a href="new 4.html">ABOUT US </a>
+            </nav>
+
+        </div>
+        <select name="type" id="type" style="font-size:15px">
+            <option value="Book">Book</option>
+            <option value="Tool">Tool</option>
+        </select>
+    </header>
+    <div id="ins">
+
+        <fieldset>
+            <legend>Item Request</legend>
+            <form name="sform" id="sform">
+
+                <span id="book1">Book Title:</span>
+                <span style="color:red; font-size:15px;" id="BookTitle"></span>
+                <br/>
+                <input name="title" ; type="text" class="intext" id="title">
+                <br/>
+                <span id="book2">Book Author:</span>
+                <span style="color:red; font-size:15px;" id="BookAuthor"></span>
+                <br/>
+                <input name="author" ; type="text" class="intext" id="author">
+                <br/>
+                <span id="book3">Edition:</span>
+                <span style="color:red; font-size:15px;" id="Edition"></span>
+                <br/>
+                <input name="edition" ; type="text" class="intext" id="edition">
+                <br/>
+                <!-- Book Image:<br/>
+                <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
+
+                <hr>
+                <span id="tool1">Type:</span>
+                <span style="color:red; font-size:15px;" id="ToolType"></span>
+                <br/>
+                <input name="type" ; type="text" class="intext" id="tooltype">
+                <br/>
+                <span id="tool2">Manufacturer:</span>
+                <span style="color:red; font-size:15px;" id="Manufacturer"></span>
+                <br/>
+                <input name="manufacturer" ; type="text" class="intext" id="manufacturer">
+                <br/>
+
+                <input name="submit" ; id="submit" type="submit" value="REQUEST" style="font-size:15px;">
+                <br/>
+            </form>
+        </fieldset>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function (ev) {
+            document.getElementById("tooltype").setAttribute("disabled", "disabled");
+            document.getElementById("manufacturer").setAttribute("disabled", "diabled");
+            document.getElementById("tool1").setAttribute("style", "color:gray");
+            document.getElementById("tool2").setAttribute("style", "color:gray");
+
+            document.getElementById("tooltype").setAttribute("style", "background-color:#35424a; border:none");
+            document.getElementById("manufacturer").setAttribute("style", "background-color:#35424a; border:none");
+
+        })
+        $('#type').change(function (ev) {
+            if (document.getElementById('type').value == "Book") {
+                //Removing the required tool fields warning
+                document.getElementById("ToolType").innerHTML = "";
+                document.getElementById("Manufacturer").innerHTML = "";
+
+                //disabling the tool field and enabling the book field
+                document.getElementById("tooltype").setAttribute("disabled", "disabled");
+                document.getElementById("manufacturer").setAttribute("disabled", "diabled");
+                document.getElementById("title").removeAttribute("disabled");
+                document.getElementById("author").removeAttribute("disabled");
+                document.getElementById("edition").removeAttribute("disabled");
+
+                document.getElementById("tool1").setAttribute("style", "color:gray");
+                document.getElementById("tool2").setAttribute("style", "color:gray");
+
+                document.getElementById("book1").removeAttribute("style");
+                document.getElementById("book2").removeAttribute("style");
+                document.getElementById("book3").removeAttribute("style");
+
+                document.getElementById("tooltype").setAttribute("style", "background-color:#35424a; border:none");
+                document.getElementById("manufacturer").setAttribute("style", "background-color:#35424a; border:none");
+
+                document.getElementById("title").removeAttribute("style");
+                document.getElementById("author").removeAttribute("style");
+                document.getElementById("edition").removeAttribute("style");
+            }
+            else {
+                //Removing the required book fields warning 
+                document.getElementById("BookTitle").innerHTML = "";
+                document.getElementById("BookAuthor").innerHTML = "";
+                document.getElementById("Edition").innerHTML = "";
+
+                //diabling the book field and enabling the tools field
+                document.getElementById("tooltype").removeAttribute("disabled");
+                document.getElementById("manufacturer").removeAttribute("disabled");
+                document.getElementById("title").setAttribute("disabled", "disabled");
+                document.getElementById("author").setAttribute("disabled", "disabled");
+                document.getElementById("edition").setAttribute("disabled", "disabled");
+
+                document.getElementById("book1").setAttribute("style", "color:gray");
+                document.getElementById("book2").setAttribute("style", "color:gray");
+                document.getElementById("book3").setAttribute("style", "color:gray");
+
+                document.getElementById("tool1").removeAttribute("style");
+                document.getElementById("tool2").removeAttribute("style");
+
+                document.getElementById("title").setAttribute("style", "background-color:#35424a; border:none");
+                document.getElementById("author").setAttribute("style", "background-color:#35424a; border:none");
+                document.getElementById("edition").setAttribute("style", "background-color:#35424a; border:none");
+
+                document.getElementById("tooltype").removeAttribute("style");
+                document.getElementById("manufacturer").removeAttribute("style");
+            }
+        })
+
+
+        $('#submit').on('click', function (ev) {
+            ev.preventDefault();
+            if (document.getElementById('type').value == "Book") {
+                if (document.getElementById("title").value == "") {
+                    document.getElementById("BookTitle").innerHTML = " Title Required";
+                }
+                else {
+                    document.getElementById("BookTitle").innerHTML = "";
+                }
+                if (document.getElementById("author").value == "") {
+                    document.getElementById("BookAuthor").innerHTML = "Author Required";
+                }
+                else {
+                    document.getElementById("BookAuthor").innerHTML = "";
+                }
+                if (document.getElementById("edition").value == "") {
+                    document.getElementById("Edition").innerHTML = "Edition Required";
+                }
+                else {
+                    document.getElementById("Edition").innerHTML = "";
+                }
+
+                if (!(document.getElementById("title").value == "" || document.getElementById("author").value == "" || document.getElementById("edition").value == "")) {
+                    console.log();
+                    $.ajax({
+
+                        type: "POST",
+                        url: 'http://localhost:3000/api/requestBook',
+                        data: $('#sform').serialize(),
+                        headers: {
+                            "x-access-token": sessionStorage.getItem('token')
+                        },
+                        success: function (response) {
+                            console.log(response);
+
+                            if (!(response.Error)) {
+                                alert('Book was successfully requested');
+                                window.location.href = "Books.html";
+
+                            }
+
+                        },
+                        error: function () {
+                            console.log("Error in connection");
+
+                        },
+
+
+
+                    });
+                }
+            }
+            else {
+                // Validating that the tool inputs aren't empty and informing the user what is required
+                if (document.getElementById("tooltype").value == "") {
+                    document.getElementById("ToolType").innerHTML = " Type Required";
+                }
+                else {
+                    document.getElementById("ToolType").innerHTML = "";
+                }
+                if (document.getElementById("manufacturer").value == "") {
+                    document.getElementById("Manufacturer").innerHTML = "Manufacturer Required";
+                }
+                else {
+                    document.getElementById("Manufacturer").innerHTML = "";
+                }
+
+
+                if (!(document.getElementById("tooltype").value == "" || document.getElementById("manufacturer").value == "")) {
+                    $.ajax({
+
+                        type: "POST",
+                        url: 'http://localhost:3000/api/requestTool',
+                        data: $('#sform').serialize(),
+                        headers: {
+                            "x-access-token": sessionStorage.getItem('token')
+                        },
+                        success: function (response) {
+                            console.log(response);
+
+                            if (!(response.Error)) {
+                                alert('Tool was successfully requested');
+                                window.location.href = "Tools.html";
+
+                            }
+
+                        },
+                        error: function () {
+                            console.log("Error in connection");
+
+                        },
+
+
+                    });
+                }
+            }
+        }
+        )
+
+
+
+    </script>
+
+</body>
+
+</html>

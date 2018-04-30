@@ -152,14 +152,8 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Item` (
 	FOREIGN KEY (`user_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-
-  FOREIGN KEY (`item_id`)
-    REFERENCES `studybuddy`.`Item` (`book_id`)
-    
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION
-    )
+   )
 
 ENGINE = InnoDB;
 

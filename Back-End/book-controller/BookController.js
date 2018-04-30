@@ -41,6 +41,32 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  router.post("/requestBook", VerifyToken, function(req, res) {
+    var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
+    var table = [
+      "Requested_Book",
+      "user_id",
+      "book_author",
+      "book_title",
+      "book_edition",
+      req.userId,
+      req.body.author,
+      req.body.title,
+      req.body.edition,
+    ];
+    query = mysql.format(query, table);
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query" });
+      } else {
+        res.json({ Error: false, Message: "book successfully added" });
+      }
+    });
+  });
+
+ 
+
   router.get("/Book", VerifyToken, function(req, res) {
     var i, date, month, year;
     var query = "SELECT * FROM book WHERE book_status = 'Available'";

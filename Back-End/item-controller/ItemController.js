@@ -303,7 +303,28 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
       }
     });
   });
-
+  router.post("/requestTool", VerifyToken, function(req, res) {
+    var query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
+    var table = [
+      "Requested_Item",
+      "user_id",
+      "type",
+      "manufacturer",
+      req.userId,
+      req.body.type,
+      req.body.manufacturer,
+    ];
+    query = mysql.format(query, table);
+    console.log(query);
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query" });
+      } else {
+        res.json({ Error: false, Message: "book successfully added" });
+      }
+    });
+  });
 
   
 
