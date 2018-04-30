@@ -43,13 +43,13 @@
             <form name="sform" id="sform">
                 
                 Tool Type: <span style="color:red; font-size:15px;" id="ToolType"></span> <br/>
-                <input name="type"; type="text" class="intext" id="type"><br/>
+                <input name="type";placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and - are allowed" type="text" class="intext" id="type"><br/>
                 Manufacturer: <span style="color:red; font-size:15px;" id="Manufacturer"></span> <br/>
-                <input name="manufacturer"; type="text" class="intext" id="Manu"><br/>
+                <input name="manufacturer"; onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and & are allowed"type="text" class="intext" id="Manu"><br/>
                <!-- Book Image:<br/>
                 <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
-                Duration: <span style="font-size:15px;font-style:italic; margin:0;">(if you wish to donate the tool put 0 in duration)</span></br>
-                <input name="duration"; type="text" class="intext" placeholder="months"><br/>
+                Duration: <span style="font-size:15px;font-style:italic; margin:0;">(In months, if you wish to donate the tool put 0 in duration)</span></br>
+                <input name="duration";onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" type="text" class="intext"  size="2" maxlength="2"  placeholder="Numbers only field"><br/>
 
                 <input name="submit"; id="submit" type="submit" value="UPLOAD" style="font-size:15px;" sty><br/>
             </form>

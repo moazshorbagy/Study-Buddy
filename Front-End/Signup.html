@@ -51,8 +51,8 @@
         Email: <span style="color:red; font-size:15px;" id="uemail"></span> <br>
         <input name="email" id="Email" type="email" > <br>
 
-        Phone Number: <br/>
-        <input name="phone" id="Phone" type="tel" placeholder="(Optional)"> <br/>
+        Phone Number: <span style="color:red; font-size:15px;" id="uphone"></span> <br/>
+        <input name="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" id="Phone" type="tel" placeholder="(Optional)"> <br/>
 
         Year: <br/>
         <input name="year" type="radio" value="1" checked >1
@@ -93,6 +93,16 @@
                else {
                 document.getElementById("uemail").innerHTML="";
                }
+               $('#p').on('click', function () {
+var textComponent = document.getElementById('uphone');
+var selectedText; 
+var startPos = textComponent.selectionStart;
+var endPos = textComponent.selectionEnd;
+selectedText = textComponent.value.substring(startPos, endPos)
+if (selectedText.length!=11||selectedText.length!=0)    
+document.getElementById("uphone").innerHTML="Phone must be either of 11 digits or left empty"
+else document.getElementById("uphone").innerHTML=="";
+});
             
             if(!(document.getElementById("Username").value=="" || document.getElementById("Password").value=="" || document.getElementById("Email").value=="" ))
                {

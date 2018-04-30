@@ -64,7 +64,6 @@
     if(JSON.parse(sessionStorage.getItem("Cart"))!=null)  //getting the cart back when he returns to this page if it already sent once to the cart page
     cart=JSON.parse(sessionStorage.getItem("Cart"));
     console.log(cart);
-
          $(document).ready(function(ev){
              
             var tablehtml="";
@@ -81,12 +80,10 @@
                         tablehtml += "<td>" + cart[i]["type"] + "</td>";
                         tablehtml += "<td>" + cart[i]["tool_type"] + "</td>";
                         tablehtml += "</tr>";
-
                        }
                    
                 }
             
-
              $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
              var tables=document.getElementById("tab");
              for(i=1;i<tables.rows.length;i++){
@@ -110,15 +107,12 @@
                       // what would happen if the user clicks ok (he wants to add the book)
                      cart.splice(ind-1,1);
                      sessionStorage.setItem("Cart",JSON.stringify(cart));
-
                     window.location.href="Cart.html";
-
                     
                   }
                   // remove highlight
                   this.style.backgroundColor=this.origColor;
                     this.hilite = false;
-
           
          
                 }}
@@ -154,7 +148,6 @@
                     
                 
                 });
-
                   cart=[];
                  alert('A request has been sent to the owner');
             }
@@ -167,14 +160,11 @@
             });
         
               
-
-
          
    
                          
            
    
-
     </script>
 
 </body>

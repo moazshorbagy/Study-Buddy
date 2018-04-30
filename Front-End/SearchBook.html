@@ -37,9 +37,9 @@
             <form>
                 
                 Book Title:<br/>
-                <input  name="title"; type="text" id="intext" > <br/>
+                <input  name="title";placeholder="Letters and number field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" type="text" id="intext" > <br/>
                 Book Author: <br/>
-                <input name="author"; type="text" id="intext"><br/>
+                <input name="author";placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" type="text" id="intext"><br/>
                 Book Code: <br/>
                 <select name="code" multiple style="font-size:15px">
                     <option value="MTH"selected>MTH</option>
@@ -53,7 +53,7 @@
                 </select> <br/>
 
                 Edition: <br/>
-                <input name="edition"; type="text" id="intext"><br/>
+                <input name="edition";placeholder="Number only field" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" size="3" maxlength="3" type="text" id="intext"><br/>
                 
                 <input name="submit"; type="submit" value="Search for book" style="font-size:15px;" sty><br/>
             </form>

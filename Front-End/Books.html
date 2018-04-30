@@ -90,7 +90,6 @@
     
     if(JSON.parse(sessionStorage.getItem("Cart"))!=null)  //getting the cart back when he returns to this page if it already sent once to the cart page
     cart=JSON.parse(sessionStorage.getItem("Cart"));
-
          $(document).ready(function(ev){
              
             $.ajax({
@@ -113,7 +112,6 @@
                    donor[i]=response.Books[i].donor_id;
                    bookid[i]=response.Books[i].book_id;
                    bookcode[i]=response.Books[i].book_code;
-
                }
                //filling the table (tab)
                for (var key in response.Books){ 
@@ -127,7 +125,6 @@
                    
                 }
             }
-
             
              $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
            
@@ -150,7 +147,6 @@
                     first, which contains table headers):*/
                     
                     for (i = 1; i < (rows.length - 1); i++) {
-
                         //start by saying there should be no switching:
                         shouldSwitch = false;
                         /*Get the two elements you want to compare,
@@ -188,7 +184,6 @@
                     first, which contains table headers):*/
                     
                     for (i = 1; i < (rows.length - 1); i++) {
-
                         //start by saying there should be no switching:
                         shouldSwitch = false;
                         /*Get the two elements you want to compare,
@@ -226,7 +221,6 @@
                     first, which contains table headers):*/
                     
                     for (i = 1; i < (rows.length - 1); i++) {
-
                         //start by saying there should be no switching:
                         shouldSwitch = false;
                         /*Get the two elements you want to compare,
@@ -287,7 +281,6 @@
                      cart.push(book);
                      alert("the book was added to cart"); 
                      }
-
                      else{ //check if he already added that book
                      for(i=0;i<cart.length;i++){
                         if (book.bookID==cart[i].bookID){
@@ -303,9 +296,6 @@
                     
                      }
                      sessionStorage.setItem("Cart",JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
-
-
-
                    console.log(cart);
                   }
                   // remove the highlight of the row
@@ -324,7 +314,6 @@
          
           
        });
-
          })
        
    
@@ -332,7 +321,6 @@
             
            $('#search').on('click',function(ev){
             ev.preventDefault();
-
             
                              
         $.ajax({
@@ -353,7 +341,6 @@
                 var d;
                 document.getElementById("tab").innerHTML=" <tr><th>BookTitle</th><th>BookAuthor</th><th>BookEdition</th><th>BookStatus</th></tr>";
                 for(i=0;i<response.n;i++){
-
                     var table=document.getElementsByTagName("table") [0];
                    //adding a new row to the table
                     var newrow=table.insertRow(i+1);

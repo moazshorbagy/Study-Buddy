@@ -41,16 +41,16 @@
           
           <form name='sform' id='sform'>
           Username:<br>
-          <input id="name" name="name" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px; ">
+          <input id="name" name="name"onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"  disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px; ">
         <span id='Pass'></span>
         <span id='confirm' style="color:red; font-size:20px;"></span>
          <br>
           Email:<br>
-          <input id="email" name='email' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+          <input id="email"onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name='email' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
 
           <br>
           Phone:<br>
-          <input id="phone" name="phone" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+          <input id="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name="phone" disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
 
           <br>
           JoinDate:<br>
@@ -58,7 +58,7 @@
 
           <br>
           Year:<br>
-          <input id="year" name='year' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
+          <input id="year" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name='year' disabled  style="background-color:#35424a; border:none; color:darkgoldenrod; Font-size:15px;">
 
           <br>
           Department: <br>
@@ -123,7 +123,6 @@
 // customizing the Edit button, enabling the fields to be altered 
     $('#Edit').on('click',function(ev){
         ev.preventDefault();
-
         if($(U).attr('disabled')){
             document.getElementById('Pass').innerHTML='<br> Password:<br> <input id="password" name="password" type="password" > <br> Confirm Password:<br> <input id="verifyPassword" name="verifyPassword" type="password" >'
             $(U).removeAttr('disabled');

@@ -37,7 +37,7 @@
 
         <form name="sform" id="sform">
             UserName:
-            <input type="text" name="title" id="title"> Sort:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="title" id="title"> Sort:
             <select name="sort" id="sort" style="font-size:15px">
                 <option value="Name">Name</option>
             </select>
@@ -61,7 +61,6 @@
     <script> 
         $(document).ready(function (ev) {
             ev.preventdefault;
-
             $.ajax({
                 type: "GET",
                 url: 'http://localhost:3000/api/Users',
@@ -71,20 +70,15 @@
                 success: function (response) {
                     if (!(response.Error)) {
                         var tablehtml = "";
-
                         //filling the table (tab)
                         for (var key in response.users) {
                             tablehtml += "<tr>"
                             tablehtml += "<td>" + response.users[key]["user_name"] + "</td>";
                             tablehtml += "<td>" + response.users[key]["user_rate"] + "</td>";
                             tablehtml += "</tr>";
-
                         }
                     }
-
-
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
-
                     var tables = document.getElementById("tab");
                     //these lines responsible for detecting the row clicked
                     for (i = 1; i < tables.rows.length; i++) {
@@ -95,12 +89,9 @@
                                 this.style.backgroundColor = '#BCD4EC';
                                 this.hilite = true;
                             }
-
-
                             var ind = this.rowIndex;
                             var username = this.getElementsByTagName("td")[0];
                             if (confirm("Rate " + username.innerHTML)) {
-
                                 // what would happen if the user clicks ok (he wants to add the book)
                                 var user = {   //the book that would be added to the cart
                                     name: username.innerHTML
@@ -113,7 +104,6 @@
                                         rating: rate
                                     }
                                     $.ajax({
-
                                         type: "POST",
                                         url: 'http://localhost:3000/api/rating',
                                         data: ratinginfo,
@@ -129,7 +119,6 @@
                                                 alert('You have already rated this user');
                                         },
                                         error: function (response) {
-
                                         }
                                     })
                                     
@@ -146,10 +135,8 @@
                 error: function (response) {
                     console.log('Error in connection');
                 }
-
             })
         })
-
     </script>
 
 

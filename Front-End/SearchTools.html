@@ -37,10 +37,10 @@
             <form>
                 
                 Tool type: <br/>
-                <input name="type"; type="text" id="intext"><br/>
+                <input name="type"; onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" type="text" placeholder="Letters and - are allowed"id="intext"><br/>
 
                 Manufacturer: <br/>
-                <input name="manufacturer"; type="text" id="intext"><br/>
+                <input name="manufacturer";onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" type="text" placeholder="Letters and & are allowed"  id="intext"><br/>
                 
             </form>
         </fieldset>

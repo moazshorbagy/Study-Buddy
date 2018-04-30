@@ -43,9 +43,9 @@
             <form name="sform" id="sform">
                 
                 Book Title:<span style="color:red; font-size:15px;" id="BookTitle"></span> <br/>
-                <input  name="title"; type="text" class="intext" id="title"> <br/>
+                <input  name="title"; type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" class="intext" id="title" placeholder="Letters and number field"> <br/>
                 Book Author: <span style="color:red; font-size:15px;" id="BookAuthor"></span> <br/>
-                <input name="author"; type="text" class="intext" id="author"><br/>
+                <input name="author"; type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"class="intext" id="author" placeholder="Letters only field"><br/>
                 Book Code: <br>
                 <select name="code" style="font-size:15px">
                     <option value="MTH">MTH</option>
@@ -59,11 +59,11 @@
                 </select> <br/>
 
                 Edition: <span style="color:red; font-size:15px;" id="Edition"></span> <br/>
-                <input name="edition"; type="text" class="intext" id="edition"><br/>
+                <input name="edition"; type="text" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13"class="intext" size="3" maxlength="3" id="edition"placeholder="Number only field"><br/>
                <!-- Book Image:<br/>
                 <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
-                Duration: <span style="font-size:15px;font-style:italic; margin:0;">(if you wish to donate the book put 0 in duration)</span></br>
-                <input name="duration"; type="text" class="intext" placeholder="months"><br/>
+                Duration: <span style="font-size:15px;font-style:italic; margin:0;">(In months, if you wish to donate the book put 0 in duration)</span></br>
+                <input name="duration"; type="text"onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13"class="intext" size="2" maxlength="2" class="intext" placeholder="Number only field"><br/>
 
                 <input name="submit"; id="submit" type="submit" value="UPLOAD" style="font-size:15px;" sty><br/>
             </form>
@@ -93,7 +93,6 @@
                else{
                 document.getElementById("Edition").innerHTML="";
                }
-
                 
             
                if(!(document.getElementById("title").value=="" || document.getElementById("author").value=="" || document.getElementById("edition").value==""))
@@ -128,7 +127,6 @@
            )
         
            
-
     </script>
 
 </body>
