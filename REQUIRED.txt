@@ -1,0 +1,32 @@
+Code:
+1- Slight changes in the front-end design
+2- Add comments for all your work
+3- Use automated testing
+
+Docs: (SDS, STP, ReleaseNotes, Taskboard, UserAdminGuide)
+
+Khaled:
+1) Release Notes
+2) SDS (1, 4, 6)
+3) STP (1, 2.1)
+4) UserAdminGuide (1)
+
+Amin:
+1) Taskboard
+2) UserAdminGuide (3, 4)
+
+Ismaeel:
+1) UserAdminGuide (5, 6)
+
+Amin & Ismaeel:
+STP (2.2, 2.3)
+
+Moaz:
+1) SDS (2, 3, 5)
+2) STP (2.2, 2.3.1)
+3) UserAdminGuide (2, 7)
+
+General Guidelines
+// 1) Don't forget to add what you've done in the REVISION HISTORY
+// 2) Save any reference you used to be added in the REFERENCES
+// 3) Each member should participate in at least 3 rows in the Table of Acronyms according to the part they wrote about

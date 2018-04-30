@@ -39,11 +39,11 @@
         <form name="sform" id="sform">
 
              Tool Type:
-             <input type="text" name="type" id="type">
+             <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and - are allowed" name="type" id="type">
 
              Manufacturer:
-             <select name="manufacturer" id="manufacturer"   style="font-size:15px">
-                <input name="search" id ="search" type="submit" value="search">
+             <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and & are allowed" name="type" id="manufacturer">
+                <input name="search" id ="search" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38|| event.charCode==32||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and & are allowed" type="submit" value="search">
                 Sort:
             <select name="sort" id="sort" style="font-size:15px">
                 <option value="Type">Type</option>
