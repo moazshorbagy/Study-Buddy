@@ -11,6 +11,8 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.use(bodyParser.urlencoded({ extended: false }));
   router.use(bodyParser.json());
 
+  //allows a user to insert a book
+  //it verifies the token provided to allow the user to access private data
   router.post("/insertBook", VerifyToken, function(req, res) {
     var query = "INSERT INTO ??(??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?)";
     var table = [
@@ -41,6 +43,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  //Allows a user to request a book
   router.post("/requestBook", VerifyToken, function(req, res) {
     var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
     var table = [
@@ -65,12 +68,12 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
- 
-
+ //Selects all the books in the database to be displayed
   router.get("/Book", VerifyToken, function(req, res) {
     var i, date, month, year;
+    //Only the AVAILABLE books
+    //Doesn't return the books posted by the accessing user as it's illogical to be displayed in the search
     var query = "SELECT * FROM book WHERE book_status = 'Available'"+" AND NOT donor_id="+req.userId;
-    console.log(query);
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
@@ -78,6 +81,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
       } else {
         for(i = 0; i<rows.length; i++)
         {
+          //converting the date to another format to be comparable
           date = new Date(rows[i].book_post_date).getUTCDate();
           month = new Date(rows[i].book_post_date).getUTCMonth()+1;
           year = new Date(rows[i].book_post_date).getUTCFullYear();
@@ -88,6 +92,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  //allows the user to view the books he donated or the books he took from another user
   router.get("/myBooks", VerifyToken, function(req, res) {
     var i, date, month, year;
     var query = "SELECT * FROM book WHERE donor_id = "+req.userId+ " OR owner_id="+req.userId;
@@ -96,6 +101,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
       } else {
+        //converting the date to another format to be comparable
         for(i = 0; i<rows.length; i++)
         {
           date = new Date(rows[i].book_post_date).getUTCDate();
@@ -108,11 +114,10 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
-  
-
-
+  //Allows a user to search for a certain book
   router.post("/searchBook", VerifyToken, function(req, res) {
     var title = req.body.title, author = req.body.author;
+    //changing undefined to an empty string
     if(title=="") title = "";
     if(author=="") author = "";
 
@@ -123,9 +128,10 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
       if (err) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
-      } else if (rows == "")
+      } else if (rows == "")//if rows are empty it means no books where found
         res.json({ Error: true, Message: "No books found", statusCode: "404" });
       else {
+        //converting the date to another format to be comparable
         for(i = 0; i<rows.length; i++)
         {
           date = new Date(rows[i].book_post_date).getUTCDate();
@@ -137,6 +143,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  //allows a user to search he participated in
   router.post("/searchMyBooks", VerifyToken, function(req, res) {
     var title = req.body.title, author = req.body.author;
     if(title=="") title = "";
@@ -149,9 +156,10 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
       if (err) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
-      } else if (rows == "")
+      } else if (rows == "")//if rows are empty it means no books where found
         res.json({ Error: true, Message: "No books found", statusCode: "404" });
       else {
+        //converting the date to another format to be comparable
         for(i = 0; i<rows.length; i++)
         {
           date = new Date(rows[i].book_post_date).getUTCDate();
@@ -162,8 +170,6 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
         res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });}
     });
   });
-
-
 };
 
 module.exports = BOOK_ROUTER;

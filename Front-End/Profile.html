@@ -40,48 +40,52 @@
 
     </header>
     <div id="main">
-          <!-- Building the fields to show on display for the profile -->
-          
-          <form name='sform' id='sform'>
-          Username:<br>
-          <input id="name" name="name"onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"  disabled  style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px; ">
-        <span id='Pass'></span>
-        <span id='confirm' style="color:red; font-size:20px;"></span>
-         <br>
-          Email:<br>
-          <input id="email"onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name='email' disabled  style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+        <!-- Building the fields to show on display for the profile -->
 
-          <br>
-          Phone:<br>
-          <input id="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name="phone" disabled  style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+        <form name='sform' id='sform'>
+            Username:
+            <br>
+            <input id="name" name="name" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px; ">
+            <span id='Pass'></span>
+            <span id='confirm' style="color:red; font-size:20px;"></span>
+            <br> Email:
+            <br>
+            <input id="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                name='email' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
-          <br> Rating:
-          <br>
-          <input id="rate" name='rate' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
-          <br>
-          JoinDate:<br>
-          <input id="joindate" name='joindate' disabled  style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <br> Phone:
+            <br>
+            <input id="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name="phone" disabled
+                style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
-          <br>
-          Year:<br>
-          <input id="year" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name='year' disabled  style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <br> Rating:
+            <br>
+            <input id="rate" name='rate' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <br> JoinDate:
+            <br>
+            <input id="joindate" name='joindate' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
-          <br>
-          Department: <br>
-                <select name="department" id="department" disabled   style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
-                    <option value="CCE">CCE</option>
-                    <option value="CCEE">CCEE</option>
-                    <option value="CCEC">CCEC</option>
-                    <option value="EEE">EEE</option>
-                    <option value="AET">AET</option>
-                    <option value="MDE">MDE</option>
-                    <option value="STE">STE</option>
-                    <option value="CEM">CEM</option>
-                </select> 
-          
-        <br>
-          <button name="Edit" id="Edit" >Edit</button>
-          <br>
+            <br> Year:
+            <br>
+            <input id="year" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name='year' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+
+            <br> Department:
+            <br>
+            <select name="department" id="department" disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+                <option value="CCE">CCE</option>
+                <option value="CCEE">CCEE</option>
+                <option value="CCEC">CCEC</option>
+                <option value="EEE">EEE</option>
+                <option value="AET">AET</option>
+                <option value="MDE">MDE</option>
+                <option value="STE">STE</option>
+                <option value="CEM">CEM</option>
+            </select>
+
+            <br>
+            <button name="Edit" id="Edit">Edit</button>
+            <br>
         </form>
 
     </div>
@@ -195,4 +199,5 @@
 
 
 </body>
+
 </html>

@@ -124,207 +124,207 @@
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
                     var tbl = document.getElementById("tab");
                     for (var i = 1; i < tbl.rows.length; i++) {
-                                tbl.rows[i].cells[5].style.display = "none";
-                                tbl.rows[i].cells[6].style.display = "none";
-                                tbl.rows[i].cells[7].style.display = "none";
+                        tbl.rows[i].cells[5].style.display = "none";
+                        tbl.rows[i].cells[6].style.display = "none";
+                        tbl.rows[i].cells[7].style.display = "none";
 
 
                     }
 
-                
+
                     //Sorting Alphabetically
 
-                    $('#sort').change(function() {
-                    //Sorting According to title
-                    if (document.getElementById("sort").value == "Title") {
-                        var table, rows, switching, i, x, y, shouldSwitch;
-                        table = document.getElementById("tab");
-                        switching = true;
-                        /*Make a loop that will continue until
-                        no switching has been done:*/
-                        while (switching) {
+                    $('#sort').change(function () {
+                        //Sorting According to title
+                        if (document.getElementById("sort").value == "Title") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
 
-                            //start by saying: no switching is done:
-                            switching = false;
-                            rows = table.getElementsByTagName("tr");
-                            /*Loop through all table rows (except the
-                            first, which contains table headers):*/
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
 
-                            for (i = 1; i < (rows.length - 1); i++) {
+                                for (i = 1; i < (rows.length - 1); i++) {
 
-                                //start by saying there should be no switching:
-                                shouldSwitch = false;
-                                /*Get the two elements you want to compare,
-                                one from current row and one from the next:*/
-                                x = rows[i].getElementsByTagName("td")[0];
-                                y = rows[i + 1].getElementsByTagName("td")[0];
-                                //check if the two rows should switch place:
-                                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                    //if so, mark as a switch and break the loop:
-                                    shouldSwitch = true;
-                                    break;
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[0];
+                                    y = rows[i + 1].getElementsByTagName("td")[0];
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
                                 }
                             }
-                            if (shouldSwitch) {
-                                /*If a switch has been marked, make the switch
-                                and mark that a switch has been done:*/
-                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                                switching = true;
-                            }
                         }
-                    }
-                    //Sorting according to author
-                    else if (document.getElementById('sort').value == "Author") {
-                        var table, rows, switching, i, x, y, shouldSwitch;
-                        table = document.getElementById("tab");
-                        switching = true;
-                        /*Make a loop that will continue until
-                        no switching has been done:*/
-                        while (switching) {
+                        //Sorting according to author
+                        else if (document.getElementById('sort').value == "Author") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
 
-                            //start by saying: no switching is done:
-                            switching = false;
-                            rows = table.getElementsByTagName("tr");
-                            /*Loop through all table rows (except the
-                            first, which contains table headers):*/
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
 
-                            for (i = 1; i < (rows.length - 1); i++) {
+                                for (i = 1; i < (rows.length - 1); i++) {
 
-                                //start by saying there should be no switching:
-                                shouldSwitch = false;
-                                /*Get the two elements you want to compare,
-                                one from current row and one from the next:*/
-                                x = rows[i].getElementsByTagName("td")[1];
-                                y = rows[i + 1].getElementsByTagName("td")[1];
-                                //check if the two rows should switch place:
-                                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                    //if so, mark as a switch and break the loop:
-                                    shouldSwitch = true;
-                                    break;
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[1];
+                                    y = rows[i + 1].getElementsByTagName("td")[1];
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
                                 }
                             }
-                            if (shouldSwitch) {
-                                /*If a switch has been marked, make the switch
-                                and mark that a switch has been done:*/
-                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                                switching = true;
-                            }
                         }
-                    }
-                    //sorting according to most recent
-                    else if (document.getElementById('sort').value == "Recent") {
-                        var table, rows, switching, i, x, y, shouldSwitch;
-                        table = document.getElementById("tab");
-                        switching = true;
-                        /*Make a loop that will continue until
-                        no switching has been done:*/
-                        while (switching) {
+                        //sorting according to most recent
+                        else if (document.getElementById('sort').value == "Recent") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
 
-                            //start by saying: no switching is done:
-                            switching = false;
-                            rows = table.getElementsByTagName("tr");
-                            /*Loop through all table rows (except the
-                            first, which contains table headers):*/
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
 
-                            for (i = 1; i < (rows.length - 1); i++) {
+                                for (i = 1; i < (rows.length - 1); i++) {
 
-                                //start by saying there should be no switching:
-                                shouldSwitch = false;
-                                /*Get the two elements you want to compare,
-                                one from current row and one from the next:*/
-                                x = rows[i].getElementsByTagName("td")[3];
-                                y = rows[i + 1].getElementsByTagName("td")[3];
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[3];
+                                    y = rows[i + 1].getElementsByTagName("td")[3];
 
-                                //check if the two rows should switch place:
-                                if (x.innerHTML < y.innerHTML) {
-                                    //if so, mark as a switch and break the loop:
-                                    shouldSwitch = true;
-                                    break;
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML < y.innerHTML) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
                                 }
                             }
-                            if (shouldSwitch) {
-                                /*If a switch has been marked, make the switch
-                                and mark that a switch has been done:*/
-                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                                switching = true;
+                        }
+                    })
+
+
+                    var tables = document.getElementById("tab");
+                    //these lines responsible for detecting the row clicked
+                    for (i = 1; i < tables.rows.length; i++) {
+                        var r = tables.rows[i];
+                        r.onclick = function () {
+                            if (!this.hilite) { //to highlight the selected row
+                                this.origColor = this.style.backgroundColor;
+                                this.style.backgroundColor = '#BCD4EC';
+                                this.hilite = true;
                             }
-                        }
-                    }
-                })
 
 
-            var tables = document.getElementById("tab");
-            //these lines responsible for detecting the row clicked
-            for (i = 1; i < tables.rows.length; i++) {
-                var r = tables.rows[i];
-                r.onclick = function () {
-                    if (!this.hilite) { //to highlight the selected row
-                        this.origColor = this.style.backgroundColor;
-                        this.style.backgroundColor = '#BCD4EC';
-                        this.hilite = true;
-                    }
+                            var ind = this.rowIndex;
+                            // get the data stored in the cells of the selected row
+                            var booktitle = this.getElementsByTagName("td")[0];
+                            var bookauthor = this.getElementsByTagName("td")[1];
+                            var bookedition = this.getElementsByTagName("td")[2];
+                            var bokid = this.getElementsByTagName("td")[5];
+                            var donor = this.getElementsByTagName("td")[6];
+                            var bookcode = this.getElementsByTagName("td")[7];
+                            //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
+                            // responsible for showing the message to ask the user if he was sure to add the book
+                            if (confirm("are you sure you want to add this book to the cart? \n" + '"' + booktitle.innerHTML + '"' + " by " + '"' + bookauthor.innerHTML + '"' + " " + bookedition.innerHTML + " edition for " + bookcode.innerHTML)) {
 
-
-                    var ind = this.rowIndex;
-                    // get the data stored in the cells of the selected row
-                    var booktitle = this.getElementsByTagName("td")[0];
-                    var bookauthor = this.getElementsByTagName("td")[1];
-                    var bookedition = this.getElementsByTagName("td")[2];
-                    var bokid=this.getElementsByTagName("td")[5];
-                    var donor=this.getElementsByTagName("td")[6];
-                    var bookcode=this.getElementsByTagName("td")[7];
-                    //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
-                    // responsible for showing the message to ask the user if he was sure to add the book
-                    if (confirm("are you sure you want to add this book to the cart? \n" + '"' + booktitle.innerHTML + '"' + " by " + '"' + bookauthor.innerHTML + '"' + " " + bookedition.innerHTML + " edition for " + bookcode.innerHTML)) {
-
-                        // what would happen if the user clicks ok (he wants to add the book)
-                        var book = {   //the book that would be added to the cart
-                            type: "Book",
-                            book_title: booktitle.innerHTML,
-                            book_author: bookauthor.innerHTML,
-                            book_edition: bookedition.innerHTML,
-                            bookID: bokid.innerHTML,
-                            donorID: donor.innerHTML
-                        }
-                        console.log(book);
-                        if (cart.length == 0) {  //for first time only
-                            cart.push(book);
-                            alert("the book was added to cart");
-                        }
-
-                        else { //check if he already added that book
-                            for (i = 0; i < cart.length; i++) {
-                                if (book.bookID == cart[i].bookID) {
-                                    alert("you already added that book");
-                                    exist = 1;
+                                // what would happen if the user clicks ok (he wants to add the book)
+                                var book = {   //the book that would be added to the cart
+                                    type: "Book",
+                                    book_title: booktitle.innerHTML,
+                                    book_author: bookauthor.innerHTML,
+                                    book_edition: bookedition.innerHTML,
+                                    bookID: bokid.innerHTML,
+                                    donorID: donor.innerHTML
                                 }
-                            }
-                            if (exist == 0) {
-                                cart.push(book);
-                                alert("the book was added to cart");
-                            }
-                            exist = 0;
+                                console.log(book);
+                                if (cart.length == 0) {  //for first time only
+                                    cart.push(book);
+                                    alert("the book was added to cart");
+                                }
 
+                                else { //check if he already added that book
+                                    for (i = 0; i < cart.length; i++) {
+                                        if (book.bookID == cart[i].bookID) {
+                                            alert("you already added that book");
+                                            exist = 1;
+                                        }
+                                    }
+                                    if (exist == 0) {
+                                        cart.push(book);
+                                        alert("the book was added to cart");
+                                    }
+                                    exist = 0;
+
+                                }
+                                sessionStorage.setItem("Cart", JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
+
+
+
+                                console.log(cart);
+                            }
+                            // remove the highlight of the row
+                            this.style.backgroundColor = this.origColor;
+                            this.hilite = false;
                         }
-                        sessionStorage.setItem("Cart", JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
 
 
-
-                        console.log(cart);
-                    }
-                    // remove the highlight of the row
-                    this.style.backgroundColor = this.origColor;
-                    this.hilite = false;
-                }
+                    };
 
 
-            };
-
-
-        },
-            error: function () {
-                console.log("Error in connection");
-            },
+                },
+                error: function () {
+                    console.log("Error in connection");
+                },
 
 
             });
@@ -348,7 +348,7 @@
                     "x-access-token": sessionStorage.getItem('token')
                 },
                 success: function (response) {
-                    var tablehtml="";
+                    var tablehtml = "";
 
                     console.log(response);
                     if (!(response.Error)) {
@@ -373,78 +373,78 @@
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
                     var tbl = document.getElementById("tab");
                     for (var i = 1; i < tbl.rows.length; i++) {
-                                tbl.rows[i].cells[5].style.display = "none";
-                                tbl.rows[i].cells[6].style.display = "none";
-                                tbl.rows[i].cells[7].style.display = "none";
+                        tbl.rows[i].cells[5].style.display = "none";
+                        tbl.rows[i].cells[6].style.display = "none";
+                        tbl.rows[i].cells[7].style.display = "none";
 
 
                     }
                     var tables = document.getElementById("tab");
-            //these lines responsible for detecting the row clicked
-            for (i = 1; i < tables.rows.length; i++) {
-                var r = tables.rows[i];
-                r.onclick = function () {
-                    if (!this.hilite) { //to highlight the selected row
-                        this.origColor = this.style.backgroundColor;
-                        this.style.backgroundColor = '#BCD4EC';
-                        this.hilite = true;
-                    }
+                    //these lines responsible for detecting the row clicked
+                    for (i = 1; i < tables.rows.length; i++) {
+                        var r = tables.rows[i];
+                        r.onclick = function () {
+                            if (!this.hilite) { //to highlight the selected row
+                                this.origColor = this.style.backgroundColor;
+                                this.style.backgroundColor = '#BCD4EC';
+                                this.hilite = true;
+                            }
 
 
-                    var ind = this.rowIndex;
-                    // get the data stored in the cells of the selected row
-                    var booktitle = this.getElementsByTagName("td")[0];
-                    var bookauthor = this.getElementsByTagName("td")[1];
-                    var bookedition = this.getElementsByTagName("td")[2];
-                    var bokid=this.getElementsByTagName("td")[5];
-                    var bookcode=this.getElementsByTagName("td")[7];
-                    var donors=this.getElementsByTagName("td")[6];
-                    //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
-                    // responsible for showing the message to ask the user if he was sure to add the book
-                    if (confirm("are you sure you want to add this book to the cart? \n" + '"' + booktitle.innerHTML + '"' + " by " + '"' + bookauthor.innerHTML + '"' + " " + bookedition.innerHTML + " edition for " + bookcode.innerHTML)) {
+                            var ind = this.rowIndex;
+                            // get the data stored in the cells of the selected row
+                            var booktitle = this.getElementsByTagName("td")[0];
+                            var bookauthor = this.getElementsByTagName("td")[1];
+                            var bookedition = this.getElementsByTagName("td")[2];
+                            var bokid = this.getElementsByTagName("td")[5];
+                            var bookcode = this.getElementsByTagName("td")[7];
+                            var donors = this.getElementsByTagName("td")[6];
+                            //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
+                            // responsible for showing the message to ask the user if he was sure to add the book
+                            if (confirm("are you sure you want to add this book to the cart? \n" + '"' + booktitle.innerHTML + '"' + " by " + '"' + bookauthor.innerHTML + '"' + " " + bookedition.innerHTML + " edition for " + bookcode.innerHTML)) {
 
-                        // what would happen if the user clicks ok (he wants to add the book)
-                        var book = {   //the book that would be added to the cart
-                            type: "Book",
-                            book_title: booktitle.innerHTML,
-                            book_author: bookauthor.innerHTML,
-                            book_edition: bookedition.innerHTML,
-                            bookID: bokid.innerHTML,
-                            donorID: donors.innerHTML
-                        }
-                        console.log(book);
-                        if (cart.length == 0) {  //for first time only
-                            cart.push(book);
-                            alert("the book was added to cart");
-                        }
-
-                        else { //check if he already added that book
-                            for (i = 0; i < cart.length; i++) {
-                                if (book.bookID == cart[i].bookID) {
-                                    alert("you already added that book");
-                                    exist = 1;
+                                // what would happen if the user clicks ok (he wants to add the book)
+                                var book = {   //the book that would be added to the cart
+                                    type: "Book",
+                                    book_title: booktitle.innerHTML,
+                                    book_author: bookauthor.innerHTML,
+                                    book_edition: bookedition.innerHTML,
+                                    bookID: bokid.innerHTML,
+                                    donorID: donors.innerHTML
                                 }
-                            }
-                            if (exist == 0) {
-                                cart.push(book);
-                                alert("the book was added to cart");
-                            }
-                            exist = 0;
+                                console.log(book);
+                                if (cart.length == 0) {  //for first time only
+                                    cart.push(book);
+                                    alert("the book was added to cart");
+                                }
 
+                                else { //check if he already added that book
+                                    for (i = 0; i < cart.length; i++) {
+                                        if (book.bookID == cart[i].bookID) {
+                                            alert("you already added that book");
+                                            exist = 1;
+                                        }
+                                    }
+                                    if (exist == 0) {
+                                        cart.push(book);
+                                        alert("the book was added to cart");
+                                    }
+                                    exist = 0;
+
+                                }
+                                sessionStorage.setItem("Cart", JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
+
+
+
+                                console.log(cart);
+                            }
+                            // remove the highlight of the row
+                            this.style.backgroundColor = this.origColor;
+                            this.hilite = false;
                         }
-                        sessionStorage.setItem("Cart", JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
 
 
-
-                        console.log(cart);
-                    }
-                    // remove the highlight of the row
-                    this.style.backgroundColor = this.origColor;
-                    this.hilite = false;
-                }
-
-
-            };
+                    };
 
                 },
                 error: function () {
@@ -453,9 +453,9 @@
 
 
             });
-            
+
         }
-        
+
 
         )
 

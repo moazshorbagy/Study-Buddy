@@ -69,13 +69,9 @@
                 <th style="text-align:left">BookStatus</th>
             </thead>
             <tbody>
-
-
             </tbody>
         </table>
-
     </div>
-
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -116,10 +112,7 @@
                             tablehtml += "</tr>";
 
                         }
-
                     }
-
-
 
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
                     var tbl = document.getElementById("tab");
@@ -127,10 +120,7 @@
                         tbl.rows[i].cells[5].style.display = "none";
                         tbl.rows[i].cells[6].style.display = "none";
                         tbl.rows[i].cells[7].style.display = "none";
-
-
                     }
-
 
                     //Sorting Alphabetically
 
@@ -289,18 +279,12 @@
                             }
                         }
                     })
-
                 },
                 error: function () {
                     console.log("Error in connection");
                 },
-
-
             });
-
         })
-
-
 
 
         $('#search').on('click', function (ev) {
@@ -340,10 +324,7 @@
                             tablehtml += "</tr>";
 
                         }
-
                     }
-
-
 
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
                     var tbl = document.getElementById("tab");
@@ -351,29 +332,15 @@
                         tbl.rows[i].cells[5].style.display = "none";
                         tbl.rows[i].cells[6].style.display = "none";
                         tbl.rows[i].cells[7].style.display = "none";
-
-
                     }
 
                 },
                 error: function () {
                     console.log("Error in connection");
                 },
-
-
             });
-
         }
-
-
         )
-
-
-
-
     </script>
-
-
 </body>
-
 </html>

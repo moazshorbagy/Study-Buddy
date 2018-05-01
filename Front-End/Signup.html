@@ -8,138 +8,149 @@
     <title> Study Buddy|Sign up </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
-    
-    
+
+
 
 </head>
+
 <body>
 
     <header id="head1">
         <div class="container">
-            
-                <h1 style="text-align:center">
-                    Sign Up
-                </h1>
-                
-            
+
+            <h1 style="text-align:center">
+                Sign Up
+            </h1>
+
+
         </div>
 
     </header>
 
     <div id="signup">
 
-        <form id="sform" name="sform"   >
+        <form id="sform" name="sform">
 
-        Username: <span style="color:red; font-size:15px;" id="uname"></span> <br>
-         <input name="username" id="Username" type="text" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="@ . _ are allowed"> <br/>
+            Username:
+            <span style="color:red; font-size:15px;" id="uname"></span>
+            <br>
+            <input name="username" id="Username" type="text" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="@ . _ are allowed">
+            <br/> Password:
+            <span style="color:red; font-size:15px;" id="upass"></span>
+            <br/>
+            <input name="password" id="Password" type="Password" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="Letters and numbers only">
+            <br/> Department:
+            <br/>
+            <select name="department" id="Department" style="font-size:15px">
+                <option value="CCE">CCE</option>
+                <option value="CCEE">CCEE</option>
+                <option value="CCEC">CCEC</option>
+                <option value="EEE">EEE</option>
+                <option value="AET">AET</option>
+                <option value="MDE">MDE</option>
+                <option value="STE">STE</option>
+                <option value="CEM">CEM</option>
+            </select>
+            <br/> Email:
+            <span style="color:red; font-size:15px;" id="uemail"></span>
+            <br>
+            <input name="email" id="Email" type="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="@ . _ are allowed">
+            <br> Phone Number:
+            <span style="color:red; font-size:15px;" id="uphone"></span>
+            <br/>
+            <input name="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" id="Phone" type="tel"
+                placeholder="(Optional)">
+            <br/> Year:
+            <br/>
+            <input name="year" type="radio" value="1" checked>1
+            <input name="year" type="radio" value="2">2
+            <input name="year" type="radio" value="3">3
+            <input name="year" type="radio" value="4">4
+            <input name="year" type="radio" value="5">5
+            <input name="year" type="radio" value="Graduate">Graduate
 
-        Password: <span style="color:red; font-size:15px;" id="upass"></span> <br/>
-         <input name="password" id="Password" type="Password" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and numbers only"> <br/>
-        
-         Department: <br/>
-                <select name="department" id="Department"   style="font-size:15px">
-                    <option value="CCE">CCE</option>
-                    <option value="CCEE">CCEE</option>
-                    <option value="CCEC">CCEC</option>
-                    <option value="EEE">EEE</option>
-                    <option value="AET">AET</option>
-                    <option value="MDE">MDE</option>
-                    <option value="STE">STE</option>
-                    <option value="CEM">CEM</option>
-                </select> <br/>
-        
-        Email: <span style="color:red; font-size:15px;" id="uemail"></span> <br>
-        <input name="email" id="Email" type="email"onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="@ . _ are allowed" > <br>
+            <br/>
+            <br/>
 
-        Phone Number: <span style="color:red; font-size:15px;" id="uphone"></span> <br/>
-        <input name="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" id="Phone" type="tel" placeholder="(Optional)"> <br/>
-
-        Year: <br/>
-        <input name="year" type="radio" value="1" checked >1
-        <input name="year" type="radio" value="2">2
-        <input name="year" type="radio" value="3">3
-        <input name="year" type="radio" value="4">4
-        <input name="year" type="radio" value="5">5
-        <input name="year" type="radio" value="Graduate">Graduate
-              
-         <br/><br/>
-        
-         <input name="submit" id="submit" type="submit" value="Sign up" style="font-size: 15px"  >
-                <p id="demo"></p>
+            <input name="submit" id="submit" type="submit" value="Sign up" style="font-size: 15px">
+            <p id="demo"></p>
         </form>
-      
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>            
-            
-               $('#submit').on('click',function(ev){
+
+            $('#submit').on('click', function (ev) {
                 ev.preventDefault();
-               
-               if(document.getElementById("Username").value==""){
-                   document.getElementById("uname").innerHTML="Username Required";
-               }
-               else {
-                document.getElementById("uname").innerHTML="";
-               }
-                if(document.getElementById("Password").value==""){
-                   document.getElementById("upass").innerHTML="Password Required";
-               }
-               else {
-                document.getElementById("upass").innerHTML="";
-               }
-                if(document.getElementById("Email").value==""){
-                   document.getElementById("uemail").innerHTML="Email Required";
-                   
-               }
-               else {
-                document.getElementById("uemail").innerHTML="";
-               }
-               $('#p').on('click', function () {
-var textComponent = document.getElementById('uphone');
-var selectedText; 
-var startPos = textComponent.selectionStart;
-var endPos = textComponent.selectionEnd;
-selectedText = textComponent.value.substring(startPos, endPos)
-if (selectedText.length!=11||selectedText.length!=0)    
-document.getElementById("uphone").innerHTML="Phone must be either of 11 digits or left empty"
-else document.getElementById("uphone").innerHTML=="";
-});
-            
-            if(!(document.getElementById("Username").value=="" || document.getElementById("Password").value=="" || document.getElementById("Email").value=="" ))
-               {
-                           
-            $.ajax({
-               
-               type:"POST", 
-               url :'http://localhost:3000/api/register',
-               data: $('#sform').serialize(), 
-               success:function(response){
-                   console.log(response);
-                if(!(response.Error)){
-                    alert('Congratulations, You have successfully joined our Study Buddy Family')
-                    window.location.href="Login.html"; 
-                    
+
+                if (document.getElementById("Username").value == "") {
+                    document.getElementById("uname").innerHTML = "Username Required";
                 }
-                else
-                   alert('This email already exists');
-               },
-               error: function(){
-                   console.log("Error in connection");
-               },
-             
-              
-           });
-               }
+                else {
+                    document.getElementById("uname").innerHTML = "";
+                }
+                if (document.getElementById("Password").value == "") {
+                    document.getElementById("upass").innerHTML = "Password Required";
+                }
+                else {
+                    document.getElementById("upass").innerHTML = "";
+                }
+                if (document.getElementById("Email").value == "") {
+                    document.getElementById("uemail").innerHTML = "Email Required";
+
+                }
+                else {
+                    document.getElementById("uemail").innerHTML = "";
+                }
+                $('#p').on('click', function () {
+                    var textComponent = document.getElementById('uphone');
+                    var selectedText;
+                    var startPos = textComponent.selectionStart;
+                    var endPos = textComponent.selectionEnd;
+                    selectedText = textComponent.value.substring(startPos, endPos)
+                    if (selectedText.length != 11 || selectedText.length != 0)
+                        document.getElementById("uphone").innerHTML = "Phone must be either of 11 digits or left empty"
+                    else document.getElementById("uphone").innerHTML == "";
+                });
+
+                if (!(document.getElementById("Username").value == "" || document.getElementById("Password").value == "" || document.getElementById("Email").value == "")) {
+
+                    $.ajax({
+
+                        type: "POST",
+                        url: 'http://localhost:3000/api/register',
+                        data: $('#sform').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            if (!(response.Error)) {
+                                alert('Congratulations, You have successfully joined our Study Buddy Family')
+                                window.location.href = "Login.html";
+
+                            }
+                            else
+                                alert('This email already exists');
+                        },
+                        error: function () {
+                            console.log("Error in connection");
+                        },
+
+
+                    });
+                }
             }
-        )
-           
-                
-           
-      
-           
-    
+            )
+
+
+
+
+
+
         </script>
-    
+
     </div>
-    
+
 </body>
+
 </html>

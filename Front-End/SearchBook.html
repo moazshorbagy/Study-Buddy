@@ -11,6 +11,7 @@
 
 
 </head>
+
 <body>
 
     <header id="head2">
@@ -20,8 +21,8 @@
                     Book-Search
                 </h1>
             </div>
-            <nav >
-               
+            <nav>
+
                 <a href="Home.html">HOME</a>
 
                 <a href="new 4.html">ABOUT US </a>
@@ -30,19 +31,24 @@
         </div>
 
     </header>
-    <div id="Bsearch">  
-        
+    <div id="Bsearch">
+
         <fieldset>
             <legend>Search for book by:</legend>
             <form>
-                
-                Book Title:<br/>
-                <input  name="title";placeholder="Letters and number field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" type="text" id="intext" > <br/>
-                Book Author: <br/>
-                <input name="author";placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" type="text" id="intext"><br/>
-                Book Code: <br/>
+
+                Book Title:
+                <br/>
+                <input name="title" ;placeholder="Letters and number field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                    type="text" id="intext">
+                <br/> Book Author:
+                <br/>
+                <input name="author" ;placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                    type="text" id="intext">
+                <br/> Book Code:
+                <br/>
                 <select name="code" multiple style="font-size:15px">
-                    <option value="MTH"selected>MTH</option>
+                    <option value="MTH" selected>MTH</option>
                     <option value="CMP">CMP</option>
                     <option value="STR">STR</option>
                     <option value="EEE">EEE</option>
@@ -50,16 +56,20 @@
                     <option value="MDE">MDE</option>
                     <option value="STE">STE</option>
                     <option value="CEM">CEM</option>
-                </select> <br/>
+                </select>
+                <br/> Edition:
+                <br/>
+                <input name="edition" ;placeholder="Number only field" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13"
+                    size="3" maxlength="3" type="text" id="intext">
+                <br/>
 
-                Edition: <br/>
-                <input name="edition";placeholder="Number only field" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" size="3" maxlength="3" type="text" id="intext"><br/>
-                
-                <input name="submit"; type="submit" value="Search for book" style="font-size:15px;" sty><br/>
+                <input name="submit" ; type="submit" value="Search for book" style="font-size:15px;" sty>
+                <br/>
             </form>
         </fieldset>
 
     </div>
 
 </body>
+
 </html>

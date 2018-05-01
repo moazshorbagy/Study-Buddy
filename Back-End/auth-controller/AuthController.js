@@ -15,7 +15,9 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.use(bodyParser.urlencoded({ extended: false }));
   router.use(bodyParser.json());
 
+  //Adds a new user to the database
   router.post("/register", function(req, res) {
+    //hashing password
     var salt = bcrypt.genSaltSync(10);
     var hashedpassword = bcrypt.hashSync(req.body.password, salt);
     if (req.body.year == "Graduate") req.body.year = 0;
@@ -37,19 +39,23 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
       req.body.department,
       req.body.year
     ];
+    //using format we can protect the database from SQL injection
     query = mysql.format(query, table);
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query" });
       } else {
+        //sends email to the provided address
         new sendEmail(req.body.email);
         res.json({ Error: false, Message: "successfully signed up" });
       }
     });
   });
 
+  //responsible for logging the user in
   router.post("/login", function(req, res) {
+    //selecting the user by email to check if he's already registered or not
     var query = "SELECT * FROM ?? WHERE ??=?";
     var table = ["user", "user_email", req.body.email];
     query = mysql.format(query, table);
@@ -58,9 +64,10 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         return res.json({
           Error: true,
           Message: "Error executing MySQL query",
+          //statusCode 500 means internal server error
           statusCode: "500"
         });
-
+      //if rows are empty it means he's not in the database
       if (rows == "")
         return res.json({
           Error: true,
@@ -68,11 +75,13 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           statusCode: "404"
         });
       else {
+        //else he exists so we check on his password by comparing the hashed passwords
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,
           rows[0].user_password
         );
         if (!passwordIsValid)
+          //if compareSync returns zero it means that the passwords doesn't match
           return res.json({
             Error: true,
             Message: "Incorrect password",
@@ -85,6 +94,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         res.json({
           Error: false,
           Message: "Successfully logged in",
+          //sending the token to allow the user to access private data
           token: token,
           id: rows[0].user_id,
           statusCode: "200"
@@ -93,6 +103,8 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  //This function returns info about the user
+  //using the VerifyToken in the parameter list we can validate the token provided
   router.post("/userinfo", VerifyToken, function(req, res) {
     var query = "SELECT * FROM ?? WHERE ??=?";
     var table = ["user", "user_id", req.body.userId];
@@ -106,6 +118,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         });
 
       if (rows == "")
+        //checks to see if the ID provided exists, if rows is empty it means it's not in the database
         return res.json({
           Error: true,
           Message: "No user found",
@@ -115,32 +128,52 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         return res.json({
           Error: false,
           Message: "Success",
+          //returns the info about the user
           userInfo: rows[0]
         });
       }
     });
   });
 
+  //search for specific user his user name
   router.post("/searchUser", VerifyToken, function(req, res) {
     var Name = req.body.name;
-    if(Name=="") Name = "";
+    //if the name is not sent (undefined) we should convert it to string
+    if (Name == "") Name = "";
     console.log(req.body.name);
     var query =
-      "SELECT user_name,user_rate FROM User WHERE" + " user_name LIKE '%" + Name + "%'" ;
+      "SELECT user_name, user_rate FROM User WHERE" +
+      " user_name LIKE '%" +
+      Name +
+      "%'";
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
-        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+        res.json({
+          Error: true,
+          Message: "Error executing MySQL query",
+          statusCode: "500"//internal server error
+        });
+        //if rows are empty it means it wasn't found in the database
       } else if (rows == "")
         res.json({ Error: true, Message: "No users found", statusCode: "404" });
       else {
-        res.json({ Error: false, Users: rows, n: rows.length, statusCode: "200" });}
+        res.json({
+          Error: false,
+          //returns all users with names like the one provided
+          Users: rows,
+          n: rows.length,
+          statusCode: "200"//statusCode 200 means success
+        });
+      }
     });
   });
 
+  //Allows a user to change his account information
   router.post("/changeinfo", VerifyToken, function(req, res) {
     var defaultQuery = "UPDATE ?? SET ??=? WHERE ??=?";
     var query = "";
+    //if there's an email provided execute this query
     if (req.body.email != "") {
       var table = ["user", "user_email", req.body.email, "user_id", req.userId];
       query = mysql.format(defaultQuery, table);
@@ -149,11 +182,11 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           return res.json({
             Error: true,
             Message: "Error executing MySQL query",
-            statusCode: "500"
+            statusCode: "500"//internal server error
           });
       });
-      console.log("email changed");
     }
+    //if a user name is provided execute this query
     if (req.body.name != "") {
       var table = ["user", "user_name", req.body.name, "user_id", req.userId];
       query = mysql.format(defaultQuery, table);
@@ -162,11 +195,11 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           return res.json({
             Error: true,
             Message: "Error executing MySQL query",
-            statusCode: "500"
+            statusCode: "500"//internal server error
           });
       });
-      console.log("name changed");
     }
+    //if there's a department provided execute this query
     if (req.body.department != "") {
       var table = [
         "user",
@@ -181,11 +214,11 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           return res.json({
             Error: true,
             Message: "Error executing MySQL query",
-            statusCode: "500"
+            statusCode: "500"//internal server error
           });
       });
-      console.log("dep changed");
     }
+    //if there's a year provided execute this query
     if (req.body.year != "") {
       console.log("arrive at year");
       var table = ["user", "user_year", req.body.year, "user_id", req.userId];
@@ -195,11 +228,11 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           return res.json({
             Error: true,
             Message: "Error executing MySQL query",
-            statusCode: "500"
+            statusCode: "500" //internal server error
           });
       });
-      console.log("year changed");
     }
+    //if there's phone number provided execute this query
     if (req.body.phone != "") {
       var table = ["user", "user_phone", req.body.phone, "user_id", req.userId];
       query = mysql.format(defaultQuery, table);
@@ -208,14 +241,15 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
           return res.json({
             Error: true,
             Message: "Error executing MySQL query",
-            statusCode: "500"
+            statusCode: "500"//internal server error
           });
       });
     }
+    //if a password is provided execute this query
     if (req.body.password != "") {
+      //first of all we need to hash this password
       var salt = bcrypt.genSaltSync(10);
       var hashedpassword = bcrypt.hashSync(req.body.password, salt);
-      console.log(hashedpassword);
       var table = [
         "user",
         "user_password",
@@ -223,14 +257,14 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         "user_id",
         req.userId
       ];
+      //execute the query with the hashed password
       query = mysql.format(defaultQuery, table);
-      console.log(query);
       connection.query(query, function(err, rows) {
         if (err)
           return res.json({
             Error: true,
             Message: "Error executing MySQL query",
-            statusCode: "500"
+            statusCode: "500"//internal server error
           });
       });
     }
@@ -240,7 +274,9 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  //return all the users registered
   router.get("/Users", VerifyToken, function(req, res) {
+    //for privacy purposes we only provide the user rating
     var query = "SELECT user_id,user_name,user_rate FROM user";
 
     connection.query(query, function(err, rows) {
@@ -253,9 +289,11 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
       }
     });
   });
+
+  //This function helps the user to rate another user
   router.post("/rating", VerifyToken, function(req, res) {
     var query = "INSERT INTO ??(??,??,??) VALUES (?,?,?)";
-
+    //insert the rating of the user to the other user
     var table = [
       "User_Rating",
       "user_id",
@@ -268,28 +306,33 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
     query = mysql.format(query, table);
     connection.query(query, function(err, rows) {
       if (err) {
-        return res.json({ Error: true, Message: "Error executing MySQL query" });
+        return res.json({
+          Error: true,
+          Message: "Error executing MySQL query"
+        });
       } else {
+        //here we calculate the average of the user rating to be updated
         var rating = 0.0;
-        var query2 = "SELECT * FROM User_Rating WHERE user_id="+req.body.id;
-      
+        var query2 = "SELECT * FROM User_Rating WHERE user_id=" + req.body.id;
+
         console.log(req.body.id);
         connection.query(query2, function(err, rows2) {
           if (err) {
             console.log(err);
             res.json({ Error: true, Message: "Error executing MySQL query" });
           } else {
-            console.log(rows2);
             if (rows2.length != 0) {
               for (var i = 0; i < rows2.length; i++) {
                 rating += rows2[i].rating;
               }
               rating /= rows2.length;
-              console.log(rows2.length);
-              console.log(rating);
             }
-            
-            var query3 = "UPDATE User SET user_rate= "+rating+" WHERE user_id= "+req.body.id;
+            //Update the user rating from the calculate average
+            var query3 =
+              "UPDATE User SET user_rate= " +
+              rating +
+              " WHERE user_id= " +
+              req.body.id;
 
             connection.query(query3, function(err, rows) {
               if (err) {
@@ -307,6 +350,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  //views the user rating of a provided User ID
   router.get("/view_rating", VerifyToken, function(req, res) {
     var rating = 0.0;
     var query = "SELECT * FROM ?? WHERE ?=?";
@@ -318,6 +362,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query" });
       } else {
+        //loop to get the average rating
         if (rows.Length != 0) {
           for (var i = 0; i < rows.Length; i++) {
             rating += rows[i].rating;
@@ -328,8 +373,8 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
       }
     });
   });
-
-  router.get("/logout", function(req, res) {
+  //Logging out only checks if the token exists and return error if no token provided
+  router.get("/logout", VerifyToken, function(req, res) {
     res.status(200).send({ auth: false, token: null });
   });
 };

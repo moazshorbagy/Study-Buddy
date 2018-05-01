@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="css/style.css">
     <script>
         //Checking if the account is logged in
-            if(sessionStorage.token==null){
-               alert('You are not logged in');
-               window.location.href="Login.html";
-            }
+        if (sessionStorage.token == null) {
+            alert('You are not logged in');
+            window.location.href = "Login.html";
+        }
     </script>
 
 </head>
+
 <body>
 
     <header id="head2">
@@ -26,8 +27,8 @@
                     Tool Giveaway
                 </h1>
             </div>
-            <nav >
-               
+            <nav>
+
                 <a href="Home.html">HOME</a>
 
                 <a href="new 4.html">ABOUT US </a>
@@ -36,78 +37,90 @@
         </div>
 
     </header>
-    <div id="ins">  
-        
+    <div id="ins">
+
         <fieldset>
             <legend>Tool Upload</legend>
             <form name="sform" id="sform">
-                
-                Tool Type: <span style="color:red; font-size:15px;" id="ToolType"></span> <br/>
-                <input name="type";placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and - are allowed" type="text" class="intext" id="type"><br/>
-                Manufacturer: <span style="color:red; font-size:15px;" id="Manufacturer"></span> <br/>
-                <input name="manufacturer"; onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and & are allowed"type="text" class="intext" id="Manu"><br/>
-               <!-- Book Image:<br/>
-                <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
-                Duration: <span style="font-size:15px;font-style:italic; margin:0;">(In months, if you wish to donate the tool put 0 in duration)</span></br>
-                <input name="duration";type="text"onkeypress="return (event.charCode>=48 && event.charCode<=57)||event.charCode==13" size="2" maxlength="2" class="intext" placeholder="Numbers only field"><br/>
 
-                <input name="submit"; id="submit" type="submit" value="UPLOAD" style="font-size:15px;" sty><br/>
+                Tool Type:
+                <span style="color:red; font-size:15px;" id="ToolType"></span>
+                <br/>
+                <input name="type" ;placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                    placeholder="Letters and - are allowed" type="text" class="intext" id="type">
+                <br/> Manufacturer:
+                <span style="color:red; font-size:15px;" id="Manufacturer"></span>
+                <br/>
+                <input name="manufacturer" ; onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                    placeholder="Letters and & are allowed" type="text" class="intext" id="Manu">
+                <br/>
+                <!-- Book Image:<br/>
+                <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
+                Duration:
+                <span style="font-size:15px;font-style:italic; margin:0;">(In months, if you wish to donate the tool put 0 in duration)</span>
+                </br>
+                <input name="duration" ;type="text" onkeypress="return (event.charCode>=48 && event.charCode<=57)||event.charCode==13" size="2"
+                    maxlength="2" class="intext" placeholder="Numbers only field">
+                <br/>
+
+                <input name="submit" ; id="submit" type="submit" value="UPLOAD" style="font-size:15px;" sty>
+                <br/>
             </form>
         </fieldset>
 
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        
-           $('#submit').on('click',function(ev){
+
+        $('#submit').on('click', function (ev) {
             ev.preventDefault();
-            if(document.getElementById("type").value==""){
-                   document.getElementById("Tooltype").innerHTML=" Type Required";
-               }
-               else {
-                document.getElementById("ToolType").innerHTML="";
-               }
-                if(document.getElementById("Manufacturer").value==""){
-                   document.getElementById("Manufacturer").innerHTML="Manufacturer Required";
-               }
-               else{
-                document.getElementById("Manufacturer").innerHTML="";
-               }
-                
-            
-               if(!(document.getElementById("type").value=="" || document.getElementById("Manufacturer").value=="" ))
-                {
-                    $.ajax({
-                    
-                    type:"POST", 
-                    url :'http://localhost:3000/api/insertTool',
-                    data: $('#sform').serialize() ,
+            if (document.getElementById("type").value == "") {
+                document.getElementById("Tooltype").innerHTML = " Type Required";
+            }
+            else {
+                document.getElementById("ToolType").innerHTML = "";
+            }
+            if (document.getElementById("Manufacturer").value == "") {
+                document.getElementById("Manufacturer").innerHTML = "Manufacturer Required";
+            }
+            else {
+                document.getElementById("Manufacturer").innerHTML = "";
+            }
+
+
+            if (!(document.getElementById("type").value == "" || document.getElementById("Manufacturer").value == "")) {
+                $.ajax({
+
+                    type: "POST",
+                    url: 'http://localhost:3000/api/insertTool',
+                    data: $('#sform').serialize(),
                     headers: {
                         "x-access-token": sessionStorage.getItem('token')
                     },
-                    success:function(response){
+                    success: function (response) {
                         console.log(response);
-                        
-                            if(!(response.Error)){
+
+                        if (!(response.Error)) {
                             alert('Tool was successfully uploaded');
-                            window.location.href="Tools.html"; 
-                            
+                            window.location.href = "Tools.html";
+
                         }
-                        
+
                     },
-                    error: function(){
+                    error: function () {
                         console.log("Error in connection");
-                        
+
                     },
-                    
-                    
+
+
                 });
-                    }
-                }
-           )
-        
-           
+            }
+        }
+        )
+
+
     </script>
 
 </body>
+
 </html>

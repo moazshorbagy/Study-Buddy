@@ -2,83 +2,85 @@
 
 
 <html style="height:100%;">
-        
+
 <head>
-                <meta charset="utf-8">
-                <title> Study Buddy|Forget PW </title>
-                <meta name="viewport" content="width=device-width">
-                <link rel="stylesheet" href="css/style.css">
-            
-                <script>
-                        function CheckForBlank(){
-                                   if(document.getElementById("Email").value==""){
-                                       alert('Please enter your Email');
-                                       return false;
-                                   }
-                                }
-                        </script>
-            
- </head>
- <body>
+    <meta charset="utf-8">
+    <title> Study Buddy|Forget PW </title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
 
-        <header id="head1">
-            <div class="container">
-                
-                    <h1 style="text-align:center">
-                        Forget Password
-                    </h1>
-                    
-                
-            </div>
-    
-        </header>
-    
-        <div id="forget">
-                <form name="sform" id="sform">
-                Email:<span style="color:red; font-size:15px;" id="mail"></span> <br>
-                 <input name="email"onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="@ . _ are allowed" type="email" id="Email" > <br/>
-        
-                 <span style="font-size:17px;">You don't have an account yet?<a href=Signup.html>Sign up now</a></span>
-                  <br/><br/>
-        
-                  <input name="submit" type="submit" id="submit" value="Send to my Email" style="font-size: 15px"  >
-                </form>
-            </div>
-        
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script>
-        
-            $('#submit').on('click',function(ev){
-                ev.preventDefault();
-               
-               if(document.getElementById("Email").value==""){
-                   document.getElementById("mail").innerHTML="Email Required";
-               }  
-               
-
-               else
-            $.ajax({
-               
-               type:"POST", 
-               url :'http://localhost:3000/api/login', 
-               data: $('#sform').serialize(), 
-               success:function(response){
-                   console.log(response);
-                
-                 window.location.href="Home.html";
-               },
-               error: function(response){
-                   console.log(response);
-               },
-              
-              
-           });
-           
+    <script>
+        function CheckForBlank() {
+            if (document.getElementById("Email").value == "") {
+                alert('Please enter your Email');
+                return false;
+            }
         }
-            )
-           
-        
-        </script>
-        
+    </script>
+
+</head>
+
+<body>
+
+    <header id="head1">
+        <div class="container">
+
+            <h1 style="text-align:center">
+                Forget Password
+            </h1>
+
+
+        </div>
+
+    </header>
+
+    <div id="forget">
+        <form name="sform" id="sform">
+            Email:
+            <span style="color:red; font-size:15px;" id="mail"></span>
+            <br>
+            <input name="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="@ . _ are allowed" type="email" id="Email">
+            <br/>
+
+            <span style="font-size:17px;">You don't have an account yet?
+                <a href=Signup.html>Sign up now</a>
+            </span>
+            <br/>
+            <br/>
+
+            <input name="submit" type="submit" id="submit" value="Send to my Email" style="font-size: 15px">
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        $('#submit').on('click', function (ev) {
+            ev.preventDefault();
+
+            if (document.getElementById("Email").value == "") {
+                document.getElementById("mail").innerHTML = "Email Required";
+            }
+
+
+            else
+                $.ajax({
+
+                    type: "POST",
+                    url: 'http://localhost:3000/api/login',
+                    data: $('#sform').serialize(),
+                    success: function (response) {
+                        console.log(response);
+
+                        window.location.href = "Home.html";
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    },
+                });
+        }
+        )
+    </script>
 </body>
-</html>    
+</html>

@@ -4,22 +4,23 @@
 <html style="height:100%;">
 
 <head>
-        
-        
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
-        
+
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
     <meta charset="utf-8">
     <title> Study Buddy|Cart </title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
     <script>
-            if(sessionStorage.token==null){
-               alert('You are not logged in');
-               window.location.href="Login.html";
-            }
+        if (sessionStorage.token == null) {
+            alert('You are not logged in');
+            window.location.href = "Login.html";
+        }
     </script>
 
 </head>
+
 <body>
 
     <header id="head2">
@@ -37,135 +38,137 @@
             </nav>
 
         </div>
-      
+
     </header>
     <div id="main">
-         <table id="tab"  cellspacing="0px" style="margin:10px">
-                <thead>
-                    <th style="text-align:left">Item type</th>
-                    <th style="text-align:left">Name/title</th>
-                </thead>
-                <tbody> 
-        
-        
-                </tbody>
-            </table>
+        <table id="tab" cellspacing="0px" style="margin:10px">
+            <thead>
+                <th style="text-align:left">Item type</th>
+                <th style="text-align:left">Name/title</th>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+        </table>
 
     </div>
     <button type="button" id="obtain"> obtain </button>
-    
-   
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
- 
-    var cart=new Array(); //creating a cart (array of objects)
-    var exist=0; // to see if he already ordered that book
-    
-    if(JSON.parse(sessionStorage.getItem("Cart"))!=null)  //getting the cart back when he returns to this page if it already sent once to the cart page
-    cart=JSON.parse(sessionStorage.getItem("Cart"));
-    console.log(cart);
-         $(document).ready(function(ev){
-             
-            var tablehtml="";
-               //filling the table (tab)
-               for ( i=0;i<cart.length;i++){ 
-                   if(cart[i].type=="Book"){
-                       tablehtml += "<tr>" 
-                        tablehtml += "<td>" + cart[i]["type"] + "</td>";
-                        tablehtml += "<td>" + cart[i]["book_title"] + "</td>";
-                        tablehtml += "</tr>";
-                       }
-                       else{
-                        tablehtml += "<tr>" 
-                        tablehtml += "<td>" + cart[i]["type"] + "</td>";
-                        tablehtml += "<td>" + cart[i]["tool_type"] + "</td>";
-                        tablehtml += "</tr>";
-                       }
-                   
+
+        var cart = new Array(); //creating a cart (array of objects)
+        var exist = 0; // to see if he already ordered that book
+
+        if (JSON.parse(sessionStorage.getItem("Cart")) != null)  //getting the cart back when he returns to this page if it already sent once to the cart page
+            cart = JSON.parse(sessionStorage.getItem("Cart"));
+        console.log(cart);
+        $(document).ready(function (ev) {
+
+            var tablehtml = "";
+            //filling the table (tab)
+            for (i = 0; i < cart.length; i++) {
+                if (cart[i].type == "Book") {
+                    tablehtml += "<tr>"
+                    tablehtml += "<td>" + cart[i]["type"] + "</td>";
+                    tablehtml += "<td>" + cart[i]["book_title"] + "</td>";
+                    tablehtml += "</tr>";
                 }
-            
-             $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
-             var tables=document.getElementById("tab");
-             for(i=1;i<tables.rows.length;i++){
-             var r=tables.rows[i];
-              r.onclick =function(){
-                if(!this.hilite){ //to highlight the selected row
-                this.origColor=this.style.backgroundColor;
-                this.style.backgroundColor='#BCD4EC';
-                this.hilite = true;
-                 }
-                 
-    
-                  var ind=this.rowIndex;
-                  // get the data stored in the cells of the selected row
-                  var type=this.getElementsByTagName("td")[0]; 
-                  var name=this.getElementsByTagName("td")[1];
-                  //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
-                  // responsible for showing the message to ask the user if he was sure to add the book
-                  if (confirm("are you sure you want to remove this book to the cart? \n"+'"'+type.innerHTML+'"'+" by "+'"'+name.innerHTML+'"')){
-                      
-                      // what would happen if the user clicks ok (he wants to add the book)
-                     cart.splice(ind-1,1);
-                     sessionStorage.setItem("Cart",JSON.stringify(cart));
-                    window.location.href="Cart.html";
-                    
-                  }
-                  // remove highlight
-                  this.style.backgroundColor=this.origColor;
-                    this.hilite = false;
-          
-         
-                }}
+                else {
+                    tablehtml += "<tr>"
+                    tablehtml += "<td>" + cart[i]["type"] + "</td>";
+                    tablehtml += "<td>" + cart[i]["tool_type"] + "</td>";
+                    tablehtml += "</tr>";
+                }
+
             }
-       );
-       
-       $('#obtain').on('click',function(ev){
+
+            $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
+            var tables = document.getElementById("tab");
+            for (i = 1; i < tables.rows.length; i++) {
+                var r = tables.rows[i];
+                r.onclick = function () {
+                    if (!this.hilite) { //to highlight the selected row
+                        this.origColor = this.style.backgroundColor;
+                        this.style.backgroundColor = '#BCD4EC';
+                        this.hilite = true;
+                    }
+
+
+                    var ind = this.rowIndex;
+                    // get the data stored in the cells of the selected row
+                    var type = this.getElementsByTagName("td")[0];
+                    var name = this.getElementsByTagName("td")[1];
+                    //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
+                    // responsible for showing the message to ask the user if he was sure to add the book
+                    if (confirm("are you sure you want to remove this book to the cart? \n" + '"' + type.innerHTML + '"' + " by " + '"' + name.innerHTML + '"')) {
+
+                        // what would happen if the user clicks ok (he wants to add the book)
+                        cart.splice(ind - 1, 1);
+                        sessionStorage.setItem("Cart", JSON.stringify(cart));
+                        window.location.href = "Cart.html";
+
+                    }
+                    // remove highlight
+                    this.style.backgroundColor = this.origColor;
+                    this.hilite = false;
+
+
+                }
+            }
+        }
+        );
+
+        $('#obtain').on('click', function (ev) {
             ev.preventDefault();
-            if(cart.length==0)
-            alert("cart is empty")
-            else{
-              $.ajax({
-                    type:"POST", 
-                    url :'http://localhost:3000/api/getCart',
+            if (cart.length == 0)
+                alert("cart is empty")
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost:3000/api/getCart',
                     contentType: 'application/json',
-                    data: JSON.stringify(cart) ,
+                    data: JSON.stringify(cart),
                     headers: {
                         "x-access-token": sessionStorage.getItem('token')
                     },
-                    success:function(response){
+                    success: function (response) {
                         console.log(response);
-                        
-                            if(!(response.Error)){
-                           
-                                
+
+                        if (!(response.Error)) {
+
+
                         }
-                        
+
                     },
-                    error: function(){
+                    error: function () {
                         console.log("Error in connection");
-                        
+
                     },
-                    
-                
+
+
                 });
-                  cart=[];
-                 alert('A request has been sent to the owner');
+                cart = [];
+                alert('A request has been sent to the owner');
             }
-            
-                       
-            sessionStorage.setItem("Cart",JSON.stringify(cart));
-          
-             window.location.href="Cart.html";
-           
-            });
-        
-              
-         
-   
-                         
-           
-   
+
+
+            sessionStorage.setItem("Cart", JSON.stringify(cart));
+
+            window.location.href = "Cart.html";
+
+        });
+
+
+
+
+
+
+
     </script>
 
 </body>
+
 </html>
