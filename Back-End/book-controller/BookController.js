@@ -69,7 +69,8 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
 
   router.get("/Book", VerifyToken, function(req, res) {
     var i, date, month, year;
-    var query = "SELECT * FROM book WHERE book_status = 'Available'";
+    var query = "SELECT * FROM book WHERE book_status = 'Available'"+" AND NOT donor_id="+req.userId;
+    console.log(query);
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
@@ -87,6 +88,29 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     });
   });
 
+  router.get("/myBooks", VerifyToken, function(req, res) {
+    var i, date, month, year;
+    var query = "SELECT * FROM book WHERE donor_id = "+req.userId+ " OR owner_id="+req.userId;
+    connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+      } else {
+        for(i = 0; i<rows.length; i++)
+        {
+          date = new Date(rows[i].book_post_date).getUTCDate();
+          month = new Date(rows[i].book_post_date).getUTCMonth()+1;
+          year = new Date(rows[i].book_post_date).getUTCFullYear();
+          rows[i].book_post_date = ""+year +"-"+ month +"-"+ date;
+        }
+        res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });
+      }
+    });
+  });
+
+  
+
+
   router.post("/searchBook", VerifyToken, function(req, res) {
     var title = req.body.title, author = req.body.author;
     if(title=="") title = "";
@@ -94,7 +118,8 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
 
     var query =
       "SELECT * FROM book WHERE" + " book_title LIKE '%" + title + "%'" + " AND book_code LIKE '%" + req.body.code + "%' " + " AND book_author LIKE '%" + author + "%' AND book_status = 'AVAILABLE'";
-    connection.query(query, function(err, rows) {
+      console.log(query);
+      connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
@@ -111,6 +136,34 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
         res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });}
     });
   });
+
+  router.post("/searchMyBooks", VerifyToken, function(req, res) {
+    var title = req.body.title, author = req.body.author;
+    if(title=="") title = "";
+    if(author=="") author = "";
+
+    var query =
+      "SELECT * FROM book WHERE" +" (donor_id="+req.userId+" OR owner_id="+req.userId+ ") AND book_title LIKE '%" + title + "%'" + " AND book_code LIKE '%" + req.body.code + "%' " + " AND book_author LIKE '%" + author+ "%'";
+      console.log(query);
+      connection.query(query, function(err, rows) {
+      if (err) {
+        console.log(err);
+        res.json({ Error: true, Message: "Error executing MySQL query", statusCode: "500" });
+      } else if (rows == "")
+        res.json({ Error: true, Message: "No books found", statusCode: "404" });
+      else {
+        for(i = 0; i<rows.length; i++)
+        {
+          date = new Date(rows[i].book_post_date).getUTCDate();
+          month = new Date(rows[i].book_post_date).getUTCMonth()+1;
+          year = new Date(rows[i].book_post_date).getUTCFullYear();
+          rows[i].book_post_date = ""+year +"-"+ month +"-"+ date;
+        }
+        res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });}
+    });
+  });
+
+
 };
 
 module.exports = BOOK_ROUTER;

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+
+<html style="height:100%;">
+
+<head>
+    <meta charset="utf-8">
+    <title> Study Buddy|Tools </title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        //Checking if the account is logged in
+        if (sessionStorage.token == null) {
+            alert('You are not logged in');
+            window.location.href = "Login.html";
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <header id="head2">
+        <div class="container">
+            <div id="branding">
+                <h1>
+                    Tools
+                </h1>
+            </div>
+            <nav>
+                <a href="Home.html">HOME</a>
+                <a href="Cart.html">CART</a>
+                <a href="new 4.html">ABOUT US </a>
+            </nav>
+
+        </div>
+
+        <form name="sform" id="sform">
+
+            Tool Type:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="Letters and - are allowed" name="type" id="type"> Manufacturer:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="Letters and & are allowed" name="manufacturer" id="manufacturer">
+            <input name="search" id="search" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38|| event.charCode==32||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="Letters and & are allowed" type="submit" value="search"> Sort:
+            <select name="sort" id="sort" style="font-size:15px">
+                <option value="Type">Type</option>
+                <option value="Manu">Manufacturer</option>
+            </select>
+        </form>
+    </header>
+    <div id="main">
+        <table id="tab" cellspacing="0px" style="margin:10px">
+            <thead>
+                <th style="text-align:left">Tool Type</th>
+                <th style="text-align:left">Manufacturer</th>
+                <th style="text-align:left">Date</th>
+                <th style="text-align:left">Tool Status</th>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script> 
+
+
+        $(document).ready(function (ev) {
+
+            $.ajax({
+
+                type: "GET",
+                url: 'http://localhost:3000/api/myTool',
+                headers: {
+                    "x-access-token": sessionStorage.getItem('token')
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (!(response.Error)) {
+                        var tablehtml = "";
+                        // filling the arrays with data
+                        //filling the table (tab)
+                        for (var key in response.Tools) {
+                            var donorid = response.Tools[key]["donor_id"];
+                            var ownerid = response.Tools[key]["owner_id"];
+                            if (sessionStorage.getItem('ID') == donorid)
+                                var status = "donated";
+                            else if (sessionStorage.getItem('ID') == ownerid)
+                                var status = "obtained";
+                            tablehtml += "<tr>"
+                            tablehtml += "<td>" + response.Tools[key]["type"] + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["manufacturer"] + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["tool_post_date"] + "</td>";
+                            tablehtml += "<td>" + status + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["tool_id"] + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["donor_id"] + "</td>";
+                            tablehtml += "</tr>";
+
+                        }
+                    }
+
+                    $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
+                    var tbl = document.getElementById("tab");
+                    for (var i = 1; i < tbl.rows.length; i++) {
+                        tbl.rows[i].cells[4].style.display = "none";
+                        tbl.rows[i].cells[5].style.display = "none";
+                    }
+
+
+                    //Sorting Alphabetically
+                    if (document.getElementById("sort").value == "Type") {
+                        var table, rows, switching, i, x, y, shouldSwitch;
+                        table = document.getElementById("tab");
+                        switching = true;
+                        /*Make a loop that will continue until
+                        no switching has been done:*/
+                        while (switching) {
+
+                            //start by saying: no switching is done:
+                            switching = false;
+                            rows = table.getElementsByTagName("tr");
+                            /*Loop through all table rows (except the
+                            first, which contains table headers):*/
+
+                            for (i = 1; i < (rows.length - 1); i++) {
+                                //start by saying there should be no switching:
+                                shouldSwitch = false;
+                                /*Get the two elements you want to compare,
+                                one from current row and one from the next:*/
+                                x = rows[i].getElementsByTagName("td")[0];
+                                y = rows[i + 1].getElementsByTagName("td")[0];
+                                //check if the two rows should switch place:
+                                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                    //if so, mark as a switch and break the loop:
+                                    shouldSwitch = true;
+                                    break;
+                                }
+                            }
+                            if (shouldSwitch) {
+                                /*If a switch has been marked, make the switch
+                                and mark that a switch has been done:*/
+                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                switching = true;
+                            }
+                        }
+                    }
+
+                    $('#sort').change(function () {
+                        if (document.getElementById("sort").value == "Type") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
+
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
+
+                                for (i = 1; i < (rows.length - 1); i++) {
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[0];
+                                    y = rows[i + 1].getElementsByTagName("td")[0];
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
+                                }
+                            }
+                        }
+                        else if (document.getElementById('sort').value == "Manu") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
+
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
+
+                                for (i = 1; i < (rows.length - 1); i++) {
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[1];
+                                    y = rows[i + 1].getElementsByTagName("td")[1];
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
+                                }
+                            }
+                        }
+                    })
+
+                },
+                error: function () {
+                    console.log("Error in connection");
+                },
+
+
+            });
+        })
+
+
+
+
+        $('#search').on('click', function (ev) {
+            ev.preventDefault();
+
+
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost:3000/api/searchMyTool',
+                data: $('#sform').serialize(),
+                headers: {
+                    "x-access-token": sessionStorage.getItem('token')
+                },
+                success: function (response) {
+
+                    console.log(response);
+                    if (!(response.Error)) {
+                        var tablehtml = "";
+                        // filling the arrays with data
+                        //filling the table (tab)
+                        //filling the table (tab)
+                        for (var key in response.Tools) {
+                            var donorid = response.Tools[key]["donor_id"];
+                            var ownerid = response.Tools[key]["owner_id"];
+                            if (sessionStorage.getItem('ID') == donorid)
+                                var status = "donated";
+                            else if (sessionStorage.getItem('ID') == ownerid)
+                                var status = "obtained";
+                            tablehtml += "<tr>"
+                            tablehtml += "<td>" + response.Tools[key]["type"] + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["manufacturer"] + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["tool_post_date"] + "</td>";
+                            tablehtml += "<td>" + status + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["tool_id"] + "</td>";
+                            tablehtml += "<td>" + response.Tools[key]["donor_id"] + "</td>";
+                            tablehtml += "</tr>";
+
+                        }
+                    }
+
+                    $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
+                    var tbl = document.getElementById("tab");
+                    for (var i = 1; i < tbl.rows.length; i++) {
+                        tbl.rows[i].cells[4].style.display = "none";
+                        tbl.rows[i].cells[5].style.display = "none";
+                    }
+
+
+                },
+                error: function () {
+                    console.log("Error in connection");
+                },
+
+
+            });
+        }
+
+        )
+
+
+
+    </script>
+
+
+</body>
+
+</html>

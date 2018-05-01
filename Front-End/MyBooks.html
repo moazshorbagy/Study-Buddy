@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+
+<html style="height:100%;">
+
+<head>
+    <meta charset="utf-8">
+    <title> Study Buddy|MyBooks </title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        //Checking if the account is logged in
+        if (sessionStorage.token == null) {
+            alert('You are not logged in');
+            window.location.href = "Login.html";
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <header id="head2">
+        <div class="container">
+            <div id="branding">
+                <h1>
+                    Books
+                </h1>
+            </div>
+            <nav>
+                <a href="Home.html">HOME</a>
+                <a href="Cart.html">CART</a>
+                <a href="new 4.html">ABOUT US </a>
+            </nav>
+
+        </div>
+        <form name="sform" id="sform">
+            BookTitle:
+            <input type="text" name="title" id="title"> BookAuthor:
+            <input type="text" name="author" id="author"> BookCode:
+            <select name="code" id="code" style="font-size:15px">
+                <option value="MTH">MTH</option>
+                <option value="CMP">CMP</option>
+                <option value="STR">STR</option>
+                <option value="EEE">EEE</option>
+                <option value="AET">AET</option>
+                <option value="MDE">MDE</option>
+                <option value="STE">STE</option>
+                <option value="CEM">CEM</option>
+            </select>
+            <input name="search" id="search" type="submit" value="search"> Sort:
+            <select name="sort" id="sort" style="font-size:15px">
+                <option value="Title">Title</option>
+                <option value="Recent">Most Recent</option>
+                <option value="Author">Author</option>
+                <option value="status">Status</option>
+            </select>
+        </form>
+
+    </header>
+    <div id="main">
+        <table id="tab" cellspacing="0px" style="margin:10px">
+            <thead>
+                <th style="text-align:left">BookTitle</th>
+                <th style="text-align:left">BookAuthor</th>
+                <th style="text-align:left">BookEdition</th>
+                <th style="text-align:left">Date</th>
+                <th style="text-align:left">BookStatus</th>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script> 
+
+        $(document).ready(function (ev) {
+
+            $.ajax({
+
+                type: "GET",
+                url: 'http://localhost:3000/api/myBooks',
+                headers: {
+                    "x-access-token": sessionStorage.getItem('token')
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (!(response.Error)) {
+                        var tablehtml = "";
+                        // arrays to store book doner, book_id,book_code
+                        // filling the arrays with data
+                        //filling the table (tab)
+                        for (var key in response.Books) {
+                            var donorid = response.Books[key]["donor_id"];
+                            var ownerid = response.Books[key]["owner_id"];
+                            if (sessionStorage.getItem('ID') == donorid)
+                                var status = "donated";
+                            else if (sessionStorage.getItem('ID') == ownerid)
+                                var status = "obtained";
+                            tablehtml += "<tr>"
+                            tablehtml += "<td>" + response.Books[key]["book_title"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_author"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_edition"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_post_date"] + "</td>";
+                            tablehtml += "<td>" + status + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_id"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["donor_id"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_code"] + "</td>";
+                            tablehtml += "</tr>";
+
+                        }
+
+                    }
+
+
+
+                    $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
+                    var tbl = document.getElementById("tab");
+                    for (var i = 1; i < tbl.rows.length; i++) {
+                        tbl.rows[i].cells[5].style.display = "none";
+                        tbl.rows[i].cells[6].style.display = "none";
+                        tbl.rows[i].cells[7].style.display = "none";
+
+
+                    }
+
+
+                    //Sorting Alphabetically
+
+                    $('#sort').change(function () {
+                        //Sorting According to title
+                        if (document.getElementById("sort").value == "Title") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
+
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
+
+                                for (i = 1; i < (rows.length - 1); i++) {
+
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[0];
+                                    y = rows[i + 1].getElementsByTagName("td")[0];
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
+                                }
+                            }
+                        }
+                        //Sorting according to author
+                        else if (document.getElementById('sort').value == "Author") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
+
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
+
+                                for (i = 1; i < (rows.length - 1); i++) {
+
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[1];
+                                    y = rows[i + 1].getElementsByTagName("td")[1];
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
+                                }
+                            }
+                        }
+
+                        else if (document.getElementById('sort').value == "status") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
+
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
+
+                                for (i = 1; i < (rows.length - 1); i++) {
+
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[4];
+                                    y = rows[i + 1].getElementsByTagName("td")[4];
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
+                                }
+                            }
+                        }
+                        //sorting according to most recent
+                        else if (document.getElementById('sort').value == "Recent") {
+                            var table, rows, switching, i, x, y, shouldSwitch;
+                            table = document.getElementById("tab");
+                            switching = true;
+                            /*Make a loop that will continue until
+                            no switching has been done:*/
+                            while (switching) {
+
+                                //start by saying: no switching is done:
+                                switching = false;
+                                rows = table.getElementsByTagName("tr");
+                                /*Loop through all table rows (except the
+                                first, which contains table headers):*/
+
+                                for (i = 1; i < (rows.length - 1); i++) {
+
+                                    //start by saying there should be no switching:
+                                    shouldSwitch = false;
+                                    /*Get the two elements you want to compare,
+                                    one from current row and one from the next:*/
+                                    x = rows[i].getElementsByTagName("td")[3];
+                                    y = rows[i + 1].getElementsByTagName("td")[3];
+
+                                    //check if the two rows should switch place:
+                                    if (x.innerHTML < y.innerHTML) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                                if (shouldSwitch) {
+                                    /*If a switch has been marked, make the switch
+                                    and mark that a switch has been done:*/
+                                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                    switching = true;
+                                }
+                            }
+                        }
+                    })
+
+                },
+                error: function () {
+                    console.log("Error in connection");
+                },
+
+
+            });
+
+        })
+
+
+
+
+        $('#search').on('click', function (ev) {
+            ev.preventDefault();
+
+
+
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost:3000/api/searchMyBooks',
+                data: $('#sform').serialize(),
+                headers: {
+                    "x-access-token": sessionStorage.getItem('token')
+                },
+                success: function (response) {
+                    var tablehtml = "";
+
+                    console.log(response);
+                    if (!(response.Error)) {
+                        for (var key in response.Books) {
+                            var donorid = response.Books[key]["donor_id"];
+                            var ownerid = response.Books[key]["owner_id"];
+                            if (sessionStorage.getItem('ID') == donorid)
+                                var status = "donated";
+                            else if (sessionStorage.getItem('ID') == ownerid)
+                                var status = "obtained";
+                            tablehtml += "<tr>"
+                            tablehtml += "<td>" + response.Books[key]["book_title"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_author"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_edition"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_post_date"] + "</td>";
+                            tablehtml += "<td>" + status + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_id"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["donor_id"] + "</td>";
+                            tablehtml += "<td>" + response.Books[key]["book_code"] + "</td>";
+                            tablehtml += "</tr>";
+
+                        }
+
+                    }
+
+
+
+                    $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
+                    var tbl = document.getElementById("tab");
+                    for (var i = 1; i < tbl.rows.length; i++) {
+                        tbl.rows[i].cells[5].style.display = "none";
+                        tbl.rows[i].cells[6].style.display = "none";
+                        tbl.rows[i].cells[7].style.display = "none";
+
+
+                    }
+
+                },
+                error: function () {
+                    console.log("Error in connection");
+                },
+
+
+            });
+
+        }
+
+
+        )
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
