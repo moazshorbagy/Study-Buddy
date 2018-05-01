@@ -31,10 +31,10 @@
         <form id="sform" name="sform"   >
 
         Username: <span style="color:red; font-size:15px;" id="uname"></span> <br>
-         <input name="username" id="Username" type="text" > <br/>
+         <input name="username" id="Username" type="text" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="@ . _ are allowed"> <br/>
 
         Password: <span style="color:red; font-size:15px;" id="upass"></span> <br/>
-         <input name="password" id="Password" type="Password"> <br/>
+         <input name="password" id="Password" type="Password" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and numbers only"> <br/>
         
          Department: <br/>
                 <select name="department" id="Department"   style="font-size:15px">
@@ -49,7 +49,7 @@
                 </select> <br/>
         
         Email: <span style="color:red; font-size:15px;" id="uemail"></span> <br>
-        <input name="email" id="Email" type="email" > <br>
+        <input name="email" id="Email" type="email"onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="@ . _ are allowed" > <br>
 
         Phone Number: <span style="color:red; font-size:15px;" id="uphone"></span> <br/>
         <input name="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" id="Phone" type="tel" placeholder="(Optional)"> <br/>
