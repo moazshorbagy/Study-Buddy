@@ -101,6 +101,13 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
       } else if (rows == "")
         res.json({ Error: true, Message: "No books found", statusCode: "404" });
       else {
+        for(i = 0; i<rows.length; i++)
+        {
+          date = new Date(rows[i].book_post_date).getUTCDate();
+          month = new Date(rows[i].book_post_date).getUTCMonth()+1;
+          year = new Date(rows[i].book_post_date).getUTCFullYear();
+          rows[i].book_post_date = ""+year +"-"+ month +"-"+ date;
+        }
         res.json({ Error: false, Books: rows, n: rows.length, statusCode: "200" });}
     });
   });
