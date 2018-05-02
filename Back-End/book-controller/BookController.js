@@ -122,8 +122,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
     if(author=="") author = "";
 
     var query =
-      "SELECT * FROM book WHERE" + " book_title LIKE '%" + title + "%'" + " AND book_code LIKE '%" + req.body.code + "%' " + " AND book_author LIKE '%" + author + "%' AND book_status = 'AVAILABLE'";
-      console.log(query);
+      "SELECT * FROM book WHERE" + " book_title LIKE '%" + title + "%'" + " AND book_code LIKE '%" + req.body.code + "%' " + " AND book_author LIKE '%" + author + "%' AND book_status = 'AVAILABLE' AND NOT donor_id="+req.userId;
       connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);

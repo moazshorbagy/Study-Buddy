@@ -47,7 +47,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         res.json({ Error: true, Message: "Error executing MySQL query" });
       } else {
         //sends email to the provided address
-        new sendEmail(req.body.email);
+        new sendEmail(req.body.email, "welcome");
         res.json({ Error: false, Message: "successfully signed up" });
       }
     });
@@ -140,12 +140,15 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
     var Name = req.body.name;
     //if the name is not sent (undefined) we should convert it to string
     if (Name == "") Name = "";
-    console.log(req.body.name);
     var query =
-      "SELECT user_name, user_rate FROM User WHERE" +
-      " user_name LIKE '%" +
+      "SELECT user_name, user_rate FROM User WHERE ?? LIKE '%" +
       Name +
-      "%'";
+      "%' AND NOT user_id = ?";
+      var table = [
+        "user_name",
+        req.userId        
+      ];
+    query = mysql.format(query, table);  
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
@@ -277,7 +280,7 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
   //return all the users registered
   router.get("/Users", VerifyToken, function(req, res) {
     //for privacy purposes we only provide the user rating
-    var query = "SELECT user_id,user_name,user_rate FROM user";
+    var query = "SELECT user_id,user_name,user_rate FROM user WHERE NOT user_id ="+req.userId;
 
     connection.query(query, function(err, rows) {
       if (err) {

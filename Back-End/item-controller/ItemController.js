@@ -44,7 +44,11 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           });
         }
       });
-
+      /*var optionalObj;
+      optionalObj.myName = req.body[i]["donorName"];
+      optionalObj.hisName = req.body[i]["receiverName"];
+      optionalObj.hisName = req.body[i]["receiverEmail"];
+      optionalObj.itemName = req.body[i]["itemName"];*/
       query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
       if (req.body[i].type == "Book") {
         table = [
@@ -58,6 +62,7 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           req.body[i]["donorID"],
           req.userId
         ];
+        //optionalObj.type = "Book";
       } else {
         table = [
           "Request",
@@ -70,7 +75,9 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           req.body[i]["donorID"],
           req.userId
         ];
+        //optionalObj.type = "Tool";
       }
+      //new sendEmail(req.body[i]["donorEmail"], "request", optionalObj);
       query = mysql.format(query, table);
       console.log(query);
       connection.query(query, function(err, rows) {
