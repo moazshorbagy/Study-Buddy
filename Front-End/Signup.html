@@ -95,30 +95,20 @@
                 else {
                     document.getElementById("upass").innerHTML = "";
                 }
-                if (document.getElementById("Email").value == "") {
-                    document.getElementById("uemail").innerHTML = "Email Required";
+                if (document.getElementById("Email").value == "" || !(document.getElementById("Email").value.includes(".")) || (!document.getElementById("Email").value.includes("@"))) {
+                    document.getElementById("uemail").innerHTML = "Email incorrect";
                 }
                 else {
                     document.getElementById("uemail").innerHTML = "";
                 }
-                if (document.getElementById("Phone").value.length!=11&&document.getElementById("Phone").value.length!=0)
-               {
-                   document.getElementById("uphone").innerHTML="Empty or 11 digits please";
-               }
-               else {
-               document.getElementById("uphone").innerHTML="";
-               }
-                $('#p').on('click', function () {
-                    var textComponent = document.getElementById('uphone');
-                    var selectedText;
-                    var startPos = textComponent.selectionStart;
-                    var endPos = textComponent.selectionEnd;
-                    selectedText = textComponent.value.substring(startPos, endPos)
-                    if (selectedText.length != 11 || selectedText.length != 0)
-                        document.getElementById("uphone").innerHTML = "Phone must be either of 11 digits or left empty"
-                    else document.getElementById("uphone").innerHTML == "";
-                });
-                if (!(document.getElementById("Username").value == "" || document.getElementById("Password").value == "" || document.getElementById("Email").value == "")) {
+                if (document.getElementById('Phone').value.length == '0')
+                    document.getElementById('uphone').innerHTML = "";
+                else if (document.getElementById('Phone').value.length == '11' && document.getElementById('Phone').value.charAt(0) == '0' && document.getElementById('Phone').value.charAt(1) == '1')
+                    document.getElementById('uphone').innerHTML = "";
+                else
+                    document.getElementById('uphone').innerHTML = "Phone must be either of 11 digits or left empty";
+
+                if (!(document.getElementById("Username").value == "" || document.getElementById("Password").value == "" || document.getElementById("Email").value == "") && document.getElementById("uemail").innerHTML == "" && document.getElementById("uphone").innerHTML == "") {
                     $.ajax({
                         type: "POST",
                         url: 'http://localhost:3000/api/register',
