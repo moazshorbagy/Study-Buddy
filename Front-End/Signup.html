@@ -81,10 +81,8 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>            
-
             $('#submit').on('click', function (ev) {
                 ev.preventDefault();
-
                 if (document.getElementById("Username").value == "") {
                     document.getElementById("uname").innerHTML = "Username Required";
                 }
@@ -99,11 +97,17 @@
                 }
                 if (document.getElementById("Email").value == "") {
                     document.getElementById("uemail").innerHTML = "Email Required";
-
                 }
                 else {
                     document.getElementById("uemail").innerHTML = "";
                 }
+                if (document.getElementById("Phone").value.length!=11&&document.getElementById("Phone").value.length!=0)
+               {
+                   document.getElementById("uphone").innerHTML="Empty or 11 digits please";
+               }
+               else {
+               document.getElementById("uphone").innerHTML="";
+               }
                 $('#p').on('click', function () {
                     var textComponent = document.getElementById('uphone');
                     var selectedText;
@@ -114,11 +118,8 @@
                         document.getElementById("uphone").innerHTML = "Phone must be either of 11 digits or left empty"
                     else document.getElementById("uphone").innerHTML == "";
                 });
-
                 if (!(document.getElementById("Username").value == "" || document.getElementById("Password").value == "" || document.getElementById("Email").value == "")) {
-
                     $.ajax({
-
                         type: "POST",
                         url: 'http://localhost:3000/api/register',
                         data: $('#sform').serialize(),
@@ -127,7 +128,6 @@
                             if (!(response.Error)) {
                                 alert('Congratulations, You have successfully joined our Study Buddy Family')
                                 window.location.href = "Login.html";
-
                             }
                             else
                                 alert('This email already exists');
@@ -135,18 +135,10 @@
                         error: function () {
                             console.log("Error in connection");
                         },
-
-
                     });
                 }
             }
             )
-
-
-
-
-
-
         </script>
 
     </div>

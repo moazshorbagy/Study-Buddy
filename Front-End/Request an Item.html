@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -49,17 +50,18 @@
                 <span id="book1">Book Title:</span>
                 <span style="color:red; font-size:15px;" id="BookTitle"></span>
                 <br/>
-                <input name="title" ; type="text" class="intext" id="title">
+                <input name="title" ; type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and number field" class="intext" id="title">
                 <br/>
                 <span id="book2">Book Author:</span>
                 <span style="color:red; font-size:15px;" id="BookAuthor"></span>
                 <br/>
-                <input name="author" ; type="text" class="intext" id="author">
+                <input name="author" ; type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters only field"  class="intext" id="author">
                 <br/>
                 <span id="book3">Edition:</span>
                 <span style="color:red; font-size:15px;" id="Edition"></span>
                 <br/>
-                <input name="edition" ; type="text" class="intext" id="edition">
+                <input name="edition" ; type="text" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13"
+                size="3" maxlength="3"  placeholder="Number only field" class="intext" id="edition">
                 <br/>
                 <!-- Book Image:<br/>
                 <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
@@ -68,12 +70,13 @@
                 <span id="tool1">Type:</span>
                 <span style="color:red; font-size:15px;" id="ToolType"></span>
                 <br/>
-                <input name="type" ; type="text" class="intext" id="tooltype">
+                <input name="type" ; type="text" placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||event.charCode >= 32||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and - are allowed" class="intext" id="tooltype">
                 <br/>
                 <span id="tool2">Manufacturer:</span>
                 <span style="color:red; font-size:15px;" id="Manufacturer"></span>
                 <br/>
-                <input name="manufacturer" ; type="text" class="intext" id="manufacturer">
+                <input name="manufacturer" ; type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode >= 32||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                placeholder="Letters and & are allowed" class="intext" id="manufacturer">
                 <br/>
 
                 <input name="submit" ; id="submit" type="submit" value="REQUEST" style="font-size:15px;">
@@ -84,40 +87,32 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-
         $(document).ready(function (ev) {
             document.getElementById("tooltype").setAttribute("disabled", "disabled");
             document.getElementById("manufacturer").setAttribute("disabled", "diabled");
             document.getElementById("tool1").setAttribute("style", "color:gray");
             document.getElementById("tool2").setAttribute("style", "color:gray");
-
             document.getElementById("tooltype").setAttribute("style", "background-color:#35424a; border:none");
             document.getElementById("manufacturer").setAttribute("style", "background-color:#35424a; border:none");
-
         })
         $('#type').change(function (ev) {
             if (document.getElementById('type').value == "Book") {
                 //Removing the required tool fields warning
                 document.getElementById("ToolType").innerHTML = "";
                 document.getElementById("Manufacturer").innerHTML = "";
-
                 //disabling the tool field and enabling the book field
                 document.getElementById("tooltype").setAttribute("disabled", "disabled");
                 document.getElementById("manufacturer").setAttribute("disabled", "diabled");
                 document.getElementById("title").removeAttribute("disabled");
                 document.getElementById("author").removeAttribute("disabled");
                 document.getElementById("edition").removeAttribute("disabled");
-
                 document.getElementById("tool1").setAttribute("style", "color:gray");
                 document.getElementById("tool2").setAttribute("style", "color:gray");
-
                 document.getElementById("book1").removeAttribute("style");
                 document.getElementById("book2").removeAttribute("style");
                 document.getElementById("book3").removeAttribute("style");
-
                 document.getElementById("tooltype").setAttribute("style", "background-color:#35424a; border:none");
                 document.getElementById("manufacturer").setAttribute("style", "background-color:#35424a; border:none");
-
                 document.getElementById("title").removeAttribute("style");
                 document.getElementById("author").removeAttribute("style");
                 document.getElementById("edition").removeAttribute("style");
@@ -127,31 +122,24 @@
                 document.getElementById("BookTitle").innerHTML = "";
                 document.getElementById("BookAuthor").innerHTML = "";
                 document.getElementById("Edition").innerHTML = "";
-
                 //diabling the book field and enabling the tools field
                 document.getElementById("tooltype").removeAttribute("disabled");
                 document.getElementById("manufacturer").removeAttribute("disabled");
                 document.getElementById("title").setAttribute("disabled", "disabled");
                 document.getElementById("author").setAttribute("disabled", "disabled");
                 document.getElementById("edition").setAttribute("disabled", "disabled");
-
                 document.getElementById("book1").setAttribute("style", "color:gray");
                 document.getElementById("book2").setAttribute("style", "color:gray");
                 document.getElementById("book3").setAttribute("style", "color:gray");
-
                 document.getElementById("tool1").removeAttribute("style");
                 document.getElementById("tool2").removeAttribute("style");
-
                 document.getElementById("title").setAttribute("style", "background-color:#35424a; border:none");
                 document.getElementById("author").setAttribute("style", "background-color:#35424a; border:none");
                 document.getElementById("edition").setAttribute("style", "background-color:#35424a; border:none");
-
                 document.getElementById("tooltype").removeAttribute("style");
                 document.getElementById("manufacturer").removeAttribute("style");
             }
         })
-
-
         $('#submit').on('click', function (ev) {
             ev.preventDefault();
             if (document.getElementById('type').value == "Book") {
@@ -173,11 +161,9 @@
                 else {
                     document.getElementById("Edition").innerHTML = "";
                 }
-
                 if (!(document.getElementById("title").value == "" || document.getElementById("author").value == "" || document.getElementById("edition").value == "")) {
                     console.log();
                     $.ajax({
-
                         type: "POST",
                         url: 'http://localhost:3000/api/requestBook',
                         data: $('#sform').serialize(),
@@ -186,21 +172,14 @@
                         },
                         success: function (response) {
                             console.log(response);
-
                             if (!(response.Error)) {
                                 alert('Book was successfully requested');
                                 window.location.href = "Books.html";
-
                             }
-
                         },
                         error: function () {
                             console.log("Error in connection");
-
                         },
-
-
-
                     });
                 }
             }
@@ -218,11 +197,8 @@
                 else {
                     document.getElementById("Manufacturer").innerHTML = "";
                 }
-
-
                 if (!(document.getElementById("tooltype").value == "" || document.getElementById("manufacturer").value == "")) {
                     $.ajax({
-
                         type: "POST",
                         url: 'http://localhost:3000/api/requestTool',
                         data: $('#sform').serialize(),
@@ -231,28 +207,19 @@
                         },
                         success: function (response) {
                             console.log(response);
-
                             if (!(response.Error)) {
                                 alert('Tool was successfully requested');
                                 window.location.href = "Tools.html";
-
                             }
-
                         },
                         error: function () {
                             console.log("Error in connection");
-
                         },
-
-
                     });
                 }
             }
         }
         )
-
-
-
     </script>
 
 </body>

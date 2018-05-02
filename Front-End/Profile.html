@@ -54,7 +54,7 @@
             <input id="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
                 name='email' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
-            <br> Phone:
+            <br> Phone:<span style="color:red; font-size:15px;" id="uphone"></span>
             <br>
             <input id="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name="phone" disabled
                 style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
@@ -94,6 +94,14 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
+    
+                    if (document.getElementById("Phone").value.length!=11&&document.getElementById("Phone").value.length!=0)
+               {
+                   document.getElementById("uphone").innerHTML="Empty or 11 digits please";
+               }
+               else {
+               document.getElementById("uphone").innerHTML="";
+               }
         var Id = { userId: sessionStorage.getItem('ID') };
         var U = document.getElementById('name');
         var P = document.getElementById('phone');
@@ -122,20 +130,15 @@
                         JD.value = response.userInfo.user_join_date;
                         UR.value = response.userInfo.user_rate;
                     }
-
                 },
                 error: function () {
                     console.log("Error in connection");
-
                 },
-
-
             });
         })
         // customizing the Edit button, enabling the fields to be altered 
         $('#Edit').on('click', function (ev) {
             ev.preventDefault();
-
             if ($(U).attr('disabled')) {
                 document.getElementById('Pass').innerHTML = '<br> Password:<br> <input id="password" name="password" type="password" > <br> Confirm Password:<br> <input id="verifyPassword" name="verifyPassword" type="password" >'
                 $(U).removeAttr('disabled');
@@ -155,7 +158,6 @@
                 var Password = document.getElementById('password').value;
                 var VerifyPassword = document.getElementById('verifyPassword').value;
                 if (Password == VerifyPassword) {
-
                     $.ajax({
                         type: "POST",
                         url: 'http://localhost:3000/api/changeinfo',
@@ -165,11 +167,9 @@
                         },
                         success: function (response) {
                             console.log(response);
-
                         },
                         error: function () {
                             console.log("Error in connection");
-
                         },
                     })
                     // disabling the fields again
@@ -189,12 +189,8 @@
                 else {
                     document.getElementById('confirm').innerHTML = "Passwords don't match, Pleas re-enter the password";
                 }
-
             }
-
         })
-
-
     </script>
 
 

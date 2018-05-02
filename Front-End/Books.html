@@ -39,8 +39,8 @@
 
         <form name="sform" id="sform">
             BookTitle:
-            <input type="text" name="title" id="title"> BookAuthor:
-            <input type="text" name="author" id="author"> BookCode:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="title" id="title" placeholder="Letters and number field"> BookAuthor:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="author" placeholder="Letters only field" id="author"> BookCode:
             <select name="code" id="code" style="font-size:15px">
                 <option value="MTH">MTH</option>
                 <option value="CMP">CMP</option>
@@ -80,17 +80,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
-
         var cart = new Array(); //creating a cart (array of objects)
         var exist = 0; // to see if he already ordered that book
-
         if (JSON.parse(sessionStorage.getItem("Cart")) != null)  //getting the cart back when he returns to this page if it already sent once to the cart page
             cart = JSON.parse(sessionStorage.getItem("Cart"));
-
         $(document).ready(function (ev) {
-
             $.ajax({
-
                 type: "GET",
                 url: 'http://localhost:3000/api/Book',
                 headers: {
@@ -114,26 +109,16 @@
                             tablehtml += "<td>" + response.Books[key]["donor_id"] + "</td>";
                             tablehtml += "<td>" + response.Books[key]["book_code"] + "</td>";
                             tablehtml += "</tr>";
-
                         }
-
                     }
-
-
-
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
                     var tbl = document.getElementById("tab");
                     for (var i = 1; i < tbl.rows.length; i++) {
                         tbl.rows[i].cells[5].style.display = "none";
                         tbl.rows[i].cells[6].style.display = "none";
                         tbl.rows[i].cells[7].style.display = "none";
-
-
                     }
-
-
                     //Sorting Alphabetically
-
                     $('#sort').change(function () {
                         //Sorting According to title
                         if (document.getElementById("sort").value == "Title") {
@@ -143,15 +128,12 @@
                             /*Make a loop that will continue until
                             no switching has been done:*/
                             while (switching) {
-
                                 //start by saying: no switching is done:
                                 switching = false;
                                 rows = table.getElementsByTagName("tr");
                                 /*Loop through all table rows (except the
                                 first, which contains table headers):*/
-
                                 for (i = 1; i < (rows.length - 1); i++) {
-
                                     //start by saying there should be no switching:
                                     shouldSwitch = false;
                                     /*Get the two elements you want to compare,
@@ -181,15 +163,12 @@
                             /*Make a loop that will continue until
                             no switching has been done:*/
                             while (switching) {
-
                                 //start by saying: no switching is done:
                                 switching = false;
                                 rows = table.getElementsByTagName("tr");
                                 /*Loop through all table rows (except the
                                 first, which contains table headers):*/
-
                                 for (i = 1; i < (rows.length - 1); i++) {
-
                                     //start by saying there should be no switching:
                                     shouldSwitch = false;
                                     /*Get the two elements you want to compare,
@@ -219,22 +198,18 @@
                             /*Make a loop that will continue until
                             no switching has been done:*/
                             while (switching) {
-
                                 //start by saying: no switching is done:
                                 switching = false;
                                 rows = table.getElementsByTagName("tr");
                                 /*Loop through all table rows (except the
                                 first, which contains table headers):*/
-
                                 for (i = 1; i < (rows.length - 1); i++) {
-
                                     //start by saying there should be no switching:
                                     shouldSwitch = false;
                                     /*Get the two elements you want to compare,
                                     one from current row and one from the next:*/
                                     x = rows[i].getElementsByTagName("td")[3];
                                     y = rows[i + 1].getElementsByTagName("td")[3];
-
                                     //check if the two rows should switch place:
                                     if (x.innerHTML < y.innerHTML) {
                                         //if so, mark as a switch and break the loop:
@@ -251,8 +226,6 @@
                             }
                         }
                     })
-
-
                     var tables = document.getElementById("tab");
                     //these lines responsible for detecting the row clicked
                     for (i = 1; i < tables.rows.length; i++) {
@@ -263,8 +236,6 @@
                                 this.style.backgroundColor = '#BCD4EC';
                                 this.hilite = true;
                             }
-
-
                             var ind = this.rowIndex;
                             // get the data stored in the cells of the selected row
                             var booktitle = this.getElementsByTagName("td")[0];
@@ -276,7 +247,6 @@
                             //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
                             // responsible for showing the message to ask the user if he was sure to add the book
                             if (confirm("are you sure you want to add this book to the cart? \n" + '"' + booktitle.innerHTML + '"' + " by " + '"' + bookauthor.innerHTML + '"' + " " + bookedition.innerHTML + " edition for " + bookcode.innerHTML)) {
-
                                 // what would happen if the user clicks ok (he wants to add the book)
                                 var book = {   //the book that would be added to the cart
                                     type: "Book",
@@ -291,7 +261,6 @@
                                     cart.push(book);
                                     alert("the book was added to cart");
                                 }
-
                                 else { //check if he already added that book
                                     for (i = 0; i < cart.length; i++) {
                                         if (book.bookID == cart[i].bookID) {
@@ -304,43 +273,24 @@
                                         alert("the book was added to cart");
                                     }
                                     exist = 0;
-
                                 }
                                 sessionStorage.setItem("Cart", JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
-
-
-
                                 console.log(cart);
                             }
                             // remove the highlight of the row
                             this.style.backgroundColor = this.origColor;
                             this.hilite = false;
                         }
-
-
                     };
-
-
                 },
                 error: function () {
                     console.log("Error in connection");
                 },
-
-
             });
-
         })
-
-
-
-
         $('#search').on('click', function (ev) {
             ev.preventDefault();
-
-
-
             $.ajax({
-
                 type: "POST",
                 url: 'http://localhost:3000/api/searchBook',
                 data: $('#sform').serialize(),
@@ -349,7 +299,6 @@
                 },
                 success: function (response) {
                     var tablehtml = "";
-
                     console.log(response);
                     if (!(response.Error)) {
                         for (var key in response.Books) {
@@ -363,21 +312,14 @@
                             tablehtml += "<td>" + response.Books[key]["donor_id"] + "</td>";
                             tablehtml += "<td>" + response.Books[key]["book_code"] + "</td>";
                             tablehtml += "</tr>";
-
                         }
-
                     }
-
-
-
                     $("#tab tbody").html(tablehtml); //this line adds the table created (tablehtml) in the tbody section of the body
                     var tbl = document.getElementById("tab");
                     for (var i = 1; i < tbl.rows.length; i++) {
                         tbl.rows[i].cells[5].style.display = "none";
                         tbl.rows[i].cells[6].style.display = "none";
                         tbl.rows[i].cells[7].style.display = "none";
-
-
                     }
                     var tables = document.getElementById("tab");
                     //these lines responsible for detecting the row clicked
@@ -389,8 +331,6 @@
                                 this.style.backgroundColor = '#BCD4EC';
                                 this.hilite = true;
                             }
-
-
                             var ind = this.rowIndex;
                             // get the data stored in the cells of the selected row
                             var booktitle = this.getElementsByTagName("td")[0];
@@ -402,7 +342,6 @@
                             //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
                             // responsible for showing the message to ask the user if he was sure to add the book
                             if (confirm("are you sure you want to add this book to the cart? \n" + '"' + booktitle.innerHTML + '"' + " by " + '"' + bookauthor.innerHTML + '"' + " " + bookedition.innerHTML + " edition for " + bookcode.innerHTML)) {
-
                                 // what would happen if the user clicks ok (he wants to add the book)
                                 var book = {   //the book that would be added to the cart
                                     type: "Book",
@@ -417,7 +356,6 @@
                                     cart.push(book);
                                     alert("the book was added to cart");
                                 }
-
                                 else { //check if he already added that book
                                     for (i = 0; i < cart.length; i++) {
                                         if (book.bookID == cart[i].bookID) {
@@ -430,38 +368,22 @@
                                         alert("the book was added to cart");
                                     }
                                     exist = 0;
-
                                 }
                                 sessionStorage.setItem("Cart", JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
-
-
-
                                 console.log(cart);
                             }
                             // remove the highlight of the row
                             this.style.backgroundColor = this.origColor;
                             this.hilite = false;
                         }
-
-
                     };
-
                 },
                 error: function () {
                     console.log("Error in connection");
                 },
-
-
             });
-
         }
-
-
         )
-
-
-
-
     </script>
 
 
