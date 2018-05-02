@@ -12,7 +12,7 @@ BOOK_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.use(bodyParser.json());
 
   //allows a user to insert a book
-  //it verifies the token provided to allow the user to access private data
+  //VerifyToken: verifies the token provided to allow the user to access private data
   router.post("/insertBook", VerifyToken, function(req, res) {
     var query = "INSERT INTO ??(??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?)";
     var table = [
