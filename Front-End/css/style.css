@@ -1,15 +1,26 @@
 
-body{
+#bookbody{
 
 	Font: 15px/1.5 arial;
 	Padding:0;
 	margin:0;
 	background-color: #35424a;
+	background-image: url("Img5.jpg");
+	background-repeat: no-repeat;	 
+	background-size: cover;
 }
 
-#head1 {
+#bookhead1 {
 	color:#ffffff;
-	background-image: url("https://i.amz.mshcdn.com/VhYesuG5It_sY9o228WWaPw-G10=/950x534/filters:quality(90)/https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com%2Fuploads%2Fcard%2Fimage%2F539206%2F3310d58a-2b01-47db-a38a-e84a45987dd4.jpg");
+	padding:20px;
+	border-bottom: #820000 2px solid;
+    min-width: 370px; 
+    
+    
+}
+
+#bookhead2 {
+	color:#d9d9d9;
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding:20px;
@@ -19,22 +30,8 @@ body{
     
 }
 
-#head2 {
+#bookhead3 {
 	color:#d9d9d9;
-	background-image: url("https://joemull.com/wp-content/uploads/2016/12/books.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
-	padding:20px;
-	border-bottom: #820000 2px solid;
-    min-width: 370px; 
-    
-    
-}
-#head3 {
-	color:#d9d9d9;
-	background-image: url("https://static.vecteezy.com/system/resources/previews/000/090/237/non_2x/architecture-tools-vectors.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 200px;
 	padding:20px;
 	border-bottom: #820000 2px solid;
     min-width: 370px; 
@@ -42,7 +39,12 @@ body{
     
 }
 
-
+#loginhead{
+	color:#ffffff;
+	padding:20px;
+	background-color: #a7363b;
+    min-width: 370px; 
+}
 
 
 header a{
@@ -51,28 +53,35 @@ header a{
       margin:0 15px 0 15px; 
 
 }
-
 header nav{
-    float:right;
+	float:right;
     font-weight:700;
     margin-top:40px;
 }
 
-#branding{
-    float:left;
+#bookbranding{
+	float:left;
+	color: olive;
 }
 
+#branding{
+	float:left;
+	color: olive;
+}
+#booksform{
+	color: darkolivegreen;
+	margin-top:25px;
+	font-size: 20px;
+	font-family: 'Times New Roman';
+}
 .container{
     margin:auto;
 	overflow:hidden;
-	
-	
-
 }
 
-#ins{
+#bookins{
+	color: darkolivegreen;
 	margin-top:25px;
-	color:burlywood;
 	font-family: 'Times New Roman';
 	font-size:20px;
 	
@@ -90,14 +99,24 @@ header nav{
 	overflow:hidden;
 	text-align: center;
 	color:white;
+	Padding:0;
+	margin:0;
+	background-image: url("https://static.vecteezy.com/system/resources/previews/000/090/237/non_2x/architecture-tools-vectors.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-size: 100% 900px;
 }
 
-#signup{
+#signupbody{
 	font-size: 20px;
 	margin:20px;
 	overflow:hidden;
-	color:white;
-	text-align:center;
+	color:black;
+	text-align:left;
+	background-image:url("Logo1.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color:burlywood;
 }
 #forget{
 	font-size: 20px;
@@ -113,26 +132,75 @@ header nav{
 	font-size:20px;
 }
 
-#main{
-	color:burlywood;
+#bookmain{
+	color:darkolivegreen;
 	font-family: 'Times New Roman';
 	font-size:20px;
 
 }
 
 th{
-border-bottom:1px solid white;
-border-right:1px solid white;
+border-bottom:2px solid darkred; 
+border-right:2px solid darkred;
 }
 th:nth-last-child(1){
 	border-right:none;
 }
 td{
 	
-	border-right:1px solid white;
+	border-right:2px solid darkred;
 
 }
 td:nth-last-child(1){
 	border-right:none;
 }
+#toolbody{
 
+	Font: 15px/1.5 arial;
+	Padding:0;
+	margin:0;
+	background-color: #35424a;
+	background-image: url("Img5.jpg");
+	background-repeat: no-repeat;	 
+	background-size: cover;
+}
+
+#toolhead1 {
+	color:#ffffff;
+	padding:20px;
+	border-bottom: #820000 2px solid;
+    min-width: 370px; 
+    
+    
+}
+
+#toolhead2 {
+	color:#d9d9d9;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding:20px;
+	border-bottom: #820000 2px solid;
+    min-width: 370px; 
+    
+    
+}
+#toolhead3 {
+	color:#d9d9d9;
+	background-image: url("https://static.vecteezy.com/system/resources/previews/000/090/237/non_2x/architecture-tools-vectors.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 200px;
+	padding:20px;
+	border-bottom: #820000 2px solid;
+    min-width: 370px; 
+    overflow:hidden;
+    
+}
+
+
+
+#Tsearch{
+	margin-top:25px;
+	color:burlywood;
+	font-family: 'Times New Roman';
+	font-size:20px;
+}
