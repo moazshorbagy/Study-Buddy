@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body id="signupbody">
 
     <header id="head2">
         <div class="container">
@@ -39,7 +39,7 @@
 
 
     </header>
-    <div id="main">
+    <div id="signup">
         <!-- Building the fields to show on display for the profile -->
 
         <form name='sform' id='sform'>
@@ -49,7 +49,7 @@
                 disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px; ">
             <span id='Pass'></span>
             <span id='confirm' style="color:red; font-size:20px;"></span>
-            <br> Email:
+            <br> Email:<span style="color:red; font-size:15px;" id="uemail"></span>
             <br>
             <input id="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
                 name='email' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;	width: 500px;">
@@ -102,6 +102,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
     
+    if (document.getElementById("Email").value == "" || !(document.getElementById("Email").value.includes(".")) || (!document.getElementById("Email").value.includes("@"))) {
+                    document.getElementById("uemail").innerHTML = "Email incorrect";
+                }
+                else {
+                    document.getElementById("uemail").innerHTML = "";
+                }
+                if (document.getElementById('phone').value.length == '0')
+                    document.getElementById('uphone').innerHTML = "";
+                else if (document.getElementById('phone').value.length == '11' && document.getElementById('phone').value.charAt(0) == '0' && document.getElementById('phone').value.charAt(1) == '1')
+                    document.getElementById('uphone').innerHTML = "";
+                else
+                    document.getElementById('uphone').innerHTML = "Phone must be either of 11 digits(Valid) or left empty";
                  
 
         var Id = { userId: sessionStorage.getItem('ID') };
