@@ -32,7 +32,7 @@
                 <a href="Requests.html">REQUESTS</a>
                 <a href="MyBooks.html">MY BOOKS</a>
                 <a href="MyTools.html">MY TOOLS</a>
-                <a href="Login.html">LOG OUT </a>
+                <a href="new 4.html">ABOUT US </a>
             </nav>
 
         </div>
@@ -52,7 +52,7 @@
             <br> Email:
             <br>
             <input id="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
-                name='email' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;	width: 500px;">
+                name='email' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
 
             <br> Phone:<span style="color:red; font-size:15px;" id="uphone"></span>
             <br>
@@ -68,15 +68,8 @@
 
             <br> Year:
             <br>
-            <select name="year" id="year" disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="graduate">Graduate</option>
-                </select>
-    
+            <input id="year" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name='year' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+
             <br> Department:
             <br>
             <select name="department" id="department" disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
@@ -102,8 +95,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
     
-                 
-
+                    if (document.getElementById("Phone").value.length!=11&&document.getElementById("Phone").value.length!=0)
+               {
+                   document.getElementById("uphone").innerHTML="Empty or 11 digits please";
+               }
+               else {
+               document.getElementById("uphone").innerHTML="";
+               }
         var Id = { userId: sessionStorage.getItem('ID') };
         var U = document.getElementById('name');
         var P = document.getElementById('phone');
@@ -156,23 +154,9 @@
             }
             //when the edit button is clicked again it changes the user info
             else {
-                console.log(Y.value);
                 //comparing the passwords together
                 var Password = document.getElementById('password').value;
                 var VerifyPassword = document.getElementById('verifyPassword').value;
-                //Verifying the phone number
-                if (document.getElementById("phone").value.length!=11&&document.getElementById("phone").value.length!=0)
-               {
-                   document.getElementById('phone').value="";
-               }
-               else if(document.getElementById('phone').value.charAt(0) != '0' || document.getElementById('phone').value.charAt(1) != '1'){
-                    document.getElementById('phone').value="";
-               }
-               // verifying the email
-                if (!(document.getElementById("email").value.includes(".")) || (!document.getElementById("email").value.includes("@"))) {
-                    document.getElementById('email').value="";
-                }
-
                 if (Password == VerifyPassword) {
                     $.ajax({
                         type: "POST",
@@ -201,7 +185,6 @@
                     D.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
                     Y.setAttribute('disabled', 'disabled');
                     Y.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
-                    window.location.href="Profile.html";
                 }
                 else {
                     document.getElementById('confirm').innerHTML = "Passwords don't match, Pleas re-enter the password";
