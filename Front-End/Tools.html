@@ -36,7 +36,7 @@
 
         </div>
       
-        <form name="sform" id="booksform">
+        <form name="sform" id="toolsform">
 
              Tool Type:
              <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and - are allowed" name="type" id="type">
@@ -306,7 +306,7 @@
            
            type:"POST", 
            url :'http://localhost:3000/api/searchTool',
-           data: $('#sform').serialize(), 
+           data: $('#toolsform').serialize(), 
            headers: {
                         "x-access-token": sessionStorage.getItem('token')
                     },
