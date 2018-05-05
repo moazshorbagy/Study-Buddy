@@ -57,8 +57,9 @@
                 <input name="bookImage"; type="file" style="font-size:15px;" ><br/>-->
                 Duration:
                 <span style="font-size:15px;font-style:italic; margin:0;">(In months, if you wish to donate the tool put 0 in duration)</span>
+                <span style="color:red; font-size:15px;" id="Duration"></span>
                 </br>
-                <input name="duration" ;type="text" onkeypress="return (event.charCode>=48 && event.charCode<=57)||event.charCode==13" size="2"
+                <input name="duration" id="duration";type="text" onkeypress="return (event.charCode>=48 && event.charCode<=57)||event.charCode==13" size="2"
                     maxlength="2" class="intext" placeholder="Numbers only field">
                 <br/>
 
@@ -85,9 +86,16 @@
             else {
                 document.getElementById("Manufacturer").innerHTML = "";
             }
+            if (document.getElementById("duration").value == "") {
+                document.getElementById("Duration").innerHTML = "Duration Required";
+            }
+            else {
+                document.getElementById("Duration").innerHTML = "";
+            }
 
 
-            if (!(document.getElementById("type").value == "" || document.getElementById("Manufacturer").value == "")) {
+
+            if (!(document.getElementById("type").value == "" || document.getElementById("Manufacturer").value == "" || document.getElementById("duration").value == ""  )) {
                 $.ajax({
 
                     type: "POST",
