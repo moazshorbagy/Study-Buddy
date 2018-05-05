@@ -28,7 +28,7 @@ REST.prototype.connectMysql = function() {
     connectionLimit: 100,
     host: "localhost",
     user: "root",
-    password: "da3m0ns",
+    password: "undertaker12",
     database: "studybuddy",
     debug: false
   });
