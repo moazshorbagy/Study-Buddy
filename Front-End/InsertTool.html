@@ -30,7 +30,6 @@
             <nav>
 
                 <a href="Home.html" style="color:darkslategray">HOME</a>
-
                 <a href="Tools.html" style="color:darkslategray">TOOLS </a>
             </nav>
 
@@ -75,12 +74,12 @@
         $('#submit').on('click', function (ev) {
             ev.preventDefault();
             if (document.getElementById("type").value == "") {
-                document.getElementById("Tooltype").innerHTML = " Type Required";
+                document.getElementById("ToolType").innerHTML = " Type Required";
             }
             else {
                 document.getElementById("ToolType").innerHTML = "";
             }
-            if (document.getElementById("Manufacturer").value == "") {
+            if (document.getElementById("Manu").value == "") {
                 document.getElementById("Manufacturer").innerHTML = "Manufacturer Required";
             }
             else {

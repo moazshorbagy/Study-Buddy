@@ -29,24 +29,20 @@
                 </h1>
             </div>
             <nav>
-<<<<<<< HEAD
                 <a href="InsertBook.html" style="color:darkslategray">LEND BOOKS</a>
                 <a href="Home.html" style="color:darkslategray">HOME</a>
                 <a href="Cart.html" style="color:darkslategray">CART</a>
-=======
-                <a href="InsertBook.html">LEND BOOKS</a>
-                <a href="Home.html">HOME</a>
-                <a href="Cart.html">CART</a>
-                <a href="Login.html">LOG OUT </a>
->>>>>>> cdf2d10eae28a74520fbbe4ecc2f7bcedc02d7ff
+                <a href="Login.html" style="color:darkslategray">LOG OUT </a>
             </nav>
 
         </div>
 
         <form name="sform" id="booksform">
             BookTitle:
-            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="title" id="title" placeholder="Letters and number field"> BookAuthor:
-            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="author" placeholder="Letters only field" id="author"> BookCode:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="title" id="title" placeholder="Letters and number field">
+             BookAuthor:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="author" placeholder="Letters only field" id="author"> 
+            BookCode:
             <select name="code" id="code" style="font-size:15px">
                 <option value="MTH">MTH</option>
                 <option value="CMP">CMP</option>
@@ -299,7 +295,7 @@
             $.ajax({
                 type: "POST",
                 url: 'http://localhost:3000/api/searchBook',
-                data: $('#sform').serialize(),
+                data: $('#booksform').serialize(),
                 headers: {
                     "x-access-token": sessionStorage.getItem('token')
                 },

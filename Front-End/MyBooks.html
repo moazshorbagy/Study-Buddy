@@ -29,14 +29,9 @@
                 </h1>
             </div>
             <nav>
-<<<<<<< HEAD
                 <a href="Home.html" style="color:darkslategray">HOME</a>
                 <a href="Cart.html" style="color:darkslategray">CART</a>
-=======
-                <a href="Home.html">HOME</a>
-                <a href="Cart.html">CART</a>
-                <a href="Login.html">LOG OUT</a>
->>>>>>> cdf2d10eae28a74520fbbe4ecc2f7bcedc02d7ff
+                <a href="Login.html"style="color:darkslategray">LOG OUT</a>
             </nav>
 
         </div>
@@ -301,7 +296,7 @@
 
                 type: "POST",
                 url: 'http://localhost:3000/api/searchMyBooks',
-                data: $('#sform').serialize(),
+                data: $('#booksform').serialize(),
                 headers: {
                     "x-access-token": sessionStorage.getItem('token')
                 },
