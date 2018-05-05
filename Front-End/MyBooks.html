@@ -37,8 +37,10 @@
         </div>
         <form name="sform" style="color:olive" id="booksform">
             BookTitle:
-            <input type="text" name="title" id="title"> BookAuthor:
-            <input type="text" name="author" id="author"> BookCode:
+            <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==44||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="title" id="title" placeholder="Letters and number field">
+             BookAuthor:
+             <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==32||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" name="author" placeholder="Letters only field" id="author"> 
+             BookCode:
             <select name="code" id="code" style="font-size:15px">
                 <option value="MTH">MTH</option>
                 <option value="CMP">CMP</option>
