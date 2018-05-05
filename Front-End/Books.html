@@ -95,8 +95,9 @@
                 },
                 success: function (response) {
                     console.log(response);
-                    if (!(response.Error)) {
                         var tablehtml = "";
+                        if (!(response.Error)) {
+
                         // arrays to store book doner, book_id,book_code
                         // filling the arrays with data
                         //filling the table (tab)

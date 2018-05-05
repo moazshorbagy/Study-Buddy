@@ -255,10 +255,9 @@
                 success: function (response) {
 
                     console.log(response);
-                    if (!(response.Error)) {
                         var tablehtml = "";
+                        if (!(response.Error)) {
                         // filling the arrays with data
-                        //filling the table (tab)
                         //filling the table (tab)
                         for (var key in response.Tools) {
                             var donorid = response.Tools[key]["donor_id"];
