@@ -223,7 +223,6 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
     }
     //if there's a year provided execute this query
     if (req.body.year != "") {
-      console.log("arrive at year");
       var table = ["user", "user_year", req.body.year, "user_id", req.userId];
       query = mysql.format(defaultQuery, table);
       connection.query(query, function(err, rows) {
@@ -318,7 +317,6 @@ AUTH_ROUTER.prototype.handleRoutes = function(router, connection) {
         var rating = 0.0;
         var query2 = "SELECT * FROM User_Rating WHERE user_id=" + req.body.id;
 
-        console.log(req.body.id);
         connection.query(query2, function(err, rows2) {
           if (err) {
             console.log(err);

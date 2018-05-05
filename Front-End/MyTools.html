@@ -19,24 +19,24 @@
 
 </head>
 
-<body>
+<body id="toolbody">
 
-    <header id="head2">
+    <header id="bookhead2">
         <div class="container">
-            <div id="branding">
+            <div id="bookbranding">
                 <h1>
                     Tools
                 </h1>
             </div>
             <nav>
-                <a href="Home.html">HOME</a>
-                <a href="Cart.html">CART</a>
-                <a href="Login.html">LOG OUT </a>
+                <a href="Home.html" style="color:darkslategray">HOME</a>
+                <a href="Cart.html"style="color:darkslategray">CART</a>
+                <a href="Login.html" style="color:darkslategray">LOG OUT </a>
             </nav>
 
         </div>
 
-        <form name="sform" id="sform">
+        <form name="sform" id="booksform">
 
             Tool Type:
             <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
@@ -51,7 +51,7 @@
             </select>
         </form>
     </header>
-    <div id="main">
+    <div id="bookmain">
         <table id="tab" cellspacing="0px" style="margin:10px">
             <thead>
                 <th style="text-align:left">Tool Type</th>

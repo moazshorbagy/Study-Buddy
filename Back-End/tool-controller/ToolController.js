@@ -121,7 +121,8 @@ TOOL_ROUTER.prototype.handleRoutes = function(router, connection) {
       "%'" +
       " AND manufacturer LIKE '%" +
       manufacturer +
-      "%'";
+      "%' AND NOT donor_id=" +
+      req.userId;
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
@@ -130,7 +131,8 @@ TOOL_ROUTER.prototype.handleRoutes = function(router, connection) {
           Message: "Error executing MySQL query",
           statusCode: "500"
         });
-      } else if (rows == "")//Rows are empty it means nothing was found in the database matching the provided info
+      } else if (rows == "")
+        //Rows are empty it means nothing was found in the database matching the provided info
         res.json({ Error: true, Message: "No tools found", statusCode: "404" });
       else {
         //converting the date to another format to be comparable
@@ -176,7 +178,8 @@ TOOL_ROUTER.prototype.handleRoutes = function(router, connection) {
           Message: "Error executing MySQL query",
           statusCode: "500"
         });
-      } else if (rows == "")//Empty rows means the user had no participation
+      } else if (rows == "")
+        //Empty rows means the user had no participation
         res.json({ Error: true, Message: "No tools found", statusCode: "404" });
       else {
         //converting the date to another format to be comparable
@@ -209,13 +212,12 @@ TOOL_ROUTER.prototype.handleRoutes = function(router, connection) {
       req.body.manufacturer
     ];
     query = mysql.format(query, table);
-    console.log(query);
     connection.query(query, function(err, rows) {
       if (err) {
         console.log(err);
         res.json({ Error: true, Message: "Error executing MySQL query" });
       } else {
-        res.json({ Error: false, Message: "book successfully added" });
+        res.json({ Error: false, Message: "Tool successfully added" });
       }
     });
   });

@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`User` (
 
   `user_password` 		VARCHAR(300) NOT NULL,
   
-  `user_name` 			  VARCHAR(70) NOT NULL,
+  `user_name` 			  VARCHAR(150) NOT NULL,
 
   `user_join_date` 		TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
 
