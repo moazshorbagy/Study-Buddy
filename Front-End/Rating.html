@@ -74,8 +74,9 @@
                     "x-access-token": sessionStorage.getItem('token')
                 },
                 success: function (response) {
-                    if (!(response.Error)) {
+                  
                         var tablehtml = "";
+                        if (!(response.Error)) {
                         //filling the table (tab)
                         for (var key in response.users) {
                             tablehtml += "<tr>"
