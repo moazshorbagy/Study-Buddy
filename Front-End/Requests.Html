@@ -19,26 +19,26 @@
 
 </head>
 
-<body>
+<body id="bookbody">
 
-    <header id="head2">
+    <header id="bookhead2">
         <div class="container">
-            <div id="branding">
+            <div id="bookbranding">
                 <h1>
                     Requests
                 </h1>
             </div>
             <nav>
-                <a href="InsertBook.html">LEND BOOKS</a>
-                <a href="Home.html">HOME</a>
+                <a href="InsertBook.html" style="color:darkslategray">LEND BOOKS</a>
+                <a href="Home.html" style="color:darkslategray">HOME</a>
 
-                <a href="Login.html">LOG OUT </a>
+                <a href="Login.html" style="color:darkslategray">LOG OUT </a>
             </nav>
 
         </div>
 
     </header>
-    <div id="main">
+    <div id="bookmain">
         <table id="tab" cellspacing="0px" style="margin:10px">
             <thead>
                 <th style="text-align:left">BookTitle/ToolType</th>
@@ -124,7 +124,7 @@
                                                         window.location.href = "Requests.html";
                                                     },
                                                     buttons: {
-                                                        "Confrim": function () {
+                                                        "Confirm": function () {
                                                             $.ajax({
                                                                 type: "POST",
                                                                 url: 'http://localhost:3000/api/deleteRequest',
@@ -136,7 +136,6 @@
                                                                 success: function (response) {
                                                                     console.log(response);
                                                                     if (!(response.Error)) {
-                                                                        alert("the request has been approved")
                                                                     }
                                                                 },
                                                                 error: function () {
