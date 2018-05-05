@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`User` (
 
   `user_phone`     		VARCHAR(15) NULL,
 
-  `user_year`			    INT	NULL,
+  `user_year`			    VARCHAR(10)	NULL,
 
   `user_department`		VARCHAR(5) NULL,
   

@@ -38,7 +38,7 @@
         <form name="sform" id="sform">
             UserName:
             <input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
-                name="title" id="title"> Sort:
+                name="name" id="name"> Sort:
             <select name="sort" id="sort" style="font-size:15px">
                 <option value="Name">Name</option>
                 <option value="Rating">Rating</option>
@@ -154,7 +154,7 @@
                                     name: username.innerHTML
                                 }
                                 //prompting the user to rate
-                                var rate = prompt("Rate " + username.innerHTML + " 1-->5", "1--5");
+                                var rate = prompt("Rate " + username.innerHTML + " 1-->5", "5");
                                 if (rate != null && rate < 6 && rate > 0) {
                                     var ratinginfo = {
                                         id: USERID[ind - 1],
@@ -293,20 +293,21 @@
                     success: function (response) {
                         console.log(response);
                         //filling the table (tab)
-                        for (var key in response.Users) {
-                            tablehtml += "<tr>"
-                            tablehtml += "<td>" + response.Users[key]["user_name"] + "</td>";
-                            tablehtml += "<td>" + response.Users[key]["user_rate"] + "</td>";
-                            tablehtml += "</tr>";
+                        if (!response.Error) {
+                            for (var key in response.Users) {
+                                tablehtml += "<tr>"
+                                tablehtml += "<td>" + response.Users[key]["user_name"] + "</td>";
+                                tablehtml += "<td>" + response.Users[key]["user_rate"] + "</td>";
+                                tablehtml += "</tr>";
 
+                            }
+
+                            for (i = 0; i < response.Users.length; i++) {
+                                USERID[i] = response.Users[i].user_id;
+                            }
                         }
-
-                        for (i = 0; i < response.Users.length; i++) {
-                            USERID[i] = response.Users[i].user_id;
-                        }
-
-                        $("#tab tbody").html(tablehtml);
-
+                            $("#tab tbody").html(tablehtml);
+                        
                         var tables = document.getElementById("tab");
                         //these lines responsible for detecting the row clicked
                         for (i = 1; i < tables.rows.length; i++) {
@@ -328,7 +329,7 @@
                                         name: username.innerHTML
                                     }
                                     //prompting the user to rate
-                                    var rate = prompt("Rate " + username.innerHTML + " 1-->5", "Harry Potter");
+                                    var rate = prompt("Rate " + username.innerHTML + " 1-->5", "5");
                                     if (rate != null && rate < 6 && rate > 0) {
                                         var ratinginfo = {
                                             id: USERID[ind - 1],
