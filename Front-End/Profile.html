@@ -46,40 +46,42 @@
             Username:
             <br>
             <input id="name" name="name" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
-                disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px; ">
+                disabled style="background-color:transparent; border:none; color:olive; Font-size:15px; ">
             <span id='Pass'></span>
             <span id='confirm' style="color:red; font-size:20px;"></span>
-            <br> Email:<span style="color:red; font-size:15px;" id="uemail"></span>
+            <br> Email:
+            <span style="color:red; font-size:15px;" id="uemail"></span>
             <br>
             <input id="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
-                name='email' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;	width: 500px;">
+                name='email' disabled style="background-color:transparent; border:none; color:olive; Font-size:15px;	width: 500px;">
 
-            <br> Phone:<span style="color:red; font-size:15px;" id="uphone"></span>
+            <br> Phone:
+            <span style="color:red; font-size:15px;" id="uphone"></span>
             <br>
             <input id="phone" onkeypress="return (event.charCode>=48&&event.charCode<=57)||event.charCode==13" name="phone" disabled
-                style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+                style="background-color:transparent; border:none; color:olive; Font-size:15px;">
 
             <br> Rating:
             <br>
-            <input id="rate" name='rate' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <input id="rate" name='rate' disabled style="background-color:transparent; border:none; color:olive; Font-size:15px;">
             <br> JoinDate:
             <br>
-            <input id="joindate" name='joindate' disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <input id="joindate" name='joindate' disabled style="background-color:transparent; border:none; color:olive; Font-size:15px;">
 
             <br> Year:
             <br>
-            <select name="year" id="year" disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="graduate">Graduate</option>
-                </select>
-    
+            <select name="year" id="year" disabled style="background-color:transparent; border:none; color:olive; Font-size:15px;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="graduate">Graduate</option>
+            </select>
+
             <br> Department:
             <br>
-            <select name="department" id="department" disabled style="background-color:#35424a; border:none; color:cornsilk; Font-size:15px;">
+            <select name="department" id="department" disabled style="background-color:transparent; border:none; color:olive; Font-size:15px;">
                 <option value="CCE">CCE</option>
                 <option value="CCEE">CCEE</option>
                 <option value="CCEC">CCEC</option>
@@ -101,20 +103,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script> 
-    
-    if (document.getElementById("Email").value == "" || !(document.getElementById("Email").value.includes(".")) || (!document.getElementById("Email").value.includes("@"))) {
-                    document.getElementById("uemail").innerHTML = "Email incorrect";
-                }
-                else {
-                    document.getElementById("uemail").innerHTML = "";
-                }
-                if (document.getElementById('phone').value.length == '0')
-                    document.getElementById('uphone').innerHTML = "";
-                else if (document.getElementById('phone').value.length == '11' && document.getElementById('phone').value.charAt(0) == '0' && document.getElementById('phone').value.charAt(1) == '1')
-                    document.getElementById('uphone').innerHTML = "";
-                else
-                    document.getElementById('uphone').innerHTML = "Phone must be either of 11 digits(Valid) or left empty";
-                 
+
+
+
 
         var Id = { userId: sessionStorage.getItem('ID') };
         var U = document.getElementById('name');
@@ -169,20 +160,20 @@
             //when the edit button is clicked again it changes the user info
             else {
                 console.log(Y.value);
+
                 //comparing the passwords together
                 var Password = document.getElementById('password').value;
                 var VerifyPassword = document.getElementById('verifyPassword').value;
                 //Verifying the phone number
-                if (document.getElementById("phone").value.length!=11&&document.getElementById("phone").value.length!=0)
-               {
-                   document.getElementById('phone').value="";
-               }
-               else if(document.getElementById('phone').value.charAt(0) != '0' || document.getElementById('phone').value.charAt(1) != '1'){
-                    document.getElementById('phone').value="";
-               }
-               // verifying the email
+                if (document.getElementById("phone").value.length != 11 && document.getElementById("phone").value.length != 0) {
+                    document.getElementById('phone').value = "";
+                }
+                else if (document.getElementById('phone').value.charAt(0) != '0' || document.getElementById('phone').value.charAt(1) != '1') {
+                    document.getElementById('phone').value = "";
+                }
+                // verifying the email
                 if (!(document.getElementById("email").value.includes(".")) || (!document.getElementById("email").value.includes("@"))) {
-                    document.getElementById('email').value="";
+                    document.getElementById('email').value = "";
                 }
 
                 if (Password == VerifyPassword) {
@@ -195,25 +186,39 @@
                         },
                         success: function (response) {
                             console.log(response);
+                            document.getElementById('Pass').innerHTML = '';
+                            document.getElementById('confirm').innerHTML = '';
+                            U.setAttribute('disabled', 'disabled');
+                            U.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;');
+                            P.setAttribute('disabled', 'disabled');
+                            P.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;');
+                            E.setAttribute('disabled', 'disabled');
+                            E.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;')
+                            D.setAttribute('disabled', 'disabled');
+                            D.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;')
+                            Y.setAttribute('disabled', 'disabled');
+                            Y.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;')
+                            window.location.href = "Profile.html";
                         },
                         error: function () {
                             console.log("Error in connection");
+                            document.getElementById('Pass').innerHTML = '';
+                            document.getElementById('confirm').innerHTML = '';
+                            U.setAttribute('disabled', 'disabled');
+                            U.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;');
+                            P.setAttribute('disabled', 'disabled');
+                            P.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;');
+                            E.setAttribute('disabled', 'disabled');
+                            E.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;')
+                            D.setAttribute('disabled', 'disabled');
+                            D.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;')
+                            Y.setAttribute('disabled', 'disabled');
+                            Y.setAttribute('style', 'background-color:transparent; border:none; color:olive; Font-size:15px;')
+                            window.location.href = "Profile.html";
                         },
                     })
                     // disabling the fields again
-                    document.getElementById('Pass').innerHTML = '';
-                    document.getElementById('confirm').innerHTML = '';
-                    U.setAttribute('disabled', 'disabled');
-                    U.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;');
-                    P.setAttribute('disabled', 'disabled');
-                    P.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;');
-                    E.setAttribute('disabled', 'disabled');
-                    E.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
-                    D.setAttribute('disabled', 'disabled');
-                    D.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
-                    Y.setAttribute('disabled', 'disabled');
-                    Y.setAttribute('style', 'background-color:#35424a; border:none; color:cornsilk; Font-size:15px;')
-                    window.location.href="Profile.html";
+
                 }
                 else {
                     document.getElementById('confirm').innerHTML = "Passwords don't match, Pleas re-enter the password";
