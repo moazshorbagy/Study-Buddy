@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Book` (
 	FOREIGN KEY (`user_id`)
     REFERENCES `studybuddy`.`User` (`user_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE NO ACTION
 
 )
 
