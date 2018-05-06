@@ -127,9 +127,7 @@ CREATE TABLE IF NOT EXISTS `studybuddy`.`Requested_Book` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
-    
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+)
 
 ENGINE = InnoDB;
 
