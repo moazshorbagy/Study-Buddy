@@ -304,6 +304,7 @@
                     var tablehtml = "";
                     console.log(response);
                     if (!(response.Error)) {
+                        //filling the table 
                         for (var key in response.Books) {
                             tablehtml += "<tr>"
                             tablehtml += "<td>" + response.Books[key]["book_title"] + "</td>";
@@ -366,12 +367,14 @@
                                             exist = 1;
                                         }
                                     }
+                                    //the user didnt add the book before
                                     if (exist == 0) {
                                         cart.push(book);
                                         alert("the book was added to cart");
                                     }
                                     exist = 0;
                                 }
+                                //adding the cart to storage so that it isnt lost during the session
                                 sessionStorage.setItem("Cart", JSON.stringify(cart)); //adding the cart to a local storage to be accessed from another html page
                                 console.log(cart);
                             }

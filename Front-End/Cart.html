@@ -59,7 +59,7 @@
 
         var cart = new Array(); //creating a cart (array of objects)
         var exist = 0; // to see if he already ordered that book
-
+        //check if cart exists in the storage first
         if (JSON.parse(sessionStorage.getItem("Cart")) != null)  //getting the cart back when he returns to this page if it already sent once to the cart page
             cart = JSON.parse(sessionStorage.getItem("Cart"));
         console.log(cart);
@@ -99,9 +99,8 @@
                     // get the data stored in the cells of the selected row
                     var type = this.getElementsByTagName("td")[0];
                     var name = this.getElementsByTagName("td")[1];
-                    //console.log(booktitle.innerHTML, bookauthor.innerHTML,bookedition.innerHTML,doner[ind-1],bookid[ind-1],bookcode[ind-1]);
                     // responsible for showing the message to ask the user if he was sure to add the book
-                    if (confirm("are you sure you want to remove this book to the cart? \n" + '"' + type.innerHTML + '"' + " by " + '"' + name.innerHTML + '"')) {
+                    if (confirm("are you sure you want to remove this item from the cart? \n" +'" ' + name.innerHTML+' " ')) {
 
                         // what would happen if the user clicks ok (he wants to add the book)
                         cart.splice(ind - 1, 1);
@@ -118,9 +117,10 @@
             }
         }
         );
-
+        //the event of clicking on obtain
         $('#obtain').on('click', function (ev) {
             ev.preventDefault();
+            //the cart is empty
             if (cart.length == 0)
                 alert("cart is empty")
             else {
@@ -152,7 +152,7 @@
                 alert('A request has been sent to the owner');
             }
 
-
+            //adding the cart to the storage so that it isnt lost during the session
             sessionStorage.setItem("Cart", JSON.stringify(cart));
 
             window.location.href = "Cart.html";
