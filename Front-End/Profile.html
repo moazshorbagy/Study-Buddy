@@ -46,14 +46,14 @@
             Username:
             <br>
             <input id="name" name="name" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
-                disabled style="background-color:transparent; border:none; color:olive; Font-size:15px; ">
+                disabled style="background-color:transparent; border:none; color:olive; Font-size:15px; " placeholder="@ . _ are allowed">
             <span id='Pass'></span>
             <span id='confirm' style="color:red; font-size:20px;"></span>
             <br> Email:
             <span style="color:red; font-size:15px;" id="uemail"></span>
             <br>
             <input id="email" onkeypress="return (event.charCode >= 64 && event.charCode <=90)||event.charCode==95||(event.charCode>=48&&event.charCode<=57)||event.charCode==46||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
-                name='email' disabled style="background-color:transparent; border:none; color:olive; Font-size:15px;	width: 500px;">
+                name='email' disabled style="background-color:transparent; border:none; color:olive; Font-size:15px;	width: 500px;" placeholder="@ . _ are allowed">
 
             <br> Phone:
             <span style="color:red; font-size:15px;" id="uphone"></span>
@@ -145,7 +145,7 @@
         $('#Edit').on('click', function (ev) {
             ev.preventDefault();
             if ($(U).attr('disabled')) {
-                document.getElementById('Pass').innerHTML = '<br> Password:<br> <input id="password" name="password" type="password" > <br> Confirm Password:<br> <input id="verifyPassword" name="verifyPassword" type="password" >'
+                document.getElementById('Pass').innerHTML = '<br> Password:<br> <input name="password" id="password" type="password" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and numbers only"> <br> Confirm Password:<br> <input name="verifyPassword" id="verifyPassword" type="password" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||(event.charCode>=48&&event.charCode<=57)||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and numbers only">'
                 $(U).removeAttr('disabled');
                 $(U).removeAttr('style');
                 $(P).removeAttr('disabled');

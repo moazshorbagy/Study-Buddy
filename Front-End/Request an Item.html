@@ -70,12 +70,12 @@
                 <span id="tool1">Type:</span>
                 <span style="color:red; font-size:15px;" id="ToolType"></span>
                 <br/>
-                <input name="type" ; type="text" placeholder="Letters only field" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||event.charCode >= 32||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and - are allowed" class="intext" id="tooltype">
+                <input name="type" ; type="text"  onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==45||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13" placeholder="Letters and - are allowed" class="intext" id="tooltype">
                 <br/>
                 <span id="tool2">Manufacturer:</span>
                 <span style="color:red; font-size:15px;" id="Manufacturer"></span>
                 <br/>
-                <input name="manufacturer" ; type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode >= 32||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
+                <input name="manufacturer" ; type="text" onkeypress="return (event.charCode >= 65 && event.charCode <=90)||event.charCode==38||(event.charCode >= 97 && event.charCode <=122)|| event.charCode==13"
                 placeholder="Letters and & are allowed" class="intext" id="manufacturer">
                 <br/>
 
@@ -174,7 +174,7 @@
                             console.log(response);
                             if (!(response.Error)) {
                                 alert('Book was successfully requested');
-                                window.location.href = "Books.html";
+                                window.location.href = "Home.html";
                             }
                         },
                         error: function () {
@@ -209,7 +209,7 @@
                             console.log(response);
                             if (!(response.Error)) {
                                 alert('Tool was successfully requested');
-                                window.location.href = "Tools.html";
+                                window.location.href = "Home.html";
                             }
                         },
                         error: function () {
