@@ -68,6 +68,7 @@
                 success: function (response) {
                     console.log(response);
                     if (!(response.Error)) {
+                        //initialize table
                         var tablehtml = ""
                         var booktitle = 0;
                         request = response.Requests;
@@ -86,6 +87,7 @@
                                 success: function (response) {
                                     console.log(response);
                                     if (!(response.Error)) {
+                                        //adding to table if item was book
                                         if (request[index].type == "Book") {
                                             tablehtml += "<tr>"
                                             tablehtml += "<td>" + response.Book[0].book_title + "</td>";
@@ -93,6 +95,7 @@
                                             tablehtml += "</tr>";
                                         }
                                         else {
+                                            //adding to table it item was tool
                                             tablehtml += "<tr>"
                                             tablehtml += "<td>" + response.Book[0].type + "</td>";
                                             tablehtml += "<td>" + response.Book[0].user_name + "</td>";
@@ -101,6 +104,7 @@
                                         //this line adds the table created (tablehtml) in the tbody section of the body
                                     }
                                     index++;
+                                    //putting table in html element
                                     $("#tab tbody").html(tablehtml);
                                     var tables = document.getElementById("tab");
                                     for (i = 1; i < tables.rows.length; i++) {
@@ -124,6 +128,7 @@
                                                         window.location.href = "Requests.html";
                                                     },
                                                     buttons: {
+                                                        //if the user confrims the acceptance
                                                         "Confirm": function () {
                                                             $.ajax({
                                                                 type: "POST",
@@ -162,7 +167,9 @@
                                                                 },
                                                             });
                                                         },
+                                                        //redirect the user to the profile of the requester
                                                         "View profile": function () { window.location.href = "ViewProfile.html"; },
+                                                        //if the user rejects the request
                                                         "Reject": function () {
                                                             $.ajax({
                                                                 type: "POST",
@@ -209,6 +216,7 @@
                                 }
                             });
                         }
+                        //reset the index of the array
                         index = 0;
                     }
                 }
