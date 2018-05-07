@@ -19,10 +19,11 @@ New Features
 13-User can navigate to home page whenever he/she desires.
 14-Users can now view the ratings of other users.
 15-User can now choose to work on tool or book.
+16-User can remove the undesired item whether tool or book from the cart before completing the transaction.
 
 Removed Features 
 1-Forget password.
-2-Remove item from cart.
+2-Remove book or tool from donations.
 
 Enhanced Performance
 -Not applicable in this iteration
