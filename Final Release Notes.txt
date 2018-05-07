@@ -1,0 +1,37 @@
+Company
+Study Buddy Website
+Version 2
+
+New Features
+1-Users now can upload a certain tool into the database.
+2-Users now can search for a specific tool that exists in the database.
+3-User can sort books and tools according to their attributes.
+4-Users now can rate other users.
+5-Users can now view their profile.
+6-Users can now edit their profile.
+7-User can now logout when desired.
+8-Users now can add any required item to cart to obtain it in the end.
+9-User can view the books he/she currently owns.
+10-User can view the tools he/she currently owns.
+11-User can now request a specific book.
+12-User can now request a specific tool.
+12-Users can now view all available requests.
+13-User can navigate to home page whenever he/she desires.
+14-Users can now view the ratings of other users.
+15-User can now choose to work on tool or book.
+
+Removed Features 
+1-Forget password.
+2-Remove item from cart.
+
+Enhanced Performance
+-Not applicable in this iteration
+
+Enhanced Look-and-Feel
+-Improved the design of the webpages in general.
+
+Unsupported Functionality
+-Not applicable in this iteration.
+
+Fixed Bugs
+-Now users can only type charaters that are allowed for them to type in any textbox. 
