@@ -17,7 +17,8 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
   router.post("/getCart", VerifyToken, function(req, res) {
     var i, query, table;
     //first of all change the status of item to PENDING
-    for (var i in req.body) {
+    for (var i in req.body) {    
+      var optionalObj = {hisName:"", hisEmail:"", myName:"", itemName:"", type:""};
       query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
       if (req.body[i].type == "Book") {
         table = [
@@ -27,6 +28,8 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           "book_id",
           req.body[i]["bookID"]
         ];
+        optionalObj.itemName = req.body[i]["book_title"];
+        optionalObj.type = "Book";
       } else {
         table = [
           "tool",
@@ -35,6 +38,8 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           "tool_id",
           req.body[i]["toolID"]
         ];
+        optionalObj.itemName = req.body[i]["tool_type"];
+        optionalObj.type = "Tool";
       }
       query = mysql.format(query, table);
       console.log(query);
@@ -47,11 +52,22 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           });
         }
       });
-      /*var optionalObj;
-      optionalObj.myName = req.body[i]["donorName"];
-      optionalObj.hisName = req.body[i]["receiverName"];
-      optionalObj.hisName = req.body[i]["receiverEmail"];
-      optionalObj.itemName = req.body[i]["itemName"];*/
+    query = "SELECT user_name, user_email FROM ?? WHERE ??=?";
+    table = ["user", "user_id", req.userId];
+    query = mysql.format(query, table);
+    connection.query(query, function(err, rows) {
+      optionalObj.hisName = rows[0].user_name;
+      optionalObj.hisEmail = rows[0].user_email;
+
+      query = "SELECT user_name, user_email FROM ?? WHERE ??=?";
+      table = ["user", "user_id", req.body[i]["donorID"]];
+      query = mysql.format(query, table);
+      connection.query(query, function(err, rows) {
+        optionalObj.myName = rows[0].user_name;
+        console.log(optionalObj);
+        new sendEmail(rows[0].user_email, "request", optionalObj);
+        });
+      });
 
       //Then we insert this request of an item to the request table in the DB
       query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
@@ -67,7 +83,6 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           req.body[i]["donorID"],
           req.userId
         ];
-        //optionalObj.type = "Book";
       } else {
         table = [
           "Request",
@@ -80,9 +95,8 @@ ITEM_ROUTER.prototype.handleRoutes = function(router, connection) {
           req.body[i]["donorID"],
           req.userId
         ];
-        //optionalObj.type = "Tool";
       }
-      //new sendEmail(req.body[i]["donorEmail"], "request", optionalObj);
+      
       query = mysql.format(query, table);
       console.log(query);
       connection.query(query, function(err, rows) {
