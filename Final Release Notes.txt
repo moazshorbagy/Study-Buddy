@@ -11,28 +11,30 @@ New Features
 6-Users can now edit their profile.
 7-User can now logout when desired.
 8-Users now can add any required item to cart to obtain it in the end.
-9-User can view the books he/she currently owns.
-10-User can view the tools he/she currently owns.
-11-User can now request a specific book.
-12-User can now request a specific tool.
-12-Users can now view all available requests.
-13-User can navigate to home page whenever he/she desires.
-14-Users can now view the ratings of other users.
-15-User can now choose to work on tool or book.
-16-User can remove the undesired item whether tool or book from the cart before completing the transaction.
+9-The book or tool owner now receives an email if someone wants to obtain his book or tool.
+10-User can view the books he/she currently owns.
+11-User can view the tools he/she currently owns.
+12-User can now request a specific book.
+13-User can now request a specific tool.
+14-Users can now view all available requests.
+15-User can navigate to home page whenever he/she desires.
+16-Users can now view the ratings of other users.
+17-User can now choose to work on tool or book.
+18-User can remove the undesired item whether tool or book from the cart before completing the transaction.
 
 Removed Features 
-1-Forget password.
-2-Remove book or tool from donations.
+-Not applicable in this iteration.
 
 Enhanced Performance
--Not applicable in this iteration
+-Not applicable in this iteration.
 
 Enhanced Look-and-Feel
 -Improved the design of the webpages in general.
 
 Unsupported Functionality
--Not applicable in this iteration.
+1-Forget password.
+2-Remove book or tool from donations.
 
 Fixed Bugs
--Now users can only type charaters that are allowed for them to type in any textbox. 
+-Now users can only type charaters that are allowed for them to type in any textbox.
+-Now users are redirected to the login webpage if they're not logged in.
